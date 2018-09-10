@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team135.robot.commands.ExampleCommand;
+import org.usfirst.frc.team135.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team135.robot.subsystems.ExampleSubsystem;
 
 /**
@@ -23,23 +24,21 @@ import org.usfirst.frc.team135.robot.subsystems.ExampleSubsystem;
  * project.
  */
 public class Robot extends TimedRobot {
-	public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
-	public static OI m_oi;
-
-	Command m_autonomousCommand;
-	SendableChooser<Command> m_chooser = new SendableChooser<>();
-
+	public static OI oi;
+	public static DriveTrain drivetrain;
+	Command _autonomousCommand;
+	SendableChooser<String> _chooser = new SendableChooser<>();
+	SmartDashboard.putData("Auto mode", m_chooser);
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
 	@Override
 	public void robotInit() {
-		public static OI oi;
-		public static DriveTrain drivetrain;
-		Command _autonomousCommand;
-		SendableChooser<String> _chooser = new SendableChooser<>();
-		SmartDashboard.putData("Auto mode", m_chooser);
+		oi = OI.getInstance();
+		drivetrain = DriveTrain.getInstance();
+		// chooser.addObject("My Auto", new MyAutoCommand());
+		SmartDashboard.putData("Auto mode", this._chooser);
 	}
 
 	/**
