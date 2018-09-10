@@ -1,5 +1,16 @@
 package org.usfirst.frc.team135.robot.commands;
 
-public class DrivewithJoystick {
+import org.usfirst.frc.team135.robot.OI;
+import org.usfirst.frc.team135.robot.Robot;
+import org.usfirst.frc.team135.robot.RobotMap;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+public class DrivewithJoystick extends Command {
+
+	private double leftJoystickValue;
+	private double rightJoystickValue;
+	
+	public DriveWithJoysticks
+	
 }
