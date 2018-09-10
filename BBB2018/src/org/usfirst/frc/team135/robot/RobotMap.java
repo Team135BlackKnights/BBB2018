@@ -19,6 +19,20 @@ public interface RobotMap
 	{
 		public static final double DEADBAND = .05;
 		public static final	int LEFT = 0, RIGHT = 1, MANIP = 2;
-		public static final int BACK_LEFT = 0, BACK_RIGHT = 1, FRONT_LEFT = 2, FRONT_RIGHT = 3;
+	}
+	public interface DRIVETRAIN
+	{
+		public static final int 
+		BACK_LEFT_ID = 0, 
+		BACK_RIGHT_ID = 1, 
+		FRONT_LEFT_ID = 2, 
+		FRONT_RIGHT_ID = 3;
+		public static final double 
+		MAX_VELOCITY_TICKS_PER_100MS = 225,
+		MAX_VELOCITY_TICKS = MAX_VELOCITY_TICKS_PER_100MS * 10, //Per second
+		MAX_ACCELERATION_TICKS_PER_100MS = 1090,
+		MAX_ACCELERATION_TICKS = MAX_ACCELERATION_TICKS_PER_100MS  * 10,
+		MAX_JERK_TICKS_PER_100MS = 40000,
+		MAX_JERK_TICKS = MAX_JERK_TICKS_PER_100MS * 10;
 	}
 }
