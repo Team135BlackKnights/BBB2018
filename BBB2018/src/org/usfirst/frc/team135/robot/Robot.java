@@ -12,9 +12,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.team135.robot.commands.ExampleCommand;
 import org.usfirst.frc.team135.robot.subsystems.DriveTrain;
-import org.usfirst.frc.team135.robot.subsystems.ExampleSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -28,7 +26,7 @@ public class Robot extends TimedRobot {
 	public static DriveTrain drivetrain;
 	Command _autonomousCommand;
 	SendableChooser<String> _chooser = new SendableChooser<>();
-	SmartDashboard.putData("Auto mode", m_chooser);
+	//SmartDashboard.putData("Auto mode", m_chooser);
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -69,7 +67,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		_autonomousCommand = _chooser.getSelected();
+		//_autonomousCommand = _chooser.getSelected();
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
