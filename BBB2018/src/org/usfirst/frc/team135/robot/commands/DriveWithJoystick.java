@@ -23,8 +23,12 @@ public class DriveWithJoystick extends Command {
 		leftJoystickValue = Robot.oi.GetLeft()[0];
 		rightJoystickValue = Robot.oi.GetRight()[1];
 		
-		Robot.driveTrain.TankDrive(leftJoystickValue, rightJoystickValue);
+		Robot.drivetrain.TankDrive(leftJoystickValue, rightJoystickValue);
 	}
 	
+	protected boolean isFinished()
+	{
+		return false;
+	}
 	
 }
