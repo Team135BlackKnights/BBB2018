@@ -8,6 +8,7 @@
 package org.usfirst.frc.team135.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -17,6 +18,10 @@ public class OI implements RobotMap{
 	private static OI instance;
 	
 	private Joystick LEFT, RIGHT, MANIP;
+	
+	private JoystickButton 
+		MANDIBLES_OPEN, 
+		MANDIBLES_CLOSE;
 	
 	public static OI getInstance() {
 		if (instance == null) {
@@ -31,10 +36,15 @@ public class OI implements RobotMap{
 		RIGHT = new Joystick(1);
 		MANIP = new Joystick(2);
 		
+		MANDIBLES_OPEN = new JoystickButton(MANIP, RobotMap.K_OI.MANIP_OPEN_ID);
+		MANDIBLES_CLOSE = new JoystickButton(MANIP, RobotMap.K_OI.MANIP_CLOSE_ID);
+		
+		//MANDIBLES_CLOSE.whenPressed(new GrabMandibles());
+		//MANDIBLES_OPEN.whenPressed(new ReleaseMandibles());
 	}
 	private double deadband(double input)
 	{
-		if(Math.abs(input) < .1)
+		if(Math.abs(input) < RobotMap.K_OI.DEADBAND)
 		{
 			return 0;
 		}
@@ -54,11 +64,6 @@ public class OI implements RobotMap{
 	{
 		double [] getRight = {deadband(-RIGHT.getY()), deadband(RIGHT.getX())};
 		return getRight;
-	}
-	
-	public double GetRightX()
-	{
-		return deadband(RIGHT.getX());
 	}
 
 }

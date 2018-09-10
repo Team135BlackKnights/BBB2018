@@ -17,8 +17,9 @@ public interface RobotMap
 {
 	public interface K_OI
 	{
-		public static final double DEADBAND = .05;
+		public static final double DEADBAND = .1;
 		public static final	int LEFT = 0, RIGHT = 1, MANIP = 2;
+		public static final int MANIP_OPEN_ID = 6, MANIP_CLOSE_ID = 4;
 	}
 	public interface DRIVETRAIN
 	{
