@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class OI implements RobotMap{
 	private static OI instance;
 	
-	private Joystick[] _joysticks = new Joystick[3];
+	public Joystick[] _joysticks = new Joystick[3];
 	
 	private JoystickButton 
 		MANDIBLES_OPEN, 
@@ -31,7 +31,7 @@ public class OI implements RobotMap{
 		return instance;
 	}
 	
-	private OI()
+	public OI()
 	{
 		_joysticks[0] = new Joystick(0);
 		_joysticks[1] = new Joystick(1);
@@ -61,7 +61,7 @@ public class OI implements RobotMap{
 		return getLeft;
 	}
 	
-	public double[] GetRightY()
+	public double[] GetRight()
 	{
 		double [] getRight = {deadband(-_joysticks[1].getY()), deadband(_joysticks[1].getX())};
 		return getRight;
