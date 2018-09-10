@@ -18,8 +18,10 @@ public interface RobotMap
 	public interface K_OI
 	{
 		public static final double DEADBAND = .1;
-		public static final	int LEFT = 0, RIGHT = 1, MANIP = 2;
+		public static final	int LEFT_JOYSTICK_ID = 0, RIGHT_JOYSTICK_ID = 1, MANIP_JOYSTICK_ID = 2;
+		public static final	int GETX = 0, GETY = 1;
 		public static final int MANIP_OPEN_ID = 6, MANIP_CLOSE_ID = 4;
+		public static final int NUMBER_OF_JOYSTICKS = 3;
 	}
 	public interface DRIVETRAIN
 	{

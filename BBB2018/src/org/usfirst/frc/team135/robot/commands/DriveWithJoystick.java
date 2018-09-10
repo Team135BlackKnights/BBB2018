@@ -6,6 +6,7 @@ import org.usfirst.frc.team135.robot.RobotMap;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+@SuppressWarnings("unused")
 public class DriveWithJoystick extends Command {
 
 	private double leftJoystickValue;
@@ -20,10 +21,17 @@ public class DriveWithJoystick extends Command {
 	{}
 	protected void excecute()
 	{
-		leftJoystickValue = Robot.oi.GetLeft()[0];
-		rightJoystickValue = Robot.oi.GetRight()[1];
+		leftJoystickValue = Robot.oi.GetLeft()[RobotMap.K_OI.GETX];
+		rightJoystickValue = Robot.oi.GetRight()[RobotMap.K_OI.GETX];
 		
-		Robot.driveTrain.TankDrive(leftJoystickValue, rightJoystickValue);
+		Robot.drivetrain.TankDrive(leftJoystickValue, rightJoystickValue);
+	}
+
+	@Override
+	protected boolean isFinished()
+	{
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 	
