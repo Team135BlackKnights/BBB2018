@@ -3,6 +3,8 @@ package org.usfirst.frc.team135.robot.subsystems;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import org.usfirst.frc.team135.robot.RobotMap;
+import org.usfirst.frc.team135.robot.commands.DriveWithJoystick;
+
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.PIDOutput;
@@ -22,15 +24,17 @@ public class DriveTrain extends Subsystem {
 	DifferentialDrive Chassis = new DifferentialDrive(left, right);
 	
 	public void initDefaultComand() {
-		setDefaultCommand(new )
+		setDefaultCommand(new DriveWithJoystick());
 	}
 	
-	public static DriveTrain InitializeDriveTrain() 
+
+	public static DriveTrain getInstance() 
 	{
 		if (instance = null)
 		{
 			instance = new DriveTrain();
 		}
+		return instance;
 	}
 	
 	public void TankDrive(double leftMotorPower, double rightMotorPower) 
