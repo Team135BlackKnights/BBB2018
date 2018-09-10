@@ -35,9 +35,10 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
-		m_oi = new OI();
-		m_chooser.addDefault("Default Auto", new ExampleCommand());
-		// chooser.addObject("My Auto", new MyAutoCommand());
+		public static OI oi;
+		public static DriveTrain drivetrain;
+		Command _autonomousCommand;
+		SendableChooser<String> _chooser = new SendableChooser<>();
 		SmartDashboard.putData("Auto mode", m_chooser);
 	}
 
