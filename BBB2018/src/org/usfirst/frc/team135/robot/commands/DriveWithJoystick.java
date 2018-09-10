@@ -6,11 +6,25 @@ import org.usfirst.frc.team135.robot.RobotMap;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class DrivewithJoystick extends Command {
+public class DriveWithJoystick extends Command {
 
 	private double leftJoystickValue;
 	private double rightJoystickValue;
 	
-	public DriveWithJoysticks
+	public DriveWithJoystick()
+	{
+		requires(Robot.drivetrain);
+	}
+	
+	protected void initialize()
+	{}
+	protected void excecute()
+	{
+		leftJoystickValue = Robot.oi.GetLeft()[0];
+		rightJoystickValue = Robot.oi.GetRight()[1];
+		
+		Robot.driveTrain.TankDrive(leftJoystickValue, rightJoystickValue);
+	}
+	
 	
 }
