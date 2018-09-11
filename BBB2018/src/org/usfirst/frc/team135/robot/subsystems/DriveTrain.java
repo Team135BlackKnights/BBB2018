@@ -21,7 +21,7 @@ public class DriveTrain extends Subsystem {
 	SpeedControllerGroup left = new SpeedControllerGroup(frontLeftMotor, backLeftMotor);
 	SpeedControllerGroup right = new SpeedControllerGroup(frontRightMotor, backRightMotor);
 	
-	DifferentialDrive Chassis = new DifferentialDrive(left, right);
+	DifferentialDrive chassis = new DifferentialDrive(left, right);
 	
 	public void initDefaultComand() {
 		setDefaultCommand(new DriveWithJoystick());
@@ -30,7 +30,7 @@ public class DriveTrain extends Subsystem {
 
 	public static DriveTrain getInstance() 
 	{
-		if (instance = null)
+		if (instance == null)
 		{
 			instance = new DriveTrain();
 		}

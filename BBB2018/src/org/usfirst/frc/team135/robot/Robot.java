@@ -8,13 +8,14 @@
 package org.usfirst.frc.team135.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.team135.robot.commands.ExampleCommand;
 import org.usfirst.frc.team135.robot.subsystems.DriveTrain;
-import org.usfirst.frc.team135.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team135.robot.subsystems.Intake;
+import org.usfirst.frc.team135.robot.subsystems.Lift;
 import org.usfirst.frc.team135.robot.subsystems.PixyCam;
 
 /**
@@ -28,6 +29,8 @@ public class Robot extends TimedRobot {
 	public static OI oi;
 	public static DriveTrain drivetrain;
 	public static PixyCam pixycam;
+	public static Intake intake;
+	public static Lift lift; 
 	Command _autonomousCommand;
 	SendableChooser<String> _chooser = new SendableChooser<>();
 	SmartDashboard.putData("Auto mode", m_chooser);
@@ -40,6 +43,8 @@ public class Robot extends TimedRobot {
 		oi = OI.getInstance();
 		drivetrain = DriveTrain.getInstance();
 		pixycam = PixyCam.getInstace();
+		intake = InTake.getInstance();
+		lift = Lift.getInstance();
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", this._chooser);
 		
