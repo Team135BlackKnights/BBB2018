@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team135.robot.commands.ExampleCommand;
 import org.usfirst.frc.team135.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team135.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team135.robot.subsystems.PixyCam;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -26,6 +27,7 @@ import org.usfirst.frc.team135.robot.subsystems.ExampleSubsystem;
 public class Robot extends TimedRobot {
 	public static OI oi;
 	public static DriveTrain drivetrain;
+	public static PixyCam pixycam;
 	Command _autonomousCommand;
 	SendableChooser<String> _chooser = new SendableChooser<>();
 	SmartDashboard.putData("Auto mode", m_chooser);
@@ -37,8 +39,10 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		oi = OI.getInstance();
 		drivetrain = DriveTrain.getInstance();
+		pixycam = PixyCam.getInstace();
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", this._chooser);
+		
 	}
 
 	/**

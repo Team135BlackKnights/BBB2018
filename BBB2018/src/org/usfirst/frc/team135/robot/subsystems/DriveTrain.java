@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.PIDOutput;
 
 public class DriveTrain extends Subsystem {
 
-	static DriveTrain instance;
+	private static DriveTrain instance;
 	
 	WPI_TalonSRX frontLeftMotor = new WPI_TalonSRX(RobotMap.DRIVETRAIN.FRONT_LEFT_ID);
 	WPI_TalonSRX backLeftMotor = new WPI_TalonSRX(RobotMap.DRIVETRAIN.BACK_LEFT_ID);
