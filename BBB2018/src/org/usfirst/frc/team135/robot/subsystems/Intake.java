@@ -12,7 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 public class Intake extends Subsystem implements RobotMap {
 
-	private static WPI_VictorSRX rightWheel, leftWheel;
+	private static WPI_VictorSPX rightWheel, leftWheel;
 	private static DoubleSolenoid retraction;
 	private static Compressor compressor;
 	
@@ -30,6 +30,15 @@ public class Intake extends Subsystem implements RobotMap {
 			instance = new Intake()
 		}
 		return instance;
+	}
+	private Intake()
+	{
+		
+	}
+	
+	public void InitializeWheelMotors() 
+	{
+		rightWheel = new WPI_VictorSPX()
 	}
 	
 }

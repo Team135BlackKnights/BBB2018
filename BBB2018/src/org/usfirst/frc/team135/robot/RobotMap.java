@@ -35,4 +35,21 @@ public interface RobotMap
 		BACK_LEFT_ENCODER = BACK_LEFT_ID,
 		BACK_RIGHT_ENCODER = BACK_RIGHT_ID;
 	}
+	public interface INTAKE
+	{
+		public static final int
+		LEFT_WHEEL_ID = 1;
+		RIGHT_WHEEL_ID =2;
+	}
+	public interface Pneumatics 
+	{
+		RETRACT_IN_CHANNEL = 0;
+		RETRACT_OUT_CHANNEL = 1;
+	}
+	public interface LIFT 
+	{
+		public static final int LIFT_MOTOR_ID = 3; 
+		public static final double LOW_POSITION = 0, SWITCH_POSITION =650;
+	
+	}
 }
