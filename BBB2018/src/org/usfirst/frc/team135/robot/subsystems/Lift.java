@@ -133,4 +133,3 @@ public class Lift extends Subsystem implements RobotMap
 		
 	}
 }
->>>>>>> branch 'master' of https://github.com/Team135BlackKnights/BBB2018

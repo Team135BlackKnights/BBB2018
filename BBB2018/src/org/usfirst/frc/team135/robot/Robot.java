@@ -18,8 +18,7 @@ import org.usfirst.frc.team135.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team135.robot.subsystems.Intake;
 import org.usfirst.frc.team135.robot.subsystems.Lift;
 import org.usfirst.frc.team135.robot.subsystems.PixyCam;
-=======
->>>>>>> branch 'master' of https://github.com/Team135BlackKnights/BBB2018
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -46,7 +45,7 @@ public class Robot extends TimedRobot {
 		oi = OI.getInstance();
 		drivetrain = DriveTrain.getInstance();
 		pixycam = PixyCam.getInstace();
-		intake = InTake.getInstance();
+		intake = Intake.getInstance();
 		lift = Lift.getInstance();
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", this._chooser);

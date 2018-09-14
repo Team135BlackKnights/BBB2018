@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package org.usfirst.frc.team135.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;

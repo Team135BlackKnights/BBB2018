@@ -40,32 +40,23 @@ public interface RobotMap
 	public interface INTAKE
 	{
 		public static final int
-<<<<<<< HEAD
-		LEFT_WHEEL_ID = 1;
-		RIGHT_WHEEL_ID =2;
+		LEFT_WHEEL_ID = 0,
+		RIGHT_WHEEL_ID =1;
 	}
-	public interface Pneumatics 
+	
+	public interface PNEUMATICS 
 	{
-		RETRACT_IN_CHANNEL = 0;
-		RETRACT_OUT_CHANNEL = 1;
-	}
-	public interface LIFT 
-	{
-		public static final int LIFT_MOTOR_ID = 3; 
-=======
-		LEFT_WHEEL_ID = 1,
-		RIGHT_WHEEL_ID =2;
-	}
-	public interface Pneumatics 
-	{
+		public static final int 
+		MANDIBLE_OPEN_CHANNEL =0,
+		MANDIBLE_CLOSE_CHANNEL =1;
+
 		public static final int
-		RETRACT_IN_CHANNEL = 0,
-		RETRACT_OUT_CHANNEL = 1;
+		RETRACT_IN_CHANNEL = 2,
+		RETRACT_OUT_CHANNEL = 3;
 	}
 	public interface LIFT 
 	{
 		public static final int LIFT_MOTOR_ID = 3;
->>>>>>> branch 'master' of https://github.com/Team135BlackKnights/BBB2018
 		public static final double LOW_POSITION = 0, SWITCH_POSITION =650;
 	
 	}

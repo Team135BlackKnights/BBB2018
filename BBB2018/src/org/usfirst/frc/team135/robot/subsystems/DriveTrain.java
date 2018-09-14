@@ -26,11 +26,7 @@ public class DriveTrain extends Subsystem {
 	public void initDefaultComand() {
 		setDefaultCommand(new DriveWithJoystick());
 	}
-	
-<<<<<<< HEAD
 
-=======
->>>>>>> branch 'master' of https://github.com/Team135BlackKnights/BBB2018
 	public static DriveTrain getInstance() 
 	{
 		if (instance == null)
