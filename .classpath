@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="BBB2018/src"/>
+	<classpathentry exported="true" kind="lib" path="/home/david/wpilib/java/current/lib/WPILib.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/david/wpilib/user/java/lib/CTRE_Phoenix.jar"/>
+	<classpathentry kind="output" path="BBB2018/bin"/>
+</classpath>

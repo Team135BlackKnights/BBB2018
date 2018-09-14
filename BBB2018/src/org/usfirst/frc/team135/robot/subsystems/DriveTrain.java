@@ -27,7 +27,10 @@ public class DriveTrain extends Subsystem {
 		setDefaultCommand(new DriveWithJoystick());
 	}
 	
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/Team135BlackKnights/BBB2018
 	public static DriveTrain getInstance() 
 	{
 		if (instance == null)
@@ -39,7 +42,7 @@ public class DriveTrain extends Subsystem {
 	
 	public void TankDrive(double leftMotorPower, double rightMotorPower) 
 	{
-		chassis.tankDrive(leftMotorPower, rightMotorPower);
+		Chassis.tankDrive(leftMotorPower, rightMotorPower);
 		return;
 	}
 

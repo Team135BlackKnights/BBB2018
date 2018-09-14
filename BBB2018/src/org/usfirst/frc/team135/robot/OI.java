@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class OI implements RobotMap{
 	private static OI instance;
 	
-	public Joystick[] _joysticks = new Joystick[3];
+	public Joystick[] _joysticks = new Joystick[RobotMap.K_OI.NUMBER_OF_JOYSTICKS];
 	
 	private JoystickButton 
 		MANDIBLES_OPEN, 
@@ -33,12 +33,12 @@ public class OI implements RobotMap{
 	
 	public OI()
 	{
-		_joysticks[0] = new Joystick(0);
-		_joysticks[1] = new Joystick(1);
-		_joysticks[2] = new Joystick(2);
+		_joysticks[RobotMap.K_OI.LEFT_JOYSTICK_ID] = new Joystick(RobotMap.K_OI.LEFT_JOYSTICK_ID);
+		_joysticks[RobotMap.K_OI.RIGHT_JOYSTICK_ID] = new Joystick(RobotMap.K_OI.RIGHT_JOYSTICK_ID);
+		_joysticks[RobotMap.K_OI.MANIP_JOYSTICK_ID] = new Joystick(RobotMap.K_OI.MANIP_JOYSTICK_ID);
 		
-		MANDIBLES_OPEN = new JoystickButton(_joysticks[2], RobotMap.K_OI.MANIP_OPEN_ID);
-		MANDIBLES_CLOSE = new JoystickButton(_joysticks[2], RobotMap.K_OI.MANIP_CLOSE_ID);
+		MANDIBLES_OPEN = new JoystickButton(_joysticks[RobotMap.K_OI.MANIP_JOYSTICK_ID], RobotMap.K_OI.MANIP_OPEN_ID);
+		MANDIBLES_CLOSE = new JoystickButton(_joysticks[RobotMap.K_OI.MANIP_JOYSTICK_ID], RobotMap.K_OI.MANIP_CLOSE_ID);
 		
 		//MANDIBLES_CLOSE.whenPressed(new GrabMandibles());
 		//MANDIBLES_OPEN.whenPressed(new ReleaseMandibles());
@@ -57,13 +57,13 @@ public class OI implements RobotMap{
 	
 	public double[] GetLeft()
 	{
-		double[] getLeft = {deadband(_joysticks[0].getY()), deadband(_joysticks[0].getX())};
+		double[] getLeft = {deadband(_joysticks[RobotMap.K_OI.LEFT_JOYSTICK_ID].getX()), deadband(_joysticks[RobotMap.K_OI.LEFT_JOYSTICK_ID].getY())};
 		return getLeft;
 	}
 	
 	public double[] GetRight()
 	{
-		double [] getRight = {deadband(-_joysticks[1].getY()), deadband(_joysticks[1].getX())};
+		double [] getRight = {deadband(-_joysticks[RobotMap.K_OI.RIGHT_JOYSTICK_ID].getX()), deadband(_joysticks[RobotMap.K_OI.RIGHT_JOYSTICK_ID].getY())};
 		return getRight;
 	}
 
