@@ -74,6 +74,24 @@ public class Intake extends Subsystem implements RobotMap {
 	{
 		compressor.setClosedLoopControl(true);
 	}
+	
+	public void ActivateClaw(DoubleSolenoid.Value value)
+	{
+		claw.set(value);
+	}
+	public void FlyWheels(double power)
+	{
+		leftWheel.set(power);
+		rightWheel.set(-power);
+	}
+	public void MoveMandibles(DoubleSolenoid.Value value)
+	{
+		retraction.set(value);
+	}
+	public DoubleSolenoid.Value GetSolenoidPosition(DoubleSolenoid solenoid)
+	{
+		return solenoid.get();
+	}
 	@Override
 	protected void initDefaultCommand()
 	{
