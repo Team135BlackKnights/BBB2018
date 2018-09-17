@@ -26,17 +26,11 @@ public class DriveWithJoystick extends Command {
 		
 		Robot.drivetrain.TankDrive(leftJoystickValue, rightJoystickValue);
 	}
-<<<<<<< HEAD
 	
-	protected boolean isFinished()
-	{
-=======
-
 	@Override
 	protected boolean isFinished()
 	{
 		// TODO Auto-generated method stub
->>>>>>> branch 'master' of https://github.com/Team135BlackKnights/BBB2018
 		return false;
 	}
 	

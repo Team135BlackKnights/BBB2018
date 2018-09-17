@@ -79,7 +79,7 @@ public class Intake extends Subsystem implements RobotMap {
 	{
 		claw.set(value);
 	}
-	public void FlyWheels(double power)
+	public void DriveWheels(double power)
 	{
 		leftWheel.set(power);
 		rightWheel.set(-power);
