@@ -27,19 +27,19 @@ public class UltraSonicSensor extends Subsystem {
     public Ultrasonic frontSonar = new Ultrasonic(FRONT_SONAR_TRIG_PORT, FRONT_SONAR_ECHO_PORT);
     public Ultrasonic leftSonar = new Ultrasonic(LEFT_SONAR_TRIG_PORT, LEFT_SONAR_ECHO_PORT);
     public Ultrasonic backSonar = new Ultrasonic(BACK_SONAR_TRIG_PORT, BACK_SONAR_ECHO_PORT);
-    private static UltrasonicSensor instance;
+    private static UltraSonicSensor instance;
     
     
-    public static UltrasonicSensor getInstance()
+    public static UltraSonicSensor getInstance()
     {
     	if (instance == null)
     	{
-    		instance = new UltrasonicSensor();
+    		instance = new UltraSonicSensor();
     	}
     	return instance;
     }
     
-    public UltrasonicSensor()
+    public UltraSonicSensor()
     {
     	rightSonar.setAutomaticMode(true);
     	leftSonar.setAutomaticMode(true);

@@ -29,6 +29,7 @@ public class Robot extends TimedRobot {
 	public static Intake intake;
 	public static Arm arm;
 	public static NavX navx;
+	public static UltraSonicSensor ultrasonic;
 	Command _autonomousCommand;
 	SendableChooser<String> _chooser = new SendableChooser<>();
 	//SmartDashboard.putData("Auto mode", m_chooser);
@@ -43,6 +44,7 @@ public class Robot extends TimedRobot {
 		intake = Intake.getInstance();
 		arm = Arm.getInstance();
 		navx = NavX.getInstance();
+		ultrasonic = UltraSonicSensor.getInstance();
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", this._chooser);
 		
