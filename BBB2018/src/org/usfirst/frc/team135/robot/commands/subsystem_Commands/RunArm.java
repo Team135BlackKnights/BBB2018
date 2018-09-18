@@ -1,6 +1,7 @@
 package org.usfirst.frc.team135.robot.commands.subsystem_Commands;
 
 import org.usfirst.frc.team135.robot.Robot;
+import org.usfirst.frc.team135.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -17,7 +18,7 @@ public class RunArm extends Command
 	}
 	protected void excecute()
 	{
-		double[] power = Robot.oi.GetManip();
+		double power = Robot.oi.GetManip()[RobotMap.K_OI.GETY];
 		Robot.arm.RunArmMotors(power);
 	}
 	@Override

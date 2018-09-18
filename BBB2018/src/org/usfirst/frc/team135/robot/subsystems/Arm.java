@@ -33,9 +33,15 @@ public class Arm extends Subsystem {
 		armMotor2 = new WPI_TalonSRX(ARM.ARM_MOTOR_ID_2);
 	}
 	
-	public void RunArmMotors(double[] power) 
+	public void RunArmMotors(double power) 
 	{
 		armMotor1.set(power);
 		armMotor2.set(power);
+	}
+
+	@Override
+	protected void initDefaultCommand() {
+		// TODO Auto-generated method stub
+		
 	}
 }

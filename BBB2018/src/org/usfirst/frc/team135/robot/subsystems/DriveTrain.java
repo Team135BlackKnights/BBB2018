@@ -38,20 +38,12 @@ public class DriveTrain extends Subsystem {
 	
 	public void TankDrive(double leftMotorPower, double rightMotorPower) 
 	{
-		Chassis.tankDrive(leftMotorPower, rightMotorPower);
+		chassis.tankDrive(leftMotorPower, rightMotorPower);
 		return;
 	}
 
 	@Override
-	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub
-		
+	protected void initDefaultCommand() 
+	{	
 	}
-	
-	
-	
-	
-	
-	
-	
 }

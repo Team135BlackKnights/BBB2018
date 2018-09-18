@@ -26,7 +26,6 @@ import org.usfirst.frc.team135.robot.subsystems.*;
 public class Robot extends TimedRobot {
 	public static OI oi;
 	public static DriveTrain drivetrain;
-	public static PixyCam pixycam;
 	public static Intake intake;
 	public static Arm arm;
 	Command _autonomousCommand;
@@ -40,7 +39,6 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		oi = OI.getInstance();
 		drivetrain = DriveTrain.getInstance();
-		pixycam = PixyCam.getInstace();
 		intake = Intake.getInstance();
 		arm = Arm.getInstance();
 		// chooser.addObject("My Auto", new MyAutoCommand());
