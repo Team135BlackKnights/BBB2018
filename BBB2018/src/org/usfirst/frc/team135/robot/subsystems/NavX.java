@@ -1,8 +1,6 @@
 package org.usfirst.frc.team135.robot.subsystems;
 
-import org.usfirst.frc.team135.robot.Robot;
 import com.kauailabs.navx.frc.AHRS;
-
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -13,9 +11,8 @@ public class NavX extends Subsystem
 	private AHRS ahrs;
 	
 	@Override
-	protected void initDefaultCommand() {
-
-		
+	protected void initDefaultCommand() 
+	{
 	}
 	
 	private NavX()
@@ -45,9 +42,6 @@ public class NavX extends Subsystem
 	}
 	
 	public void periodic()
-	{
-		
+	{	
 	}
-	
-
 }
