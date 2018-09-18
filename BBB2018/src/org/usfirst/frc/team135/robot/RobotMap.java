@@ -54,10 +54,10 @@ public interface RobotMap
 		RETRACT_IN_CHANNEL = 2,
 		RETRACT_OUT_CHANNEL = 3;
 	}
-	public interface LIFT 
+	public interface ARM 
 	{
-		public static final int LIFT_MOTOR_ID = 3;
-		public static final double LOW_POSITION = 0, SWITCH_POSITION =650;
+		public static final int ARM_MOTOR_ID_1 = 4;
+		public static final int ARM_MOTOR_ID_2 = 5; 
 	
 	}
 }

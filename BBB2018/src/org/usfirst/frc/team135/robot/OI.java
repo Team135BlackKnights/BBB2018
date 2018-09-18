@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team135.robot;
 
+import org.usfirst.frc.team135.robot.commands.subsystem_Commands.*;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
@@ -40,8 +42,8 @@ public class OI implements RobotMap{
 		MANDIBLES_OPEN = new JoystickButton(_joysticks[RobotMap.K_OI.MANIP_JOYSTICK_ID], RobotMap.K_OI.MANIP_OPEN_ID);
 		MANDIBLES_CLOSE = new JoystickButton(_joysticks[RobotMap.K_OI.MANIP_JOYSTICK_ID], RobotMap.K_OI.MANIP_CLOSE_ID);
 		
-		//MANDIBLES_CLOSE.whenPressed(new GrabMandibles());
-		//MANDIBLES_OPEN.whenPressed(new ReleaseMandibles());
+		MANDIBLES_CLOSE.whenPressed(new GrabMandibles());
+		MANDIBLES_OPEN.whenPressed(new ReleaseMandibles());
 	}
 	private double deadband(double input)
 	{
@@ -65,6 +67,11 @@ public class OI implements RobotMap{
 	{
 		double [] getRight = {deadband(-_joysticks[RobotMap.K_OI.RIGHT_JOYSTICK_ID].getX()), deadband(_joysticks[RobotMap.K_OI.RIGHT_JOYSTICK_ID].getY())};
 		return getRight;
+	}
+	public double[] GetManip()
+	{
+		double [] getManip = {deadband(_joysticks[RobotMap.K_OI.MANIP_JOYSTICK_ID].getX()), deadband(});
+		return getManip;
 	}
 
 }
