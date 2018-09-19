@@ -17,7 +17,10 @@ public class OI implements RobotMap{
 	
 	private JoystickButton 
 		MANDIBLES_OPEN, 
-		MANDIBLES_CLOSE;
+		MANDIBLES_CLOSE,
+		RUN_MANDIBLE_WHEELS_OUT,
+		RUN_MANDIBLE_WHEELS_IN,
+		THROW_CUBE;
 	
 	public static OI getInstance() 
 	{
@@ -36,8 +39,19 @@ public class OI implements RobotMap{
 		MANDIBLES_OPEN = new JoystickButton(_joysticks[RobotMap.K_OI.MANIP_JOYSTICK_ID], RobotMap.K_OI.MANIP_OPEN_ID);
 		MANDIBLES_CLOSE = new JoystickButton(_joysticks[RobotMap.K_OI.MANIP_JOYSTICK_ID], RobotMap.K_OI.MANIP_CLOSE_ID);
 		
+		RUN_MANDIBLE_WHEELS_OUT = new JoystickButton(_joysticks[RobotMap.K_OI.MANIP_JOYSTICK_ID], RobotMap.K_OI.RUN_MANIP_F_ID);
+		RUN_MANDIBLE_WHEELS_IN = new JoystickButton(_joysticks[RobotMap.K_OI.MANIP_JOYSTICK_ID], RobotMap.K_OI.RUN_MANIP_R_ID);
+		
+		THROW_CUBE = new JoystickButton(_joysticks[RobotMap.K_OI.MANIP_JOYSTICK_ID], RobotMap.K_OI.THROW_CUBE_ID);
+		
 		MANDIBLES_CLOSE.whenPressed(new GrabMandibles());
 		MANDIBLES_OPEN.whenPressed(new ReleaseMandibles());
+		
+		RUN_MANDIBLE_WHEELS_OUT.whenPressed(new DriveMandibleWheels(true));
+		RUN_MANDIBLE_WHEELS_IN.whenPressed(new DriveMandibleWheels(false));
+		
+		THROW_CUBE.whenPressed(new ThrowCubeForward());
+		
 	}
 	private double deadband(double input)
 	{
