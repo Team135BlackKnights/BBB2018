@@ -30,7 +30,7 @@ public class UltraSonicSensor extends Subsystem {
     private static UltraSonicSensor instance;
     
     
-    public static UltraSonicSensor getInstance()
+    public static UltraSonicSensor InitializeSubsystem()
     {
     	if (instance == null)
     	{

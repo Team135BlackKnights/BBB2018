@@ -30,6 +30,7 @@ public class Robot extends TimedRobot {
 	public static Arm arm;
 	public static NavX navx;
 	public static UltraSonicSensor ultrasonic;
+	public static Limelight limelight; 
 	Command _autonomousCommand;
 	SendableChooser<String> _chooser = new SendableChooser<>();
 	//SmartDashboard.putData("Auto mode", m_chooser);
@@ -40,11 +41,12 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		oi = OI.getInstance();
-		drivetrain = DriveTrain.getInstance();
-		intake = Intake.getInstance();
-		arm = Arm.getInstance();
-		navx = NavX.getInstance();
-		ultrasonic = UltraSonicSensor.getInstance();
+		drivetrain = DriveTrain.InitializeSubsystem();
+		intake = Intake.InitializeSubsystem();
+		arm = Arm.InitializeSubsystem();
+		navx = NavX.InitializeSubsystem();
+		ultrasonic = UltraSonicSensor.InitializeSubsystem();
+		limelight = Limelight.InitializeSubsystem();
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", this._chooser);
 		

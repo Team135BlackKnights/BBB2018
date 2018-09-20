@@ -23,7 +23,7 @@ public class NavX extends Subsystem
 		//System.out.println(initAngle);
 	}
 	
-	public static NavX getInstance()
+	public static NavX InitializeSubsystem()
 	{
 		if (instance == null)
 		{

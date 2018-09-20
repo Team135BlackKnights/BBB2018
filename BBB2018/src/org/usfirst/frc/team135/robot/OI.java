@@ -1,8 +1,7 @@
 
 package org.usfirst.frc.team135.robot;
 
-import org.usfirst.frc.team135.robot.commands.subsystem_Commands.*;
-
+import org.usfirst.frc.team135.robot.commands.TeleCommands.*;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
@@ -21,6 +20,9 @@ public class OI implements RobotMap{
 		RUN_MANDIBLE_WHEELS_OUT,
 		RUN_MANDIBLE_WHEELS_IN,
 		THROW_CUBE;
+	
+	public static boolean isInwardF = false;
+	public static boolean isInwardT = true;
 	
 	public static OI getInstance() 
 	{
@@ -47,8 +49,8 @@ public class OI implements RobotMap{
 		MANDIBLES_CLOSE.whenPressed(new GrabMandibles());
 		MANDIBLES_OPEN.whenPressed(new ReleaseMandibles());
 		
-		RUN_MANDIBLE_WHEELS_OUT.whenPressed(new DriveMandibleWheels(true));
-		RUN_MANDIBLE_WHEELS_IN.whenPressed(new DriveMandibleWheels(false));
+		RUN_MANDIBLE_WHEELS_OUT.whenPressed(new DriveMandibleWheels(isInwardF));
+		RUN_MANDIBLE_WHEELS_IN.whenPressed(new DriveMandibleWheels(isInwardT));
 		
 		THROW_CUBE.whenPressed(new ThrowCubeForward());
 		

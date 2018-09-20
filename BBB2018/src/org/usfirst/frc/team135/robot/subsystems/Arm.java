@@ -13,7 +13,7 @@ public class Arm extends Subsystem {
 	WPI_TalonSRX armMotor1;
 	WPI_TalonSRX armMotor2;
 	
-	public static Arm getInstance()
+	public static Arm InitializeSubsystem()
 	{
 		if (instance == null)
 		{

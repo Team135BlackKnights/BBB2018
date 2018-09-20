@@ -3,7 +3,8 @@ package org.usfirst.frc.team135.robot.subsystems;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import org.usfirst.frc.team135.robot.RobotMap;
-import org.usfirst.frc.team135.robot.commands.DriveWithJoystick;
+import org.usfirst.frc.team135.robot.commands.TeleCommands.DriveWithJoystick;
+
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
@@ -25,7 +26,7 @@ public class DriveTrain extends Subsystem {
 		setDefaultCommand(new DriveWithJoystick());
 	}
 
-	public static DriveTrain getInstance() 
+	public static DriveTrain InitializeSubsystem() 
 	{
 		if (instance == null)
 		{

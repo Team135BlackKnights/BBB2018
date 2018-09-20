@@ -1,4 +1,4 @@
-package org.usfirst.frc.team135.robot.commands;
+package org.usfirst.frc.team135.robot.commands.TeleCommands;
 
 import org.usfirst.frc.team135.robot.OI;
 import org.usfirst.frc.team135.robot.Robot;
