@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.*;
 /**
  *
  */
-public class UltraSonicSensor extends Subsystem {
+public class UltrasonicSensor extends Subsystem {
 
     
     private static final int RIGHT_SONAR_TRIG_PORT = 3;
@@ -27,19 +27,19 @@ public class UltraSonicSensor extends Subsystem {
     public Ultrasonic frontSonar = new Ultrasonic(FRONT_SONAR_TRIG_PORT, FRONT_SONAR_ECHO_PORT);
     public Ultrasonic leftSonar = new Ultrasonic(LEFT_SONAR_TRIG_PORT, LEFT_SONAR_ECHO_PORT);
     public Ultrasonic backSonar = new Ultrasonic(BACK_SONAR_TRIG_PORT, BACK_SONAR_ECHO_PORT);
-    private static UltraSonicSensor instance;
+    private static UltrasonicSensor instance;
     
     
-    public static UltraSonicSensor InitializeSubsystem()
+    public static UltrasonicSensor InitializeSubsystem()
     {
     	if (instance == null)
     	{
-    		instance = new UltraSonicSensor();
+    		instance = new UltrasonicSensor();
     	}
     	return instance;
     }
     
-    public UltraSonicSensor()
+    public UltrasonicSensor()
     {
     	rightSonar.setAutomaticMode(true);
     	leftSonar.setAutomaticMode(true);
