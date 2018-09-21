@@ -45,7 +45,7 @@ public class OI implements RobotMap{
 		RUN_MANDIBLE_WHEELS_IN = new JoystickButton(_joysticks[RobotMap.K_OI.MANIP_JOYSTICK_ID], RobotMap.K_OI.RUN_MANIP_R_ID);
 		
 		THROW_CUBE = new JoystickButton(_joysticks[RobotMap.K_OI.MANIP_JOYSTICK_ID], RobotMap.K_OI.THROW_CUBE_ID);
-		
+				
 		MANDIBLES_CLOSE.whenPressed(new GrabMandibles());
 		MANDIBLES_OPEN.whenPressed(new ReleaseMandibles());
 		
@@ -53,7 +53,7 @@ public class OI implements RobotMap{
 		RUN_MANDIBLE_WHEELS_IN.whenPressed(new DriveMandibleWheels(isInwardT));
 		
 		THROW_CUBE.whenPressed(new ThrowCubeForward());
-		
+				
 	}
 	private double deadband(double input)
 	{

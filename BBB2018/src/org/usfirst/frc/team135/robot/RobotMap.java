@@ -63,9 +63,20 @@ public interface RobotMap
 		BACK_RIGHT_ID = 1, 
 		FRONT_LEFT_ID = 2, 
 		FRONT_RIGHT_ID = 3;
+		
 		public static final int ENCODER_TICK_COUNT = 256;
 		public static final int ENCODER_QUAD_COUNT = (ENCODER_TICK_COUNT * 4);
-				
+		
+		public static final double 
+		MAX_VELOCITY_TICKS_PER_100MS = 225,
+		MAX_VELOCITY_TICKS = MAX_VELOCITY_TICKS_PER_100MS * 10, //Per second
+		MAX_ACCELERATION_TICKS_PER_100MS = 1090,
+		MAX_ACCELERATION_TICKS = MAX_ACCELERATION_TICKS_PER_100MS  * 10;
+	
+	public static final double
+		WHEEL_DIAMETER = 4, //Inches
+		TRACK_WIDTH = 22.626; //Inches
+	
 		public static final int 
 		BACK_LEFT_ENCODER = BACK_LEFT_ID,
 		BACK_RIGHT_ENCODER = BACK_RIGHT_ID;
@@ -89,7 +100,10 @@ public interface RobotMap
 	}
 	public interface ARM 
 	{
-		public static final int ARM_MOTOR_ID_1 = 4;
-		public static final int ARM_MOTOR_ID_2 = 5; 
+		public static final int 
+		ARM_MOTOR_ID_1 = 4,
+		ARM_MOTOR_ID_2 = 5,
+		ARM_MOTOR_ID_3 = 6;
+		
 	}
 }
