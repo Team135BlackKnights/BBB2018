@@ -95,6 +95,9 @@ public interface RobotMap
 		kI = {0, 0, 0, 0}, 
 		kD = {0, 0, 0, 0}, 
 		kF = {0, 0, 0, 0};
+		public static final double[]
+		setPoints = {0, 0, 0, 0},
+		orientationHelper = {0, 0, 0};
 	}
 	public interface INTAKE
 	{
