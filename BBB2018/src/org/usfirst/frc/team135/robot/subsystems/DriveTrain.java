@@ -46,17 +46,6 @@ public class DriveTrain extends Subsystem {
 	private PIDController orientationHelper; //Orientation helper SHOULD helper you go straight
 											//But it doesn't work right now
 	private PIDout buffer; //Stores the orientation helper's motor bias
-	
-	private double
-	OrientationHelper_kP,
-	OrientationHelper_kI,
-	OrientationHelper_kD;
-
-	private double
-	FrontLeftSetpoint = 0.0,
-	BackLeftSetpoint = 0.0,
-	FrontRightSetpoint = 0.0,
-	BackRightSetpoint = 0.0;
 
 	public int 
 	FL_ID = RobotMap.DRIVETRAIN.FRONT_LEFT_ID,
@@ -99,9 +88,6 @@ public class DriveTrain extends Subsystem {
 	
 	public void InitializeDrivetrain()
 	{
-		OrientationHelper_kP = 0;
-		OrientationHelper_kI = 0;
-		OrientationHelper_kD = 0;
 		for (int i = 0; i < DRIVETRAIN.NUMBER_OF_MOTORS; i++)
 		{
 			driveTrainMotors[i].config_kP(0, DRIVETRAIN.kP[i], DRIVETRAIN.TIMEOUT_MS); //configure talons with PID constants
@@ -143,29 +129,9 @@ public class DriveTrain extends Subsystem {
 		return (velocity);
 	}
 	
-	public double getEncoderSetpoint(WPI_TalonSRX talon)
+	public double getEncoderSetpoint(int motorID)
 	{
-		if (talon.getDeviceID() == FL_ID)
-		{
-			return FrontLeftSetpoint;
-		}
-		else if (talon.getDeviceID() == BL_ID)
-		{
-			return BackLeftSetpoint;
-		}
-		else if (talon.getDeviceID() == FR_ID)
-		{
-			return FrontRightSetpoint;
-		}
-		else if (talon.getDeviceID() == BR_ID)
-		{
-			return BackRightSetpoint;
-		}
-		else
-		{
-			return 0;
-		}
-		
+		return DRIVETRAIN.setPoints[motorID];
 	}
 	
 	public double returnVelocity()
