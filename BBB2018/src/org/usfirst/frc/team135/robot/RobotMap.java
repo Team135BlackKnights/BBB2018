@@ -104,6 +104,17 @@ public interface RobotMap
 		ARM_MOTOR_ID_1 = 4,
 		ARM_MOTOR_ID_2 = 5,
 		ARM_MOTOR_ID_3 = 6;
+		public static final int 
+		ARM_MOTOR_1 = 0,
+		ARM_MOTOR_2 = 1,
+		ARM_MOTOR_3 = 2;
+		public static final int
+		NUMBER_OF_MOTORS = 3;
+		public static final double
+		kP = 4,
+		kI = 0,
+		kD = 3 * Math.sqrt(kP),
+		kF = 12;
 		
 	}
 }

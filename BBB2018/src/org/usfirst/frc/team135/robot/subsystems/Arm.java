@@ -14,10 +14,7 @@ public class Arm extends Subsystem {
 	
 	private static Arm instance; 
 	
-	WPI_TalonSRX 
-	armMotor1,
-	armMotor2,
-	armMotor3;
+	WPI_TalonSRX[] armMotors = new WPI_TalonSRX[3];
 	
 	private double setpoint = 0.0;
 	
@@ -42,76 +39,29 @@ public class Arm extends Subsystem {
 	
 	public void InitializeMotors()
 	{
-		armMotor1 = new WPI_TalonSRX(ARM.ARM_MOTOR_ID_1);
-		armMotor2 = new WPI_TalonSRX(ARM.ARM_MOTOR_ID_2);
-		armMotor3 = new WPI_TalonSRX(ARM.ARM_MOTOR_ID_3);
+		armMotors[ARM.ARM_MOTOR_1] = new WPI_TalonSRX(ARM.ARM_MOTOR_ID_1);
+		armMotors[ARM.ARM_MOTOR_2] = new WPI_TalonSRX(ARM.ARM_MOTOR_ID_2);
+		armMotors[ARM.ARM_MOTOR_3] = new WPI_TalonSRX(ARM.ARM_MOTOR_ID_3);
 		
-		double
-		kP = 4,
-		kI = 0,
-		kD = 3 * Math.sqrt(kP),
-		kF = 12;
 		
-		armMotor1.setInverted(false);
-		armMotor2.setInverted(false);
-		armMotor3.setInverted(false);
-		
-		armMotor1.setSensorPhase(true);
-		armMotor2.setSensorPhase(true);
-		armMotor3.setSensorPhase(true);
-		
-		armMotor1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
-		armMotor2.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
-		armMotor3.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
-
-		armMotor1.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 10, 10);
-		armMotor2.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 10, 10);
-		armMotor3.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 10, 10);
-
-		armMotor1.setSelectedSensorPosition(0, 0, 10);
-		armMotor2.setSelectedSensorPosition(0, 0, 10);
-		armMotor3.setSelectedSensorPosition(0, 0, 10);
-
-		armMotor1.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_100Ms, 10);
-		armMotor2.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_100Ms, 10);
-		armMotor3.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_100Ms, 10);
-
-		armMotor1.configVelocityMeasurementWindow(64, 10);		
-		armMotor2.configVelocityMeasurementWindow(64, 10);
-		armMotor3.configVelocityMeasurementWindow(64, 10); 
-
-		armMotor1.configForwardSoftLimitThreshold(1450, 10);
-		armMotor2.configForwardSoftLimitThreshold(1450, 10);
-		armMotor3.configForwardSoftLimitThreshold(1450, 10);
-
-		armMotor1.configReverseSoftLimitThreshold(0, 10);
-		armMotor2.configReverseSoftLimitThreshold(0, 10);
-		armMotor3.configReverseSoftLimitThreshold(0, 10);
-
-		
-		armMotor1.configForwardSoftLimitEnable(true, 10);
-		armMotor2.configForwardSoftLimitEnable(true, 10);
-		armMotor3.configForwardSoftLimitEnable(true, 10);
-
-		armMotor1.configReverseSoftLimitEnable(true, 10);
-		armMotor2.configReverseSoftLimitEnable(true, 10);
-		armMotor3.configReverseSoftLimitEnable(true, 10);
-
-		
-		armMotor1.config_kP(0, kP, 10);
-		armMotor1.config_kI(0, kI, 10);
-		armMotor1.config_kD(0, kD, 10);
-		armMotor1.config_kF(0, kF, 10);
-		
-		armMotor2.config_kP(0, kP, 10);
-		armMotor2.config_kI(0, kI, 10);
-		armMotor2.config_kD(0, kD, 10);
-		armMotor2.config_kF(0, kF, 10);
-		
-		armMotor3.config_kP(0, kP, 10);
-		armMotor3.config_kI(0, kI, 10);
-		armMotor3.config_kD(0, kD, 10);
-		armMotor3.config_kF(0, kF, 10);
+		for (int i = 0; i < ARM.NUMBER_OF_MOTORS; i++)
+		{
+			armMotors[i].setInverted(false);	
+			armMotors[i].setSensorPhase(true);
+			armMotors[i].configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
+			armMotors[i].setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 10, 10);
+			armMotors[i].setSelectedSensorPosition(0, 0, 10);
+			armMotors[i].configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_100Ms, 10);
+			armMotors[i].configVelocityMeasurementWindow(64, 10);		
+			armMotors[i].configForwardSoftLimitThreshold(1450, 10);
+			armMotors[i].configReverseSoftLimitThreshold(0, 10);		
+			armMotors[i].configForwardSoftLimitEnable(true, 10);
+			armMotors[i].configReverseSoftLimitEnable(true, 10);		
+			armMotors[i].config_kP(0, ARM.kP, 10);
+			armMotors[i].config_kI(0, ARM.kI, 10);
+			armMotors[i].config_kD(0, ARM.kD, 10);
+			armMotors[i].config_kF(0, ARM.kF, 10);
+		}
 	}
 	
 	public double getEncoderAcceleration()
@@ -129,19 +79,20 @@ public class Arm extends Subsystem {
 	
 	public double getEncoderVelocity()
 	{
-		return (double)armMotor1.getSelectedSensorVelocity(0);
+		return (double)armMotors[ARM.ARM_MOTOR_1].getSelectedSensorVelocity(0);
 	}
 	
 	public double getEncoderPosition()
 	{
-		return (double)armMotor1.getSelectedSensorPosition(0);
+		return (double)armMotors[ARM.ARM_MOTOR_1].getSelectedSensorPosition(0);
 	}
 	
 	public void RunArmMotors(double power) 
 	{
-		armMotor1.set(power);
-		armMotor2.set(power);
-		armMotor3.set(power);
+		for (int i = 0; i < ARM.NUMBER_OF_MOTORS; i++)
+		{
+			armMotors[i].set(power);
+		}
 	}
 	
 	
@@ -153,11 +104,10 @@ public class Arm extends Subsystem {
 			timer.start();
 			do
 			{
-				//System.out.println(getEncoderVelocity());
-				armMotor1.set(1.0);
-				armMotor2.set(1.0);
-				armMotor3.set(1.0);
-				
+				for (int i = 0; i < ARM.NUMBER_OF_MOTORS; i++)
+				{
+					armMotors[i].set(1.0f);
+				}
 			}
 			while (timer.get() < 5);
 			timer.stop();
