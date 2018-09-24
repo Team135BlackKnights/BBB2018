@@ -170,7 +170,7 @@ public class DriveTrain extends Subsystem {
 	
 	public double returnVelocity()
 	{
-		return frontLeftMotor.getSelectedSensorVelocity(0);
+		return driveTrainMotors[DRIVETRAIN.FRONT_LEFT_MOTOR].getSelectedSensorVelocity(0);
 	}
 	
 	public void stopMotors()
