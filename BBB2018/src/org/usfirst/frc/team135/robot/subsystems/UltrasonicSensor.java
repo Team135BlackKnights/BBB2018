@@ -2,6 +2,9 @@ package org.usfirst.frc.team135.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import org.usfirst.frc.team135.robot.RobotMap.SONARMAP;
+
 import edu.wpi.first.wpilibj.*;
 
 /**
@@ -10,23 +13,11 @@ import edu.wpi.first.wpilibj.*;
 public class UltrasonicSensor extends Subsystem {
 
     
-    private static final int RIGHT_SONAR_TRIG_PORT = 3;
-    private static final int RIGHT_SONAR_ECHO_PORT = 2;
+    public Ultrasonic rightSonar = new Ultrasonic(SONARMAP.RIGHT_SONAR_TRIG_PORT, SONARMAP.RIGHT_SONAR_ECHO_PORT);
+    public Ultrasonic frontSonar = new Ultrasonic(SONARMAP.FRONT_SONAR_TRIG_PORT, SONARMAP.FRONT_SONAR_ECHO_PORT);
+    public Ultrasonic leftSonar = new Ultrasonic(SONARMAP.LEFT_SONAR_TRIG_PORT, SONARMAP.LEFT_SONAR_ECHO_PORT);
+    public Ultrasonic backSonar = new Ultrasonic(SONARMAP.BACK_SONAR_TRIG_PORT, SONARMAP.BACK_SONAR_ECHO_PORT);
     
-    private static final int LEFT_SONAR_TRIG_PORT = 1;
-    private static final int LEFT_SONAR_ECHO_PORT = 0;
-    
-
-    private static final int FRONT_SONAR_TRIG_PORT = 4;
-    private static final int FRONT_SONAR_ECHO_PORT = 5;
-    
-    private static final int BACK_SONAR_TRIG_PORT = 7;
-    private static final int BACK_SONAR_ECHO_PORT = 8;
-    
-    public Ultrasonic rightSonar = new Ultrasonic(RIGHT_SONAR_TRIG_PORT, RIGHT_SONAR_ECHO_PORT);
-    public Ultrasonic frontSonar = new Ultrasonic(FRONT_SONAR_TRIG_PORT, FRONT_SONAR_ECHO_PORT);
-    public Ultrasonic leftSonar = new Ultrasonic(LEFT_SONAR_TRIG_PORT, LEFT_SONAR_ECHO_PORT);
-    public Ultrasonic backSonar = new Ultrasonic(BACK_SONAR_TRIG_PORT, BACK_SONAR_ECHO_PORT);
     private static UltrasonicSensor instance;
     
     
@@ -50,7 +41,7 @@ public class UltrasonicSensor extends Subsystem {
     
     public boolean isCubeInMandibles()
     {
-    	return (getRightSonarValue() < 7);
+    	return (getFrontSonarValue() < 7);
     }
 
 	public double getRightSonarValue() {
