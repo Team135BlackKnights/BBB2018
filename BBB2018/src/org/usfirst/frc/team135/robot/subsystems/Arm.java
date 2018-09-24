@@ -48,33 +48,33 @@ public class Arm extends Subsystem {
 		{
 			armMotors[i].setInverted(false);	
 			armMotors[i].setSensorPhase(true);
-			armMotors[i].configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
-			armMotors[i].setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 10, 10);
-			armMotors[i].setSelectedSensorPosition(0, 0, 10);
-			armMotors[i].configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_100Ms, 10);
-			armMotors[i].configVelocityMeasurementWindow(64, 10);		
-			armMotors[i].configForwardSoftLimitThreshold(1450, 10);
-			armMotors[i].configReverseSoftLimitThreshold(0, 10);		
-			armMotors[i].configForwardSoftLimitEnable(true, 10);
-			armMotors[i].configReverseSoftLimitEnable(true, 10);		
-			armMotors[i].config_kP(0, ARM.kP, 10);
-			armMotors[i].config_kI(0, ARM.kI, 10);
-			armMotors[i].config_kD(0, ARM.kD, 10);
-			armMotors[i].config_kF(0, ARM.kF, 10);
+			armMotors[i].configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, ARM.TIMEOUT_MS);
+			armMotors[i].setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 10, ARM.TIMEOUT_MS);
+			armMotors[i].setSelectedSensorPosition(0, 0, ARM.TIMEOUT_MS);
+			armMotors[i].configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_100Ms, ARM.TIMEOUT_MS);
+			armMotors[i].configVelocityMeasurementWindow(64, ARM.TIMEOUT_MS);		
+			armMotors[i].configForwardSoftLimitThreshold(1450, ARM.TIMEOUT_MS);
+			armMotors[i].configReverseSoftLimitThreshold(0, ARM.TIMEOUT_MS);		
+			armMotors[i].configForwardSoftLimitEnable(true, ARM.TIMEOUT_MS);
+			armMotors[i].configReverseSoftLimitEnable(true, ARM.TIMEOUT_MS);		
+			armMotors[i].config_kP(0, ARM.kP, ARM.TIMEOUT_MS);
+			armMotors[i].config_kI(0, ARM.kI, ARM.TIMEOUT_MS);
+			armMotors[i].config_kD(0, ARM.kD, ARM.TIMEOUT_MS);
+			armMotors[i].config_kF(0, ARM.kF, ARM.TIMEOUT_MS);
 		}
 	}
 	
 	public double getEncoderAcceleration()
 	{
-		double v1 = 0.0, v2 = 0.0;
+		double intial_velocity = 0.0, final_velocity = 0.0;
 		Timer timer = new Timer();
-		v1 = getEncoderVelocity();
+		intial_velocity = getEncoderVelocity();
 		timer.start();
 		while (timer.get() < .2){}
-		v2 = getEncoderVelocity();
+		final_velocity = getEncoderVelocity();
 		timer.stop();
 		
-		return ((v2 - v1) / timer.get());
+		return ((intial_velocity - final_velocity) / timer.get());
 	}
 	
 	public double getEncoderVelocity()

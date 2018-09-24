@@ -63,7 +63,15 @@ public interface RobotMap
 		BACK_RIGHT_ID = 1, 
 		FRONT_LEFT_ID = 2, 
 		FRONT_RIGHT_ID = 3;
-		
+		public static final int[]
+		ARRAY_ID = {BACK_LEFT_ID, BACK_RIGHT_ID, FRONT_LEFT_ID, FRONT_RIGHT_ID};
+		public static final int
+		BACK_LEFT_MOTOR = 0, 
+		BACK_RIGHT_MOTOR = 1, 
+		FRONT_LEFT_MOTOR = 2, 
+		FRONT_RIGHT_MOTOR = 3;
+		public static final int
+		NUMBER_OF_MOTORS = 4;
 		public static final int ENCODER_TICK_COUNT = 256;
 		public static final int ENCODER_QUAD_COUNT = (ENCODER_TICK_COUNT * 4);
 		
@@ -73,13 +81,20 @@ public interface RobotMap
 		MAX_ACCELERATION_TICKS_PER_100MS = 1090,
 		MAX_ACCELERATION_TICKS = MAX_ACCELERATION_TICKS_PER_100MS  * 10;
 	
-	public static final double
+		public static final double
 		WHEEL_DIAMETER = 4, //Inches
 		TRACK_WIDTH = 22.626; //Inches
 	
 		public static final int 
 		BACK_LEFT_ENCODER = BACK_LEFT_ID,
 		BACK_RIGHT_ENCODER = BACK_RIGHT_ID;
+		public static final int
+		TIMEOUT_MS = 10;
+		public static final int[]
+		kP = {0, 0, 0, 0}, 
+		kI = {0, 0, 0, 0}, 
+		kD = {0, 0, 0, 0}, 
+		kF = {0, 0, 0, 0};
 	}
 	public interface INTAKE
 	{
@@ -115,6 +130,8 @@ public interface RobotMap
 		kI = 0,
 		kD = 3 * Math.sqrt(kP),
 		kF = 12;
+		public static final int
+		TIMEOUT_MS = 10;
 		
 	}
 	public interface SONARMAP {
