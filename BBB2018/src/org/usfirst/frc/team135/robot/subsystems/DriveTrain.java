@@ -109,24 +109,14 @@ public class DriveTrain extends Subsystem {
 		chassis.setSafetyEnabled(false);
 	}
 	
-	public double getEncoderCounts(WPI_TalonSRX talon)
+	public double getEncoderCounts(int motorID)
 	{
-		double position = talon.getSelectedSensorPosition(0);
-		if (talon.getDeviceID() == FR_ID || talon.getDeviceID() == BR_ID)
-		{
-			position *= -1;
-		}
-		return (position);
+		return driveTrainMotors[motorID].getSelectedSensorPosition(0) * ( (motorID == 1 || motorID == 3) ? 1 : -1);
 	}
 	
-	public double getEncoderSpeed(WPI_TalonSRX talon)
+	public double getEncoderSpeed(int motorID)
 	{
-		double velocity = talon.getSelectedSensorVelocity(0);
-		if (talon.getDeviceID() == FR_ID || talon.getDeviceID() == BR_ID)
-		{
-			velocity *= -1;
-		}
-		return (velocity);
+		return driveTrainMotors[motorID].getSelectedSensorVelocity(0) * ( (motorID == 1 || motorID == 3) ? 1 : -1);
 	}
 	
 	public double getEncoderSetpoint(int motorID)
@@ -145,7 +135,7 @@ public class DriveTrain extends Subsystem {
 		orientationHelper.enable();
 		Timer timer = new Timer();
 		timer.start();
-		while((Math.abs(getEncoderSpeed(driveTrainMotors[DRIVETRAIN.FRONT_LEFT_MOTOR])) > 0 || orientationHelper.getError() > .2) && timer.get() < 1)
+		while((Math.abs(getEncoderSpeed(DRIVETRAIN.FRONT_LEFT_MOTOR)) > 0 || orientationHelper.getError() > .2) && timer.get() < 1)
 		{
 			for (int i = 0; i < DRIVETRAIN.NUMBER_OF_MOTORS; i++)
 			{
@@ -176,10 +166,10 @@ public class DriveTrain extends Subsystem {
 	
 	public void periodic()
 	{
-		SmartDashboard.putNumber("Front Left Displacement", (getEncoderCounts(frontLeftMotor)));
-		SmartDashboard.putNumber("Front Right Displacement", (getEncoderCounts(frontRightMotor)));
-		SmartDashboard.putNumber("Back Left Talon Displacement", (getEncoderCounts(backLeftMotor)));
-		SmartDashboard.putNumber("Back Right Displacement", (getEncoderCounts(backRightMotor)));
+		SmartDashboard.putNumber("Front Left Displacement", (getEncoderCounts(DRIVETRAIN.FRONT_LEFT_MOTOR)));
+		SmartDashboard.putNumber("Front Right Displacement", (getEncoderCounts(DRIVETRAIN.FRONT_RIGHT_MOTOR)));
+		SmartDashboard.putNumber("Back Left Talon Displacement", (getEncoderCounts(DRIVETRAIN.BACK_LEFT_MOTOR)));
+		SmartDashboard.putNumber("Back Right Displacement", (getEncoderCounts(DRIVETRAIN.BACK_RIGHT_MOTOR)));
 	}
 
 	@Override
