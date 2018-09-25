@@ -135,7 +135,7 @@ public class DriveTrain extends Subsystem {
 		orientationHelper.enable();
 		Timer timer = new Timer();
 		timer.start();
-		while((Math.abs(getEncoderSpeed(driveTrainMotors[DRIVETRAIN.FRONT_LEFT_MOTOR])) > 0 || orientationHelper.getError() > .2) && timer.get() < 1)
+		while((Math.abs(getEncoderSpeed(DRIVETRAIN.FRONT_LEFT_MOTOR)) > 0 || orientationHelper.getError() > .2) && timer.get() < 1)
 		{
 			for (int i = 0; i < DRIVETRAIN.NUMBER_OF_MOTORS; i++)
 			{
