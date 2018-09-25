@@ -36,8 +36,7 @@ public class Canifier extends Subsystem implements RobotMap{
     
 	public Canifier()
 	{
-		int id = (Preferences.getInstance().getBoolean("Is Competition Bot?", true)) ? COMPETITION.CANIFIER.ID : PRACTICE.CANIFIER.ID;
-		canifier = new CANifier(id);
+		canifier = new CANifier(0);
 	}
 	public static Canifier getInstance()
 	{
