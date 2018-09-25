@@ -143,12 +143,6 @@ public interface RobotMap
 		
 		public static final int RIGHT_SONAR_TRIG_PORT = 3;
 		public static final int RIGHT_SONAR_ECHO_PORT = 2;
-		    
-		public static final int FRONT_SONAR_TRIG_PORT = 4;
-		public static final int FRONT_SONAR_ECHO_PORT = 5;
-		    
-		public static final int BACK_SONAR_TRIG_PORT = 7;
-		public static final int BACK_SONAR_ECHO_PORT = 8;	
 	}
 	 
 }

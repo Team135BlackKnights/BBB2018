@@ -29,8 +29,11 @@ public class Robot extends TimedRobot {
 	public static Intake intake;
 	public static Arm arm;
 	public static NavX navx;
-	public static LidarSensor ultrasonic;
+	public static UltrasonicSensor ultrasonic;
 	public static Limelight limelight; 
+	public static PDP pdp;
+	public static Canifier can; 
+	public 
 	Command _autonomousCommand;
 	SendableChooser<String> _chooser = new SendableChooser<>();
 	//SmartDashboard.putData("Auto mode", m_chooser);
@@ -45,8 +48,10 @@ public class Robot extends TimedRobot {
 		intake = Intake.InitializeSubsystem();
 		arm = Arm.InitializeSubsystem();
 		navx = NavX.InitializeSubsystem();
-		ultrasonic = LidarSensor.InitializeSubsystem();
+		ultrasonic = UltrasonicSensor.InitializeSubsystem();
 		limelight = Limelight.InitializeSubsystem();
+		pdp = PDP.getInstance();
+		can = Canifier.getInstance();
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", this._chooser);
 		
