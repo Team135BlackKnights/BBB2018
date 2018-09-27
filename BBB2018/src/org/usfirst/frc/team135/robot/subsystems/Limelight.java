@@ -53,7 +53,7 @@ public class Limelight extends Subsystem {
 	double[] limelightData = new double[NUMBER_OF_LIMELIGHT_CHARACTERISTICS];
 	
 	//  LED Modes
-	public static int LED_ON = 0;
+	public static int LED_ON = 1;
 	public static int LED_OFF = 1;
 	public static int LED_BLINKING = 2;
 	
