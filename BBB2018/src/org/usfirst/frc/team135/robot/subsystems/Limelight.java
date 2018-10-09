@@ -74,7 +74,7 @@ public class Limelight extends Subsystem {
     }
     
     //  Method used in Robot.java to Initialize the Subsystem to be used in the Commands
-    public static Limelight InitializeSubsystem()
+    public static Limelight getInstance()
     {
     	if (instance == null)
     	{

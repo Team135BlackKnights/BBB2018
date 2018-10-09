@@ -23,7 +23,7 @@ public class Arm extends Subsystem {
 	public boolean isMantaining;
 	public double tripPoint = 0.0;
 	
-	public static Arm InitializeSubsystem()
+	public static Arm getInstance()
 	{
 		if (instance == null)
 		{

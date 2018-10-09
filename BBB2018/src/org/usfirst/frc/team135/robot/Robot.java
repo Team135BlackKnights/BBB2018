@@ -15,20 +15,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team135.robot.subsystems.*;
 
-
-/**
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the TimedRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the build.properties file in the
- * project.
- */
 public class Robot extends TimedRobot {
+	// subsystem variables
 	public static OI oi;
 	public static DriveTrain drivetrain;
 	public static Intake intake;
 	public static Arm arm;
-	public static NavX navx;
+	public static Navx navx;
 	public static UltrasonicSensor ultrasonic;
 	public static Limelight limelight; 
 	public static PDP pdp;
@@ -36,32 +29,18 @@ public class Robot extends TimedRobot {
 	public 
 	Command _autonomousCommand;
 	SendableChooser<String> _chooser = new SendableChooser<>();
-	//SmartDashboard.putData("Auto mode", m_chooser);
-	/**
-	 * This function is run when the robot is first started up and should be
-	 * used for any initialization code.
-	 */
 	@Override
 	public void robotInit() {
 		oi = OI.getInstance();
-		drivetrain = DriveTrain.InitializeSubsystem();
-		intake = Intake.InitializeSubsystem();
-		arm = Arm.InitializeSubsystem();
-		navx = NavX.InitializeSubsystem();
-		ultrasonic = UltrasonicSensor.InitializeSubsystem();
-		limelight = Limelight.InitializeSubsystem();
+		drivetrain = DriveTrain.getInstance();
+		intake = Intake.getInstance();
+		arm = Arm.getInstance();
+		navx = Navx.getInstance();
+		ultrasonic = UltrasonicSensor.getInstance();
+		limelight = Limelight.getInstance();
 		pdp = PDP.getInstance();
 		can = Canifier.getInstance();
-		// chooser.addObject("My Auto", new MyAutoCommand());
-		SmartDashboard.putData("Auto mode", this._chooser);
-		
 	}
-
-	/**
-	 * This function is called once each time the robot enters Disabled mode.
-	 * You can use it to reset any subsystem information you want to clear when
-	 * the robot is disabled.
-	 */
 	@Override
 	public void disabledInit() {
 

@@ -39,7 +39,7 @@ public class DriveTrain extends Subsystem {
 	
 	private static final int angleSetPoint = 0; //Was thinking about using this but didn't.
 	
-	private static final double MOTOR_SETPOINT_PER_100MS = DRIVETRAIN.MAX_VELOCITY_TICKS_PER_100MS; //NU/100 ms MAX SPEED for slowest motor
+	private static final double MOTOR_SETPOINT_PER_100MS = DRIVETRAIN.ENCODERS.MAX_VELOCITY_TICKS_PER_100MS; //NU/100 ms MAX SPEED for slowest motor
 	
 	private MotorSafetyHelper m_safetyHelper = new MotorSafetyHelper(chassis); //watchdog
 	
@@ -58,15 +58,15 @@ public class DriveTrain extends Subsystem {
 		driveTrainMotors = new WPI_TalonSRX[4];
 		for (int i = 0; i < DRIVETRAIN.NUMBER_OF_MOTORS; i++)
 		{
-			driveTrainMotors[i] = new WPI_TalonSRX(DRIVETRAIN.ARRAY_ID[i]);
+			driveTrainMotors[i] = new WPI_TalonSRX(DRIVETRAIN.MOTOR_ID_ARRAY[i]);
 			
 			driveTrainMotors[i].setNeutralMode(NeutralMode.Brake);
-			driveTrainMotors[i].configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, DRIVETRAIN.TIMEOUT_MS);
-			driveTrainMotors[i].setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 10, DRIVETRAIN.TIMEOUT_MS);
-			driveTrainMotors[i].setSelectedSensorPosition(0, 0, DRIVETRAIN.TIMEOUT_MS);
+			driveTrainMotors[i].configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, DRIVETRAIN.PID.TIMEOUT_MS);
+			driveTrainMotors[i].setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 10, DRIVETRAIN.PID.TIMEOUT_MS);
+			driveTrainMotors[i].setSelectedSensorPosition(0, 0, DRIVETRAIN.PID.TIMEOUT_MS);
 			
-			driveTrainMotors[i].configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_100Ms, DRIVETRAIN.TIMEOUT_MS);
-			driveTrainMotors[i].configVelocityMeasurementWindow(64, DRIVETRAIN.TIMEOUT_MS);
+			driveTrainMotors[i].configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_100Ms, DRIVETRAIN.PID.TIMEOUT_MS);
+			driveTrainMotors[i].configVelocityMeasurementWindow(64, DRIVETRAIN.PID.TIMEOUT_MS);
 			
 			driveTrainMotors[i].setSensorPhase(false);
 		}
@@ -90,10 +90,10 @@ public class DriveTrain extends Subsystem {
 	{
 		for (int i = 0; i < DRIVETRAIN.NUMBER_OF_MOTORS; i++)
 		{
-			driveTrainMotors[i].config_kP(0, DRIVETRAIN.kP[i], DRIVETRAIN.TIMEOUT_MS); //configure talons with PID constants
-			driveTrainMotors[i].config_kI(0, DRIVETRAIN.kI[i], DRIVETRAIN.TIMEOUT_MS);
-			driveTrainMotors[i].config_kD(0, DRIVETRAIN.kD[i], DRIVETRAIN.TIMEOUT_MS);
-			driveTrainMotors[i].config_kF(0, DRIVETRAIN.kF[i], DRIVETRAIN.TIMEOUT_MS);
+			driveTrainMotors[i].config_kP(0, DRIVETRAIN.PID.kP[i], DRIVETRAIN.PID.TIMEOUT_MS); //configure talons with PID constants
+			driveTrainMotors[i].config_kI(0, DRIVETRAIN.PID.kI[i], DRIVETRAIN.PID.TIMEOUT_MS);
+			driveTrainMotors[i].config_kD(0, DRIVETRAIN.PID.kD[i], DRIVETRAIN.PID.TIMEOUT_MS);
+			driveTrainMotors[i].config_kF(0, DRIVETRAIN.PID.kF[i], DRIVETRAIN.PID.TIMEOUT_MS);
 		}
 		frontLeftMotor = driveTrainMotors[DRIVETRAIN.FRONT_LEFT_MOTOR];
 		backLeftMotor = driveTrainMotors[DRIVETRAIN.BACK_LEFT_MOTOR];
@@ -121,7 +121,7 @@ public class DriveTrain extends Subsystem {
 	
 	public double getEncoderSetpoint(int motorID)
 	{
-		return DRIVETRAIN.setPoints[motorID];
+		return DRIVETRAIN.PID.setPoints[motorID];
 	}
 	
 	public double returnVelocity()
@@ -150,7 +150,7 @@ public class DriveTrain extends Subsystem {
 		setDefaultCommand(new DriveWithJoystick());
 	}
 
-	public static DriveTrain InitializeSubsystem() 
+	public static DriveTrain getInstance() 
 	{
 		if (instance == null)
 		{

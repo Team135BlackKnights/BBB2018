@@ -20,7 +20,7 @@ public class Intake extends Subsystem implements RobotMap {
 
 	private static Intake instance;
 	
-	public static Intake InitializeSubsystem() 
+	public static Intake getInstance() 
 	{
 		if (instance == null)
 		{
