@@ -14,11 +14,10 @@ public class RunArm extends Command
 	}
 	protected void initialize()
 	{
-		Robot.arm.InitializeMotors();
 	}
 	protected void excecute()
 	{
-		double power = Robot.oi.GetManip()[RobotMap.K_OI.GETY];
+		double power = Robot.oi.GetManipJoystickValues()[RobotMap.K_OI.GETY];
 		Robot.arm.RunArmMotors(power);
 	}
 	@Override

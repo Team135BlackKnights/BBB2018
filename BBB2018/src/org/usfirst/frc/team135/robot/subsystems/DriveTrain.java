@@ -31,31 +31,20 @@ public class DriveTrain extends Subsystem {
 
 	private static DriveTrain instance;
 	
-	public WPI_TalonSRX frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor;
-	WPI_TalonSRX[] driveTrainMotors;
-	DifferentialDrive chassis;
+	public static WPI_TalonSRX frontLeftMotor, 
+	backLeftMotor, 
+	frontRightMotor, 
+	backRightMotor;
+	public static WPI_TalonSRX[] driveTrainMotors;
+	public static DifferentialDrive chassis;
 	
 	private PIDin navx;
 	
-	private static final int angleSetPoint = 0; //Was thinking about using this but didn't.
-	
-	private static final double MOTOR_SETPOINT_PER_100MS = DRIVETRAIN.ENCODERS.MAX_VELOCITY_TICKS_PER_100MS; //NU/100 ms MAX SPEED for slowest motor
-	
-	private MotorSafetyHelper m_safetyHelper = new MotorSafetyHelper(chassis); //watchdog
-	
-	private PIDController orientationHelper; //Orientation helper SHOULD helper you go straight
-											//But it doesn't work right now
-	private PIDout buffer; //Stores the orientation helper's motor bias
-
-	public int 
-	FL_ID = RobotMap.DRIVETRAIN.FRONT_LEFT_ID,
-	BL_ID =	RobotMap.DRIVETRAIN.BACK_LEFT_ID,
-	FR_ID = RobotMap.DRIVETRAIN.FRONT_RIGHT_ID,
-	BR_ID = RobotMap.DRIVETRAIN.BACK_RIGHT_ID;
+	private MotorSafetyHelper m_safetyHelper;
 
 	private DriveTrain()
 	{
-		driveTrainMotors = new WPI_TalonSRX[4];
+		driveTrainMotors = new WPI_TalonSRX[DRIVETRAIN.NUMBER_OF_MOTORS];
 		for (int i = 0; i < DRIVETRAIN.NUMBER_OF_MOTORS; i++)
 		{
 			driveTrainMotors[i] = new WPI_TalonSRX(DRIVETRAIN.MOTOR_ID_ARRAY[i]);
@@ -69,32 +58,15 @@ public class DriveTrain extends Subsystem {
 			driveTrainMotors[i].configVelocityMeasurementWindow(64, DRIVETRAIN.PID.TIMEOUT_MS);
 			
 			driveTrainMotors[i].setSensorPhase(false);
-		}
-		
-		//Configure the orientation helper and it's output storage helper.
-		buffer = new PIDout();
-		navx = new PIDin(() -> Robot.navx.getFusedAngle(), PIDSourceType.kDisplacement);
-		
-		orientationHelper = new PIDController(.01, 0, .1, navx, buffer);
-	
-		orientationHelper.setInputRange(0, 360);
-		orientationHelper.setOutputRange(-.15, .15);
-		orientationHelper.setAbsoluteTolerance(1);
-		orientationHelper.setContinuous();
-		
-		//Get PIDF constants.
-		InitializeDrivetrain();
-	}
-	
-	public void InitializeDrivetrain()
-	{
-		for (int i = 0; i < DRIVETRAIN.NUMBER_OF_MOTORS; i++)
-		{
-			driveTrainMotors[i].config_kP(0, DRIVETRAIN.PID.kP[i], DRIVETRAIN.PID.TIMEOUT_MS); //configure talons with PID constants
+			
+			//configure talons with PID constants
+			driveTrainMotors[i].config_kP(0, DRIVETRAIN.PID.kP[i], DRIVETRAIN.PID.TIMEOUT_MS); 
 			driveTrainMotors[i].config_kI(0, DRIVETRAIN.PID.kI[i], DRIVETRAIN.PID.TIMEOUT_MS);
 			driveTrainMotors[i].config_kD(0, DRIVETRAIN.PID.kD[i], DRIVETRAIN.PID.TIMEOUT_MS);
 			driveTrainMotors[i].config_kF(0, DRIVETRAIN.PID.kF[i], DRIVETRAIN.PID.TIMEOUT_MS);
 		}
+		m_safetyHelper = new MotorSafetyHelper(chassis);
+		
 		frontLeftMotor = driveTrainMotors[DRIVETRAIN.FRONT_LEFT_MOTOR];
 		backLeftMotor = driveTrainMotors[DRIVETRAIN.BACK_LEFT_MOTOR];
 		frontRightMotor = driveTrainMotors[DRIVETRAIN.FRONT_RIGHT_MOTOR];
@@ -107,6 +79,15 @@ public class DriveTrain extends Subsystem {
 		
 		chassis.setDeadband(K_OI.DEADBAND);
 		chassis.setSafetyEnabled(false);
+	}
+	
+	public static DriveTrain getInstance() 
+	{
+		if (instance == null)
+		{
+			instance = new DriveTrain();
+		}
+		return instance;
 	}
 	
 	public double getEncoderCounts(int motorID)
@@ -131,32 +112,19 @@ public class DriveTrain extends Subsystem {
 	
 	public void stopMotors()
 	{
-		orientationHelper.setSetpoint(Robot.navx.getFusedAngle());
-		orientationHelper.enable();
 		Timer timer = new Timer();
 		timer.start();
-		while((Math.abs(getEncoderSpeed(DRIVETRAIN.FRONT_LEFT_MOTOR)) > 0 || orientationHelper.getError() > .2) && timer.get() < 1)
+		while((Math.abs(getEncoderSpeed(DRIVETRAIN.FRONT_LEFT_MOTOR)) > 0) && timer.get() < 1)
 		{
 			for (int i = 0; i < DRIVETRAIN.NUMBER_OF_MOTORS; i++)
 			{
-				driveTrainMotors[i].set(ControlMode.Velocity, 0 + buffer.output);
+				driveTrainMotors[i].set(ControlMode.Velocity, 0);
 			}
 		}
-	
-		orientationHelper.disable();
 	}
 	
 	public void initDefaultComand() {
 		setDefaultCommand(new DriveWithJoystick());
-	}
-
-	public static DriveTrain getInstance() 
-	{
-		if (instance == null)
-		{
-			instance = new DriveTrain();
-		}
-		return instance;
 	}
 	
 	public void TankDrive(double leftMotorPower, double rightMotorPower) 

@@ -11,14 +11,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Navx extends Subsystem
 {
 	private static Navx instance;
-	public double initAngle = 0.0;
-	private AHRS ahrs;
-	
-	@Override
-	protected void initDefaultCommand() {
-
-		
-	}
+	public double initAngle;
+	private AHRS ahrs;	
 	
 	private Navx()
 	{
@@ -51,5 +45,8 @@ public class Navx extends Subsystem
 		
 	}
 	
+	protected void initDefaultCommand() {
 
+		
+	}
 }

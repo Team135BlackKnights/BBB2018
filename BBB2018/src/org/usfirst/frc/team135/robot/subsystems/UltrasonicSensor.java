@@ -12,11 +12,20 @@ import edu.wpi.first.wpilibj.*;
  */
 public class UltrasonicSensor extends Subsystem {
  
-    public Ultrasonic rightSonar = new Ultrasonic(SONARMAP.RIGHT_SONAR_TRIG_PORT, SONARMAP.RIGHT_SONAR_ECHO_PORT);
-    public Ultrasonic leftSonar = new Ultrasonic(SONARMAP.LEFT_SONAR_TRIG_PORT, SONARMAP.LEFT_SONAR_ECHO_PORT);
-    
     private static UltrasonicSensor instance;
+	
+    public Ultrasonic 
+    rightSonar,
+    leftSonar;
     
+    public UltrasonicSensor()
+    {
+    	rightSonar = new Ultrasonic(SONARMAP.RIGHT_SONAR_TRIG_PORT, SONARMAP.RIGHT_SONAR_ECHO_PORT);
+    	leftSonar = new Ultrasonic(SONARMAP.LEFT_SONAR_TRIG_PORT, SONARMAP.LEFT_SONAR_ECHO_PORT);
+    	rightSonar.setAutomaticMode(true);
+    	leftSonar.setAutomaticMode(true);
+    	
+    }
     
     public static UltrasonicSensor getInstance()
     {
@@ -25,13 +34,6 @@ public class UltrasonicSensor extends Subsystem {
     		instance = new UltrasonicSensor();
     	}
     	return instance;
-    }
-    
-    public UltrasonicSensor()
-    {
-    	rightSonar.setAutomaticMode(true);
-    	leftSonar.setAutomaticMode(true);
-    	
     }
     
 	public double getRightSonarValue() {
@@ -45,18 +47,14 @@ public class UltrasonicSensor extends Subsystem {
 		SmartDashboard.putNumber("Left Sonar Distance: ", LeftSonarDistance);
 		return LeftSonarDistance;
 	}
-    	
-    public void initDefaultCommand() {
-        
-    }
     
     public void periodic()
     {
     	System.out.println("Sonar: " + getLeftSonarValue() + ", " + getRightSonarValue());
-    	getRightSonarValue();
-    	getLeftSonarValue();
-    	
     }
 
+    public void initDefaultCommand() {
+        
+    }
 }
 

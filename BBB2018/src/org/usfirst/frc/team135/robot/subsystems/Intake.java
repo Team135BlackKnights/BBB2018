@@ -9,16 +9,18 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 public class Intake extends Subsystem implements RobotMap {
 
+	private static Intake instance;
+
 	private static WPI_VictorSPX rightWheel, leftWheel;
 	private static DoubleSolenoid claw; 
 	private static DoubleSolenoid retraction;
 	private static Compressor compressor;
-	
-	
-	boolean rightWheelInverted = false;
-	boolean leftWheelInverted = true;
 
-	private static Intake instance;
+	private Intake()
+	{
+		InitializeWheelMotors();
+		InitializePneumatics();
+	}
 	
 	public static Intake getInstance() 
 	{
@@ -28,37 +30,26 @@ public class Intake extends Subsystem implements RobotMap {
 		}
 		return instance;
 	}
-	private Intake()
-	{
-		
-	}
 	
 	public void InitializeWheelMotors() 
 	{
 		leftWheel = new WPI_VictorSPX(INTAKE.LEFT_WHEEL_ID);
 		rightWheel = new WPI_VictorSPX(INTAKE.RIGHT_WHEEL_ID);
 		
-		leftWheel.setInverted(leftWheelInverted);
-		rightWheel.setInverted(rightWheelInverted);
+		leftWheel.setInverted(RobotMap.INTAKE.leftWheelInverted);
+		rightWheel.setInverted(RobotMap.INTAKE.rightWheelInverted);
 		
 	}
 	public void InitializePneumatics()
-	{
-		int intake_open = PNEUMATICS.MANDIBLE_OPEN_CHANNEL;
-		int intake_close = PNEUMATICS.MANDIBLE_CLOSE_CHANNEL;
-		
-		int retract_open = PNEUMATICS.RETRACT_IN_CHANNEL;
-		int retract_close = PNEUMATICS.RETRACT_OUT_CHANNEL;
-		
-		claw = new DoubleSolenoid(intake_open, intake_close);
-		retraction = new DoubleSolenoid(retract_open, retract_close);
+	{	
+		claw = new DoubleSolenoid(PNEUMATICS.MANDIBLE_OPEN_CHANNEL, PNEUMATICS.MANDIBLE_CLOSE_CHANNEL);
+		retraction = new DoubleSolenoid(PNEUMATICS.RETRACT_IN_CHANNEL, PNEUMATICS.RETRACT_OUT_CHANNEL);
 		
 		compressor = new Compressor(0);
 		compressor.setClosedLoopControl(true);
 		
 		claw.set(DoubleSolenoid.Value.kOff);
 		retraction.set(DoubleSolenoid.Value.kOff);
-		
 	}
 	
 	public void setCompressorOff()

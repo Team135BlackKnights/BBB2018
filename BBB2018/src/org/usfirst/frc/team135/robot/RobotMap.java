@@ -34,6 +34,9 @@ public interface RobotMap
 		THROW_CUBE_ID = 3;
 		public static final int 
 		NUMBER_OF_JOYSTICKS = 3;
+		public static boolean 
+		isInwardF = false,
+		isInwardT = true;
 	}
 	
 	public interface DRIVETRAIN
@@ -92,6 +95,9 @@ public interface RobotMap
 		public static final int
 		LEFT_WHEEL_ID = 0,
 		RIGHT_WHEEL_ID =1;
+		public static final boolean 
+		rightWheelInverted = false,
+		leftWheelInverted = true;
 	}
 	
 	public interface PNEUMATICS 

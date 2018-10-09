@@ -15,29 +15,13 @@ public class Arm extends Subsystem {
 	private static Arm instance; 
 	
 	WPI_TalonSRX[] armMotors = new WPI_TalonSRX[3];
-	
-	private double setpoint = 0.0;
-	
+		
 	private boolean isPositionInitialized = false;
 	
 	public boolean isMantaining;
 	public double tripPoint = 0.0;
-	
-	public static Arm getInstance()
-	{
-		if (instance == null)
-		{
-			instance = new Arm();
-		}
-		return instance; 
-	}
 
 	private Arm()
-	{
-		InitializeMotors();
-	}
-	
-	public void InitializeMotors()
 	{
 		armMotors[ARM.ARM_MOTOR_1] = new WPI_TalonSRX(ARM.ARM_MOTOR_ID_1);
 		armMotors[ARM.ARM_MOTOR_2] = new WPI_TalonSRX(ARM.ARM_MOTOR_ID_2);
@@ -62,6 +46,15 @@ public class Arm extends Subsystem {
 			armMotors[i].config_kD(0, ARM.kD, ARM.TIMEOUT_MS);
 			armMotors[i].config_kF(0, ARM.kF, ARM.TIMEOUT_MS);
 		}
+	}
+	
+	public static Arm getInstance()
+	{
+		if (instance == null)
+		{
+			instance = new Arm();
+		}
+		return instance; 
 	}
 	
 	public double getEncoderAcceleration()
