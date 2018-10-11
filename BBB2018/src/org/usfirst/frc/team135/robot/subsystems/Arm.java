@@ -14,6 +14,9 @@ public class Arm extends Subsystem {
 	
 	private static Arm instance; 
 	
+	public double setpoint = 0.0;
+	
+	
 	public static WPI_TalonSRX 
 	armMotor1; 
 	public static WPI_VictorSPX 
@@ -95,6 +98,70 @@ public class Arm extends Subsystem {
 		armMotor1.set(power);
 	}
 	
+	public void initPositon()
+	{
+		if (!isPositionInitialized)
+		{
+			Timer timer = new Timer();
+			timer.start();
+			
+			do 
+			{
+				set(1.0);
+			}
+			
+			while (timer.get() <5);
+			timer.stop();
+			timer.reset();
+			isPositionInitialized = true; 
+		}
+	}
+	
+	public void set(double speed)
+	{
+		armMotor1.set(ControlMode.PercentOutput, speed);
+	}
+	
+	public void setToPosiiton(double position)
+	{
+		//liftMotor.set(ControlMode.MotionMagic, position);
+		Timer timer = new Timer();
+		
+		timer.start();
+		
+		if (position == getEncoderPosition())
+		{
+			return;
+		}
+		
+		double direction = (position < getEncoderPosition()) ? -1 : 1;
+		
+		if (direction == 1)
+		{
+			while(getEncoderPosition() < position && timer.get() < 3)
+			{
+				set(1 * direction);
+			}
+		}
+		else
+		{
+			while(getEncoderPosition() > position && timer.get() < 3)
+			{
+				set(1 * direction);
+			}
+		}
+
+		
+		timer.stop();
+		timer.reset();
+		
+		setpoint = position;
+	}
+	
+	public void MaintainPosiiton()
+	{
+		armMotor1.set(ControlMode.Velocity, .75);
+	}
 	
 	public void initPosition()
 	{
@@ -104,7 +171,7 @@ public class Arm extends Subsystem {
 			timer.start();
 			do
 			{
-					armMotor1.set(1.0f);
+				armMotor1.set(1.0);
 			}
 			while (timer.get() < 5);
 			timer.stop();

@@ -15,6 +15,7 @@ package org.usfirst.frc.team135.robot;
  */
 public interface RobotMap 
 {
+	
 	public interface K_OI
 	{
 		public static final double 
@@ -148,8 +149,7 @@ public interface RobotMap
 		    private static final int BACK_SONAR_ECHO_PORT = 8;
 	}
 	 
-	public interface AUTONOMOUS
-	{
+	
 		public interface CONVERSIONS
 		{
 			public static final double
@@ -181,5 +181,5 @@ public interface RobotMap
 				FAR_SCALE_DISTANCE_FROM_WALL = 202, //222,
 				FAR_SCALE_DISTANCE_TO_SCALE = 125; //200
 		}
-	}
+	
 }

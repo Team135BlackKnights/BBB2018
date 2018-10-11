@@ -52,8 +52,8 @@ public class DriveTrain extends Subsystem {
 
 	private DriveTrain()
 	{
-		backDriveMotors = new WPI_TalonSRX[DRIVETRAIN.NUMBER_OF_MOTORS];
-		for (int i = 0; i < DRIVETRAIN.NUMBER_OF_MOTORS; i++)
+		backDriveMotors = new WPI_TalonSRX[DRIVETRAIN.NUMBER_OF_BACK_MOTORS];
+		for (int i = 0; i < DRIVETRAIN.NUMBER_OF_BACK_MOTORS; i++)
 		{
 			backDriveMotors[i] = new WPI_TalonSRX(DRIVETRAIN.MOTOR_ID_ARRAY[i]);
 			
@@ -87,7 +87,7 @@ public class DriveTrain extends Subsystem {
 		
 		chassis = new DifferentialDrive(left, right);
 		
-		frontLeftMotor.set()
+		frontLeftMotor.set();
 		
 		chassis.setDeadband(K_OI.DEADBAND);
 		chassis.setSafetyEnabled(false);
@@ -120,6 +120,14 @@ public class DriveTrain extends Subsystem {
 	public double returnVelocity()
 	{
 		return backDriveMotors[DRIVETRAIN.FRONT_LEFT_MOTOR].getSelectedSensorVelocity(0);
+	}
+	
+	public void ResetEncoders()
+	{
+		frontLeftMotor.setSelectedSensorPosition(0, 0, 10);
+		frontRightMotor.setSelectedSensorPosition(0, 0, 10);
+		backLeftMotor.setSelectedSensorPosition(0, 0, 10);
+		backRightMotor.setSelectedSensorPosition(0, 0, 10);
 	}
 	
 	public void stopMotors()

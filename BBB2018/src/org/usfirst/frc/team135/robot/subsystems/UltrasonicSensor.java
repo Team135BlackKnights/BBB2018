@@ -12,17 +12,13 @@ import edu.wpi.first.wpilibj.*;
  */
 public class UltrasonicSensor extends Subsystem {
 
-    
-   
-    
     public Ultrasonic rightSonar = new Ultrasonic(SONARMAP.RIGHT_SONAR_TRIG_PORT, SONARMAP.RIGHT_SONAR_ECHO_PORT);
     public Ultrasonic frontSonar = new Ultrasonic(SONARMAP.FRONT_SONAR_TRIG_PORT, SONARMAP.FRONT_SONAR_ECHO_PORT);
     public Ultrasonic leftSonar = new Ultrasonic(SONARMAP.LEFT_SONAR_TRIG_PORT, SONARMAP.LEFT_SONAR_ECHO_PORT);
     public Ultrasonic backSonar = new Ultrasonic(SONARMAP.BACK_SONAR_TRIG_PORT, SONARMAP.BACK_SONAR_ECHO_PORT);
     private static UltrasonicSensor instance;
     
-    
-    public static UltrasonicSensor getInstance()
+        public static UltrasonicSensor getInstance()
     {
     	if (instance == null)
     	{
