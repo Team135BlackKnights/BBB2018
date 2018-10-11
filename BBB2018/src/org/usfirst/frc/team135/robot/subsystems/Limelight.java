@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
-import org.usfirst.frc.team135.robot.commands.CameraCommands.*;
+import org.usfirst.frc.team135.robot.commands.camera.*;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;

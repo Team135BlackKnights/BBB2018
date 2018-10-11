@@ -6,5 +6,6 @@
 	<classpathentry exported="true" kind="lib" path="/home/david/wpilib/user/java/lib/CTRE_Phoenix.jar"/>
 	<classpathentry kind="lib" path="/home/david/Downloads/ntcore-java-4.0.0.jar"/>
 	<classpathentry kind="lib" path="/home/david/Downloads/wpiutil-java-3.0.0.jar"/>
+	<classpathentry kind="var" path="wpilib" sourcepath="wpilib.sources"/>
 	<classpathentry kind="output" path="BBB2018/bin"/>
 </classpath>

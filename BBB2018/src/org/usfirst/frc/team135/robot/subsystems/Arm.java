@@ -14,7 +14,13 @@ public class Arm extends Subsystem {
 	
 	private static Arm instance; 
 	
-	WPI_TalonSRX[] armMotors = new WPI_TalonSRX[3];
+	public static WPI_TalonSRX 
+	armMotor1; 
+	public static WPI_VictorSPX 
+	armMotor2, 
+	armMotor3;
+	
+	
 		
 	private boolean isPositionInitialized = false;
 	
@@ -23,29 +29,33 @@ public class Arm extends Subsystem {
 
 	private Arm()
 	{
-		armMotors[ARM.ARM_MOTOR_1] = new WPI_TalonSRX(ARM.ARM_MOTOR_ID_1);
-		armMotors[ARM.ARM_MOTOR_2] = new WPI_TalonSRX(ARM.ARM_MOTOR_ID_2);
-		armMotors[ARM.ARM_MOTOR_3] = new WPI_TalonSRX(ARM.ARM_MOTOR_ID_3);
+		armMotor1 = new WPI_TalonSRX(ARM.ARM_MOTOR_ID_1);
+		armMotor2 = new WPI_VictorSRX(ARM.ARM_MOTOR_ID_2);
+		armMotor3 = new WPI_VictorSRX(ARM.ARM_MOTOR_ID_3);
+	
+		
+			armMotor1.setInverted(false);	
+			armMotor1.setSensorPhase(true);
+			armMotor1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, ARM.TIMEOUT_MS);
+			armMotor1.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 10, ARM.TIMEOUT_MS);
+			armMotor1.setSelectedSensorPosition(0, 0, ARM.TIMEOUT_MS);
+			armMotor1.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_100Ms, ARM.TIMEOUT_MS);
+			armMotor1.configVelocityMeasurementWindow(64, ARM.TIMEOUT_MS);		
+			armMotor1.configForwardSoftLimitThreshold(1450, ARM.TIMEOUT_MS);
+			armMotor1.configReverseSoftLimitThreshold(0, ARM.TIMEOUT_MS);		
+			armMotor1.configForwardSoftLimitEnable(true, ARM.TIMEOUT_MS);
+			armMotor1.configReverseSoftLimitEnable(true, ARM.TIMEOUT_MS);		
+			armMotor1.config_kP(0, ARM.kP, ARM.TIMEOUT_MS);
+			armMotor1.config_kI(0, ARM.kI, ARM.TIMEOUT_MS);
+			armMotor1.config_kD(0, ARM.kD, ARM.TIMEOUT_MS);
+			armMotor1.config_kF(0, ARM.kF, ARM.TIMEOUT_MS);
+		
+		armMotor2.changeControlMode(CANTalon.ControlMode.Follower);
+		armMotor2.set(armMotor1.getDeviceID());
+		armMotor3.changeControlMode(CANTalon.ControlMode.Follower);
+		armMotor3.set(armMotor1.getDeviceID());
 		
 		
-		for (int i = 0; i < ARM.NUMBER_OF_MOTORS; i++)
-		{
-			armMotors[i].setInverted(false);	
-			armMotors[i].setSensorPhase(true);
-			armMotors[i].configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, ARM.TIMEOUT_MS);
-			armMotors[i].setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 10, ARM.TIMEOUT_MS);
-			armMotors[i].setSelectedSensorPosition(0, 0, ARM.TIMEOUT_MS);
-			armMotors[i].configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_100Ms, ARM.TIMEOUT_MS);
-			armMotors[i].configVelocityMeasurementWindow(64, ARM.TIMEOUT_MS);		
-			armMotors[i].configForwardSoftLimitThreshold(1450, ARM.TIMEOUT_MS);
-			armMotors[i].configReverseSoftLimitThreshold(0, ARM.TIMEOUT_MS);		
-			armMotors[i].configForwardSoftLimitEnable(true, ARM.TIMEOUT_MS);
-			armMotors[i].configReverseSoftLimitEnable(true, ARM.TIMEOUT_MS);		
-			armMotors[i].config_kP(0, ARM.kP, ARM.TIMEOUT_MS);
-			armMotors[i].config_kI(0, ARM.kI, ARM.TIMEOUT_MS);
-			armMotors[i].config_kD(0, ARM.kD, ARM.TIMEOUT_MS);
-			armMotors[i].config_kF(0, ARM.kF, ARM.TIMEOUT_MS);
-		}
 	}
 	
 	public static Arm getInstance()
@@ -72,20 +82,17 @@ public class Arm extends Subsystem {
 	
 	public double getEncoderVelocity()
 	{
-		return (double)armMotors[ARM.ARM_MOTOR_1].getSelectedSensorVelocity(0);
+		return (double)armMotor1.getSelectedSensorVelocity(0);
 	}
 	
 	public double getEncoderPosition()
 	{
-		return (double)armMotors[ARM.ARM_MOTOR_1].getSelectedSensorPosition(0);
+		return (double)armMotor1.getSelectedSensorPosition(0);
 	}
 	
 	public void RunArmMotors(double power) 
 	{
-		for (int i = 0; i < ARM.NUMBER_OF_MOTORS; i++)
-		{
-			armMotors[i].set(power);
-		}
+		armMotor1.set(power);
 	}
 	
 	
@@ -97,10 +104,7 @@ public class Arm extends Subsystem {
 			timer.start();
 			do
 			{
-				for (int i = 0; i < ARM.NUMBER_OF_MOTORS; i++)
-				{
-					armMotors[i].set(1.0f);
-				}
+					armMotor1.set(1.0f);
 			}
 			while (timer.get() < 5);
 			timer.stop();

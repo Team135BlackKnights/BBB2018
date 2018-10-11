@@ -11,21 +11,16 @@ import edu.wpi.first.wpilibj.*;
  *
  */
 public class UltrasonicSensor extends Subsystem {
- 
-    private static UltrasonicSensor instance;
-	
-    public Ultrasonic 
-    rightSonar,
-    leftSonar;
+
     
-    public UltrasonicSensor()
-    {
-    	rightSonar = new Ultrasonic(SONARMAP.RIGHT_SONAR_TRIG_PORT, SONARMAP.RIGHT_SONAR_ECHO_PORT);
-    	leftSonar = new Ultrasonic(SONARMAP.LEFT_SONAR_TRIG_PORT, SONARMAP.LEFT_SONAR_ECHO_PORT);
-    	rightSonar.setAutomaticMode(true);
-    	leftSonar.setAutomaticMode(true);
-    	
-    }
+   
+    
+    public Ultrasonic rightSonar = new Ultrasonic(SONARMAP.RIGHT_SONAR_TRIG_PORT, SONARMAP.RIGHT_SONAR_ECHO_PORT);
+    public Ultrasonic frontSonar = new Ultrasonic(SONARMAP.FRONT_SONAR_TRIG_PORT, SONARMAP.FRONT_SONAR_ECHO_PORT);
+    public Ultrasonic leftSonar = new Ultrasonic(SONARMAP.LEFT_SONAR_TRIG_PORT, SONARMAP.LEFT_SONAR_ECHO_PORT);
+    public Ultrasonic backSonar = new Ultrasonic(SONARMAP.BACK_SONAR_TRIG_PORT, SONARMAP.BACK_SONAR_ECHO_PORT);
+    private static UltrasonicSensor instance;
+    
     
     public static UltrasonicSensor getInstance()
     {
@@ -36,6 +31,20 @@ public class UltrasonicSensor extends Subsystem {
     	return instance;
     }
     
+    public UltrasonicSensor()
+    {
+    	rightSonar.setAutomaticMode(true);
+    	leftSonar.setAutomaticMode(true);
+    	backSonar.setAutomaticMode(true);
+    	frontSonar.setAutomaticMode(true);
+    	
+    }
+    
+    public boolean isCubeInMandibles()
+    {
+    	return (getFrontSonarValue() < 7);
+    }
+
 	public double getRightSonarValue() {
 		double RightSonarDistance = rightSonar.getRangeInches();
 		SmartDashboard.putNumber("Right Sonar Distance: ", RightSonarDistance);
@@ -47,14 +56,34 @@ public class UltrasonicSensor extends Subsystem {
 		SmartDashboard.putNumber("Left Sonar Distance: ", LeftSonarDistance);
 		return LeftSonarDistance;
 	}
-    
-    public void periodic()
-    {
-    	System.out.println("Sonar: " + getLeftSonarValue() + ", " + getRightSonarValue());
-    }
 
+	public double getBackSonarValue() {
+		double BackSonarDistance = backSonar.getRangeInches();
+		SmartDashboard.putNumber("Back Sonar Distance: ", BackSonarDistance);
+		return BackSonarDistance;
+	}
+
+	public double getFrontSonarValue() {
+		double FrontSonarDistance = frontSonar.getRangeInches();
+		SmartDashboard.putNumber("Front Sonar Distance: ", FrontSonarDistance);
+		return FrontSonarDistance;
+	}
+    	
     public void initDefaultCommand() {
         
     }
+    
+    public void periodic()
+    {
+    	SmartDashboard.putBoolean("Cube In Mandibles", isCubeInMandibles());
+    	System.out.println("Sonar: " + getLeftSonarValue() + ", "
+    	+ getRightSonarValue() +", " + getFrontSonarValue() + ", "
+    	+ getBackSonarValue());
+    	getLeftSonarValue();
+    	getRightSonarValue();
+    	getBackSonarValue();
+    	getFrontSonarValue();
+    }
+
 }
 

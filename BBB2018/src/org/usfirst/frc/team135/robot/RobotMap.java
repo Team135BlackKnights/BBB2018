@@ -54,7 +54,10 @@ public interface RobotMap
 		FRONT_LEFT_MOTOR = 2, 
 		FRONT_RIGHT_MOTOR = 3;
 		public static final int
-		NUMBER_OF_MOTORS = 4;
+		NUMBER_OF_BACK_MOTORS = 2;
+		
+		public static final int 
+		NUMBER_OF_FRONT_MOTORS =2;
 		
 		public interface PID
 		{
@@ -120,8 +123,7 @@ public interface RobotMap
 		ARM_MOTOR_1 = 0,
 		ARM_MOTOR_2 = 1,
 		ARM_MOTOR_3 = 2;
-		public static final int
-		NUMBER_OF_MOTORS = 3;
+		
 		public static final double
 		kP = 4,
 		kI = 0,
@@ -132,11 +134,18 @@ public interface RobotMap
 		
 	}
 	public interface SONARMAP {
-		public static final int LEFT_SONAR_TRIG_PORT = 1;
-		public static final int LEFT_SONAR_ECHO_PORT = 0;
-		
-		public static final int RIGHT_SONAR_TRIG_PORT = 3;
-		public static final int RIGHT_SONAR_ECHO_PORT = 2;
+			private static final int RIGHT_SONAR_TRIG_PORT = 3;
+		    private static final int RIGHT_SONAR_ECHO_PORT = 2;
+		    
+		    private static final int LEFT_SONAR_TRIG_PORT = 1;
+		    private static final int LEFT_SONAR_ECHO_PORT = 0;
+		    
+
+		    private static final int FRONT_SONAR_TRIG_PORT = 4;
+		    private static final int FRONT_SONAR_ECHO_PORT = 5;
+		    
+		    private static final int BACK_SONAR_TRIG_PORT = 7;
+		    private static final int BACK_SONAR_ECHO_PORT = 8;
 	}
 	 
 	public interface AUTONOMOUS

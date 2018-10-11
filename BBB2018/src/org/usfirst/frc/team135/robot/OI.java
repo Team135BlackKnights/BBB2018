@@ -1,7 +1,8 @@
 
 package org.usfirst.frc.team135.robot;
 
-import org.usfirst.frc.team135.robot.commands.TeleCommands.*;
+import org.usfirst.frc.team135.robot.commands.tele.*;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
