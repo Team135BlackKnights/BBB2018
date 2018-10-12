@@ -11,22 +11,14 @@ import org.usfirst.frc.team135.robot.commands.camera.*;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 
-/**
- *
- */
 public class Limelight extends Subsystem {
-
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
-	
-	
 	//  Instance of the Subsystem that is used in Robot.java
 	private static Limelight instance;
 	
 	//  Default Instance of NetworkTable that is created when the program is started
 	NetworkTableInstance networkTableInstance = NetworkTableInstance.getDefault();
 	
-//  Reading and Writing from the "limelight" Table in NetworkTables
+	//  Reading and Writing from the "limelight" Table in NetworkTables
 	NetworkTable limelightTable = networkTableInstance.getTable("limelight");
 	
 	//  NetworkTableEntries for Reading Data from Limelight
@@ -54,7 +46,7 @@ public class Limelight extends Subsystem {
 	double[] limelightData = new double[NUMBER_OF_LIMELIGHT_CHARACTERISTICS];
 	
 	//  LED Modes
-	public static int LED_ON = 1;
+	public static int LED_ON = 0;
 	public static int LED_OFF = 1;
 	public static int LED_BLINKING = 2;
 	
@@ -64,17 +56,9 @@ public class Limelight extends Subsystem {
 	
 	//  Pipeline Options
 	public static int YELLOW_BLOCK_PIPELINE = 0;
-
 	
-    public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
-    	
-    		setDefaultCommand(new GetLimelightData());
-    }
-    
     //  Method used in Robot.java to Initialize the Subsystem to be used in the Commands
-    public static Limelight getInstance()
+	public static Limelight getInstance()
     {
     	if (instance == null)
     	{
@@ -96,7 +80,6 @@ public class Limelight extends Subsystem {
     	SmartDashboard.putNumber("Horizontal Offset", limelightData[HORIZONTAL_OFFSET]);
     	SmartDashboard.putNumber("Vertical Offset", limelightData[VERTICAL_OFFSET]);
     	SmartDashboard.putNumber("Target Area", limelightData[TARGET_AREA]);
-    	//  SmartDashboard.putNumber("Target Skew", limelightData[TARGET_SKEW]);
     	
     	return limelightData;
     }
@@ -126,21 +109,22 @@ public class Limelight extends Subsystem {
     public void SetLEDMode(int onOrOff)
     {
     	ledModeEntry.setNumber(onOrOff);
-    	return;
     }
     
     //  Sets the Limelight to either be an Vision Processor or just a Driver Camera (No Vision Processing)
     public void SetCameraMode(int cameraMode)
     {
     	cameraModeEntry.setNumber(cameraMode);
-    	return;
     }
     
     //  Sets the Vision Pipeline to retrieve data from
     public void SetCameraPipeline(int pipeline)
     {
     	limelightPipelineEntry.setNumber(pipeline);
-    	return;
+    }
+    
+    public void initDefaultCommand() {
+    	setDefaultCommand(new GetLimelightData());
     }
 }
 

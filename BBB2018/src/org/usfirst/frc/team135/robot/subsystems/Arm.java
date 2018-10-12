@@ -2,10 +2,9 @@ package org.usfirst.frc.team135.robot.subsystems;
 
 import org.usfirst.frc.team135.robot.RobotMap.ARM;
 
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
-import com.ctre.phoenix.motorcontrol.VelocityMeasPeriod;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -13,52 +12,25 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Arm extends Subsystem {
 	
 	private static Arm instance; 
-	
-	public double setpoint = 0.0;
-	
-	
-	public static WPI_TalonSRX 
-	armMotor1; 
-	public static WPI_VictorSPX 
-	armMotor2, 
-	armMotor3;
-	
-	
 		
+	public static WPI_TalonSRX 
+	armTalon; 
+	public static WPI_VictorSPX 
+	armVictor1, 
+	armVictor2;
+
 	private boolean isPositionInitialized = false;
 	
 	public boolean isMantaining;
-	public double tripPoint = 0.0;
-
+	
 	private Arm()
 	{
-		armMotor1 = new WPI_TalonSRX(ARM.ARM_MOTOR_ID_1);
-		armMotor2 = new WPI_VictorSRX(ARM.ARM_MOTOR_ID_2);
-		armMotor3 = new WPI_VictorSRX(ARM.ARM_MOTOR_ID_3);
-	
-		
-			armMotor1.setInverted(false);	
-			armMotor1.setSensorPhase(true);
-			armMotor1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, ARM.TIMEOUT_MS);
-			armMotor1.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 10, ARM.TIMEOUT_MS);
-			armMotor1.setSelectedSensorPosition(0, 0, ARM.TIMEOUT_MS);
-			armMotor1.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_100Ms, ARM.TIMEOUT_MS);
-			armMotor1.configVelocityMeasurementWindow(64, ARM.TIMEOUT_MS);		
-			armMotor1.configForwardSoftLimitThreshold(1450, ARM.TIMEOUT_MS);
-			armMotor1.configReverseSoftLimitThreshold(0, ARM.TIMEOUT_MS);		
-			armMotor1.configForwardSoftLimitEnable(true, ARM.TIMEOUT_MS);
-			armMotor1.configReverseSoftLimitEnable(true, ARM.TIMEOUT_MS);		
-			armMotor1.config_kP(0, ARM.kP, ARM.TIMEOUT_MS);
-			armMotor1.config_kI(0, ARM.kI, ARM.TIMEOUT_MS);
-			armMotor1.config_kD(0, ARM.kD, ARM.TIMEOUT_MS);
-			armMotor1.config_kF(0, ARM.kF, ARM.TIMEOUT_MS);
-		
-		armMotor2.changeControlMode(CANTalon.ControlMode.Follower);
-		armMotor2.set(armMotor1.getDeviceID());
-		armMotor3.changeControlMode(CANTalon.ControlMode.Follower);
-		armMotor3.set(armMotor1.getDeviceID());
-		
-		
+		armTalon = new WPI_TalonSRX(ARM.TALON_ID);
+		armVictor1 = new WPI_VictorSPX(ARM.ARM_VICTOR_ID_1);
+		armVictor2 = new WPI_VictorSPX(ARM.ARM_VICTOR_ID_2);
+		MotorControllerInitialize.configureMotorPIDTalon(armTalon, 0, false);
+		armVictor1.follow(armTalon);
+		armVictor2.follow(armTalon);
 	}
 	
 	public static Arm getInstance()
@@ -85,17 +57,17 @@ public class Arm extends Subsystem {
 	
 	public double getEncoderVelocity()
 	{
-		return (double)armMotor1.getSelectedSensorVelocity(0);
+		return (double)armTalon.getSelectedSensorVelocity(0);
 	}
 	
 	public double getEncoderPosition()
 	{
-		return (double)armMotor1.getSelectedSensorPosition(0);
+		return (double)armTalon.getSelectedSensorPosition(0);
 	}
 	
 	public void RunArmMotors(double power) 
 	{
-		armMotor1.set(power);
+		armTalon.set(power);
 	}
 	
 	public void initPositon()
@@ -104,13 +76,11 @@ public class Arm extends Subsystem {
 		{
 			Timer timer = new Timer();
 			timer.start();
-			
 			do 
 			{
 				set(1.0);
 			}
-			
-			while (timer.get() <5);
+			while (timer.get() < 0);
 			timer.stop();
 			timer.reset();
 			isPositionInitialized = true; 
@@ -119,21 +89,17 @@ public class Arm extends Subsystem {
 	
 	public void set(double speed)
 	{
-		armMotor1.set(ControlMode.PercentOutput, speed);
+		armTalon.set(ControlMode.PercentOutput, speed);
 	}
 	
-	public void setToPosiiton(double position)
+	public void setToPosition(double position)
 	{
-		//liftMotor.set(ControlMode.MotionMagic, position);
 		Timer timer = new Timer();
-		
 		timer.start();
-		
 		if (position == getEncoderPosition())
 		{
 			return;
 		}
-		
 		double direction = (position < getEncoderPosition()) ? -1 : 1;
 		
 		if (direction == 1)
@@ -150,35 +116,13 @@ public class Arm extends Subsystem {
 				set(1 * direction);
 			}
 		}
-
-		
 		timer.stop();
 		timer.reset();
-		
-		setpoint = position;
-	}
-	
-	public void MaintainPosiiton()
-	{
-		armMotor1.set(ControlMode.Velocity, .75);
-	}
-	
-	public void initPosition()
-	{
-		if (!isPositionInitialized)
-		{
-			Timer timer = new Timer();
-			timer.start();
-			do
-			{
-				armMotor1.set(1.0);
-			}
-			while (timer.get() < 5);
-			timer.stop();
-			timer.reset();
-			isPositionInitialized = true;
 		}
-		
+	
+	public void maintainPosition()
+	{
+		armTalon.set(ControlMode.Velocity, .75);
 	}
 
 	@Override

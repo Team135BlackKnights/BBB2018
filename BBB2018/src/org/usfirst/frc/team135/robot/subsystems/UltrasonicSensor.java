@@ -7,18 +7,17 @@ import org.usfirst.frc.team135.robot.RobotMap.SONARMAP;
 
 import edu.wpi.first.wpilibj.*;
 
-/**
- *
- */
 public class UltrasonicSensor extends Subsystem {
-
-    public Ultrasonic rightSonar = new Ultrasonic(SONARMAP.RIGHT_SONAR_TRIG_PORT, SONARMAP.RIGHT_SONAR_ECHO_PORT);
-    public Ultrasonic frontSonar = new Ultrasonic(SONARMAP.FRONT_SONAR_TRIG_PORT, SONARMAP.FRONT_SONAR_ECHO_PORT);
-    public Ultrasonic leftSonar = new Ultrasonic(SONARMAP.LEFT_SONAR_TRIG_PORT, SONARMAP.LEFT_SONAR_ECHO_PORT);
-    public Ultrasonic backSonar = new Ultrasonic(SONARMAP.BACK_SONAR_TRIG_PORT, SONARMAP.BACK_SONAR_ECHO_PORT);
     private static UltrasonicSensor instance;
+
+	public static Ultrasonic[] sonarArray;
+    public static Ultrasonic 
+    rightSonar,
+    frontSonar,
+    leftSonar,
+    backSonar;
     
-        public static UltrasonicSensor getInstance()
+    public static UltrasonicSensor getInstance()
     {
     	if (instance == null)
     	{
@@ -29,41 +28,31 @@ public class UltrasonicSensor extends Subsystem {
     
     public UltrasonicSensor()
     {
-    	rightSonar.setAutomaticMode(true);
-    	leftSonar.setAutomaticMode(true);
-    	backSonar.setAutomaticMode(true);
-    	frontSonar.setAutomaticMode(true);
-    	
+    	sonarArray = new Ultrasonic[SONARMAP.NUMBER_OF_SONARS];
+    	for (int i = 0; i < SONARMAP.NUMBER_OF_SONARS; i++)
+    	{
+    		sonarArray[i] = new Ultrasonic(SONARMAP.TRIG_PORT_ARRAYS[i], SONARMAP.ECHO_PORT_ARRAYS[i]);
+    		sonarArray[i].setAutomaticMode(true);
+    	}
     }
     
     public boolean isCubeInMandibles()
     {
-    	return (getFrontSonarValue() < 7);
+    	return (getSonarValues()[SONARMAP.FRONT_SONAR] < 7);
     }
 
-	public double getRightSonarValue() {
-		double RightSonarDistance = rightSonar.getRangeInches();
-		SmartDashboard.putNumber("Right Sonar Distance: ", RightSonarDistance);
-		return RightSonarDistance;
-	}
-
-	public double getLeftSonarValue() {
-		double LeftSonarDistance = leftSonar.getRangeInches();
-		SmartDashboard.putNumber("Left Sonar Distance: ", LeftSonarDistance);
-		return LeftSonarDistance;
-	}
-
-	public double getBackSonarValue() {
-		double BackSonarDistance = backSonar.getRangeInches();
-		SmartDashboard.putNumber("Back Sonar Distance: ", BackSonarDistance);
-		return BackSonarDistance;
-	}
-
-	public double getFrontSonarValue() {
-		double FrontSonarDistance = frontSonar.getRangeInches();
-		SmartDashboard.putNumber("Front Sonar Distance: ", FrontSonarDistance);
-		return FrontSonarDistance;
-	}
+    public double[] getSonarValues()
+    {
+    	double[] sonarDistances = {sonarArray[SONARMAP.FRONT_SONAR].getRangeInches(), 
+    			sonarArray[SONARMAP.RIGHT_SONAR].getRangeInches(), 
+    			sonarArray[SONARMAP.BACK_SONAR].getRangeInches(), 
+    			sonarArray[SONARMAP.LEFT_SONAR].getRangeInches()};
+    	for (int i = 0; i < SONARMAP.NUMBER_OF_SONARS; i++)
+    	{
+    		SmartDashboard.putNumber("Sonar Number " + i + " Distance: ", sonarDistances[i]);
+    	}
+		return sonarDistances;
+    }
     	
     public void initDefaultCommand() {
         
@@ -72,13 +61,7 @@ public class UltrasonicSensor extends Subsystem {
     public void periodic()
     {
     	SmartDashboard.putBoolean("Cube In Mandibles", isCubeInMandibles());
-    	System.out.println("Sonar: " + getLeftSonarValue() + ", "
-    	+ getRightSonarValue() +", " + getFrontSonarValue() + ", "
-    	+ getBackSonarValue());
-    	getLeftSonarValue();
-    	getRightSonarValue();
-    	getBackSonarValue();
-    	getFrontSonarValue();
+    	System.out.println("Sonar: " + getSonarValues());
     }
 
 }

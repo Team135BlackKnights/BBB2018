@@ -6,8 +6,7 @@ import java.util.Collections;
 import org.usfirst.frc.team135.robot.Robot;
 import org.usfirst.frc.team135.robot.RobotMap;
 import org.usfirst.frc.team135.robot.RobotMap.CONVERSIONS;
-import org.usfirst.frc.team135.robot.commands.auton.singles.DriveForward;
-import org.usfirst.frc.team135.robot.commands.auton.singles.DriveForward.Mode;
+
 import org.usfirst.frc.team135.robot.utilities.FunctionalDoubleManager;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -42,7 +41,7 @@ public class DriveForward extends InstantCommand implements RobotMap
 		
 		Robot.drivetrain.ResetEncoders();
 		 this._targetDisplacement = targetDistance;
-		    this._rangedSensor = rangedSensor;
+		    this._rangedSensor = sonarSensor;
 		    
 		    this._driveMode = Mode.RANGED_SENSOR;
 		    
@@ -58,7 +57,7 @@ public class DriveForward extends InstantCommand implements RobotMap
     	Robot.drivetrain.ResetEncoders();
 	    this._targetDisplacement = targetDisplacement;
 	    
-	    this._encoder = () -> CONVERSIONS.TICKS2INCHES * Robot.drivetrain.getEncoderCounts(Robot.drivetrain.rearLeftTalon);
+	    this._encoder = () -> CONVERSIONS.TICKS2INCHES * Robot.drivetrain.getEncoderSpeed(DRIVETRAIN.BACK_LEFT_MOTOR);
 	    this._driveMode = Mode.ENCODER;
 	    
 	    this._isFacingBackwards = isFacingBackwards;

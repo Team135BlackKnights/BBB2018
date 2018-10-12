@@ -1,8 +1,6 @@
 
 package org.usfirst.frc.team135.robot.subsystems;
 
-import org.usfirst.frc.team135.robot.Robot;
-
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.SerialPort;
@@ -19,7 +17,6 @@ public class Navx extends Subsystem
 		ahrs = new AHRS(SerialPort.Port.kUSB1);
 		ahrs.reset();
 		initAngle = ahrs.getFusedHeading();
-		//System.out.println(initAngle);
 	}
 	
 	public static Navx getInstance()

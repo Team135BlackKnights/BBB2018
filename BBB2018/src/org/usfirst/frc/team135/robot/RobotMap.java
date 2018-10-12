@@ -52,13 +52,16 @@ public interface RobotMap
 		public static final int
 		BACK_LEFT_MOTOR = 0, 
 		BACK_RIGHT_MOTOR = 1, 
-		FRONT_LEFT_MOTOR = 2, 
-		FRONT_RIGHT_MOTOR = 3;
+		FRONT_LEFT_MOTOR = 0, 
+		FRONT_RIGHT_MOTOR = 1;
 		public static final int
-		NUMBER_OF_BACK_MOTORS = 2;
+		NUMBER_OF_TALONS = 2;
 		
 		public static final int 
-		NUMBER_OF_FRONT_MOTORS =2;
+		NUMBER_OF_VICTORS = 2;
+		
+		public static final boolean
+		IS_DRIVETRAIN_TALON = true;
 		
 		public interface PID
 		{
@@ -117,13 +120,16 @@ public interface RobotMap
 	public interface ARM 
 	{
 		public static final int 
-		ARM_MOTOR_ID_1 = 4,
-		ARM_MOTOR_ID_2 = 5,
-		ARM_MOTOR_ID_3 = 6;
+		TALON_ID = 4,
+		ARM_VICTOR_ID_1 = 5,
+		ARM_VICTOR_ID_2 = 6;
 		public static final int 
-		ARM_MOTOR_1 = 0,
-		ARM_MOTOR_2 = 1,
-		ARM_MOTOR_3 = 2;
+		TALON = 0,
+		ARM_VICTOR_1 = 1,
+		ARM_VICTOR_2 = 2;
+		
+		public static final boolean
+		IS_ARM_TALON = false;
 		
 		public static final double
 		kP = 4,
@@ -135,20 +141,26 @@ public interface RobotMap
 		
 	}
 	public interface SONARMAP {
-			private static final int RIGHT_SONAR_TRIG_PORT = 3;
-		    private static final int RIGHT_SONAR_ECHO_PORT = 2;
-		    
-		    private static final int LEFT_SONAR_TRIG_PORT = 1;
-		    private static final int LEFT_SONAR_ECHO_PORT = 0;
-		    
-
-		    private static final int FRONT_SONAR_TRIG_PORT = 4;
-		    private static final int FRONT_SONAR_ECHO_PORT = 5;
-		    
-		    private static final int BACK_SONAR_TRIG_PORT = 7;
-		    private static final int BACK_SONAR_ECHO_PORT = 8;
+			public static final int 
+			RIGHT_SONAR_TRIG_PORT = 3,
+		    RIGHT_SONAR_ECHO_PORT = 2,
+		    LEFT_SONAR_TRIG_PORT = 1,
+		    LEFT_SONAR_ECHO_PORT = 0,
+		    FRONT_SONAR_TRIG_PORT = 4,
+		    FRONT_SONAR_ECHO_PORT = 5,		    
+		    BACK_SONAR_TRIG_PORT = 7,
+		    BACK_SONAR_ECHO_PORT = 8;
+			public static final int 
+			FRONT_SONAR = 0,
+			RIGHT_SONAR = 1,
+			BACK_SONAR = 2,
+			LEFT_SONAR = 3;
+			public static final int[]
+			TRIG_PORT_ARRAYS = {FRONT_SONAR_TRIG_PORT, RIGHT_SONAR_TRIG_PORT, BACK_SONAR_TRIG_PORT, LEFT_SONAR_TRIG_PORT},
+			ECHO_PORT_ARRAYS = {FRONT_SONAR_ECHO_PORT, RIGHT_SONAR_ECHO_PORT, BACK_SONAR_ECHO_PORT, LEFT_SONAR_ECHO_PORT};
+			public static final int 
+			NUMBER_OF_SONARS = 4;
 	}
-	 
 	
 		public interface CONVERSIONS
 		{

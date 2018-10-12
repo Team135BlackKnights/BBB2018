@@ -8,9 +8,11 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.VelocityMeasPeriod;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import org.usfirst.frc.team135.robot.Robot;
 import org.usfirst.frc.team135.robot.RobotMap;
+import org.usfirst.frc.team135.robot.RobotMap.ARM;
 import org.usfirst.frc.team135.robot.RobotMap.DRIVETRAIN;
 import org.usfirst.frc.team135.robot.RobotMap.K_OI;
 import org.usfirst.frc.team135.robot.commands.tele.DriveWithJoystick;
@@ -30,9 +32,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class DriveTrain extends Subsystem {
 
 	private static DriveTrain instance;
-	
-	
-	
+
 	public static WPI_TalonSRX
 	backLeftMotor, 
 	backRightMotor;
@@ -40,42 +40,24 @@ public class DriveTrain extends Subsystem {
 	public static WPI_VictorSPX
 	frontLeftMotor,
 	frontRightMotor;
-	
-	
+
 	public static WPI_TalonSRX[] backDriveMotors;
 	public static WPI_VictorSPX[] frontDriveMotors; 
 	public static DifferentialDrive chassis;
 	
 	private PIDin navx;
 	
-	private MotorSafetyHelper m_safetyHelper;
-
 	private DriveTrain()
 	{
-		backDriveMotors = new WPI_TalonSRX[DRIVETRAIN.NUMBER_OF_BACK_MOTORS];
-		for (int i = 0; i < DRIVETRAIN.NUMBER_OF_BACK_MOTORS; i++)
+		backDriveMotors = new WPI_TalonSRX[DRIVETRAIN.NUMBER_OF_TALONS];
+		frontDriveMotors = new WPI_VictorSPX[DRIVETRAIN.NUMBER_OF_VICTORS];
+		for (int i = 0; i < DRIVETRAIN.NUMBER_OF_TALONS; i++)
 		{
 			backDriveMotors[i] = new WPI_TalonSRX(DRIVETRAIN.MOTOR_ID_ARRAY[i]);
-			
-			backDriveMotors[i].setNeutralMode(NeutralMode.Brake);
-			backDriveMotors[i].configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, DRIVETRAIN.PID.TIMEOUT_MS);
-			backDriveMotors[i].setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 10, DRIVETRAIN.PID.TIMEOUT_MS);
-			backDriveMotors[i].setSelectedSensorPosition(0, 0, DRIVETRAIN.PID.TIMEOUT_MS);
-			
-			backDriveMotors[i].configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_100Ms, DRIVETRAIN.PID.TIMEOUT_MS);
-			backDriveMotors[i].configVelocityMeasurementWindow(64, DRIVETRAIN.PID.TIMEOUT_MS);
-			
-			backDriveMotors[i].setSensorPhase(false);
-			
-			//configure talons with PID constants
-			backDriveMotors[i].config_kP(0, DRIVETRAIN.PID.kP[i], DRIVETRAIN.PID.TIMEOUT_MS); 
-			backDriveMotors[i].config_kI(0, DRIVETRAIN.PID.kI[i], DRIVETRAIN.PID.TIMEOUT_MS);
-			backDriveMotors[i].config_kD(0, DRIVETRAIN.PID.kD[i], DRIVETRAIN.PID.TIMEOUT_MS);
-			backDriveMotors[i].config_kF(0, DRIVETRAIN.PID.kF[i], DRIVETRAIN.PID.TIMEOUT_MS);
+			MotorControllerInitialize.configureMotorPIDTalon(backDriveMotors[i], i, DRIVETRAIN.IS_DRIVETRAIN_TALON);
+			frontDriveMotors[i] = new WPI_VictorSPX(DRIVETRAIN.MOTOR_ID_ARRAY[i] + DRIVETRAIN.NUMBER_OF_TALONS);
+			MotorControllerInitialize.configureMotorPIDVictor( frontDriveMotors[i], i);
 		}
-		
-		frontDriveMotors = new WPI_VictorSPX(D)
-		m_safetyHelper = new MotorSafetyHelper(chassis);
 		
 		frontLeftMotor = frontDriveMotors[DRIVETRAIN.FRONT_LEFT_MOTOR];
 		backLeftMotor = backDriveMotors[DRIVETRAIN.BACK_LEFT_MOTOR];
@@ -86,9 +68,7 @@ public class DriveTrain extends Subsystem {
 		SpeedControllerGroup right = new SpeedControllerGroup(frontRightMotor, backRightMotor);
 		
 		chassis = new DifferentialDrive(left, right);
-		
-		frontLeftMotor.set();
-		
+				
 		chassis.setDeadband(K_OI.DEADBAND);
 		chassis.setSafetyEnabled(false);
 	}
@@ -102,21 +82,11 @@ public class DriveTrain extends Subsystem {
 		return instance;
 	}
 	
-	public double getEncoderCounts(int motorID)
+	public double getEncoderSpeed(int motor)
 	{
-		return backDriveMotors[motorID].getSelectedSensorPosition(0) * ( (motorID == 1 || motorID == 3) ? 1 : -1);
+		return backDriveMotors[motor].getSelectedSensorPosition(0) * ( (motor == DRIVETRAIN.BACK_LEFT_MOTOR) ? 1 : -1);
 	}
-	
-	public double getEncoderSpeed(int motorID)
-	{
-		return backDriveMotors[motorID].getSelectedSensorVelocity(0) * ( (motorID == 1 || motorID == 3) ? 1 : -1);
-	}
-	
-	public double getEncoderSetpoint(int motorID)
-	{
-		return DRIVETRAIN.PID.setPoints[motorID];
-	}
-	
+
 	public double returnVelocity()
 	{
 		return backDriveMotors[DRIVETRAIN.FRONT_LEFT_MOTOR].getSelectedSensorVelocity(0);
@@ -124,10 +94,11 @@ public class DriveTrain extends Subsystem {
 	
 	public void ResetEncoders()
 	{
-		frontLeftMotor.setSelectedSensorPosition(0, 0, 10);
-		frontRightMotor.setSelectedSensorPosition(0, 0, 10);
-		backLeftMotor.setSelectedSensorPosition(0, 0, 10);
-		backRightMotor.setSelectedSensorPosition(0, 0, 10);
+		for (int i = 0; i < DRIVETRAIN.NUMBER_OF_TALONS; i++)
+		{
+			backDriveMotors[i].setSelectedSensorPosition(0, 0, 10);
+			frontDriveMotors[i].setSelectedSensorPosition(0, 0, 10);
+		}
 	}
 	
 	public void stopMotors()
@@ -136,7 +107,7 @@ public class DriveTrain extends Subsystem {
 		timer.start();
 		while((Math.abs(getEncoderSpeed(DRIVETRAIN.FRONT_LEFT_MOTOR)) > 0) && timer.get() < 1)
 		{
-			for (int i = 0; i < DRIVETRAIN.NUMBER_OF_MOTORS; i++)
+			for (int i = 0; i < DRIVETRAIN.NUMBER_OF_TALONS; i++)
 			{
 				backDriveMotors[i].set(ControlMode.Velocity, 0);
 			}
@@ -154,10 +125,10 @@ public class DriveTrain extends Subsystem {
 	
 	public void periodic()
 	{
-		SmartDashboard.putNumber("Front Left Displacement", (getEncoderCounts(DRIVETRAIN.FRONT_LEFT_MOTOR)));
-		SmartDashboard.putNumber("Front Right Displacement", (getEncoderCounts(DRIVETRAIN.FRONT_RIGHT_MOTOR)));
-		SmartDashboard.putNumber("Back Left Talon Displacement", (getEncoderCounts(DRIVETRAIN.BACK_LEFT_MOTOR)));
-		SmartDashboard.putNumber("Back Right Displacement", (getEncoderCounts(DRIVETRAIN.BACK_RIGHT_MOTOR)));
+		SmartDashboard.putNumber("Front Left Displacement", (getEncoderSpeed(DRIVETRAIN.FRONT_LEFT_MOTOR)));
+		SmartDashboard.putNumber("Front Right Displacement", (getEncoderSpeed(DRIVETRAIN.FRONT_RIGHT_MOTOR)));
+		SmartDashboard.putNumber("Back Left Talon Displacement", (getEncoderSpeed(DRIVETRAIN.BACK_LEFT_MOTOR)));
+		SmartDashboard.putNumber("Back Right Displacement", (getEncoderSpeed(DRIVETRAIN.BACK_RIGHT_MOTOR)));
 	}
 
 	@Override

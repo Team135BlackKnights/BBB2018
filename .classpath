@@ -4,8 +4,9 @@
 	<classpathentry kind="src" path="BBB2018/src"/>
 	<classpathentry exported="true" kind="lib" path="/home/david/wpilib/java/current/lib/WPILib.jar"/>
 	<classpathentry exported="true" kind="lib" path="/home/david/wpilib/user/java/lib/CTRE_Phoenix.jar"/>
-	<classpathentry kind="lib" path="/home/david/Downloads/ntcore-java-4.0.0.jar"/>
-	<classpathentry kind="lib" path="/home/david/Downloads/wpiutil-java-3.0.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/david/Downloads/ntcore-java-4.0.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/david/Downloads/wpiutil-java-3.0.0.jar"/>
 	<classpathentry kind="var" path="wpilib" sourcepath="wpilib.sources"/>
+	<classpathentry exported="true" kind="lib" path="/home/david/Downloads/NavX/roborio/java/lib/navx_frc.jar"/>
 	<classpathentry kind="output" path="BBB2018/bin"/>
 </classpath>

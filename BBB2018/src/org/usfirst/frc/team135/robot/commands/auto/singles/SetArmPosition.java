@@ -21,7 +21,7 @@ public class SetArmPosition extends InstantCommand {
     protected void initialize() 
     {
     	Robot.arm.setToPosition(this._position);
-    	Robot.arm.mantainPosition();
+    	Robot.arm.maintainPosition();
     }
 
 }
