@@ -56,7 +56,7 @@ public class DriveTrain extends Subsystem {
 			backDriveMotors[i] = new WPI_TalonSRX(DRIVETRAIN.MOTOR_ID_ARRAY[i]);
 			MotorControllerInitialize.configureMotorPIDTalon(backDriveMotors[i], i, DRIVETRAIN.IS_DRIVETRAIN_TALON);
 			frontDriveMotors[i] = new WPI_VictorSPX(DRIVETRAIN.MOTOR_ID_ARRAY[i] + DRIVETRAIN.NUMBER_OF_TALONS);
-			MotorControllerInitialize.configureMotorPIDVictor( frontDriveMotors[i], i);
+			//MotorControllerInitialize.configureMotorPIDVictor(frontDriveMotors[i], i);
 		}
 		
 		frontLeftMotor = frontDriveMotors[DRIVETRAIN.FRONT_LEFT_MOTOR];
