@@ -36,19 +36,4 @@ public class MotorControllerInitialize
 			talon.config_kF(0, ARM.kF, ARM.TIMEOUT_MS);
 		}
 	}
-	
-	public static void configureMotorPIDVictor(WPI_VictorSPX talon, int arrayID)
-	{
-		talon.setNeutralMode(NeutralMode.Brake);
-		talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, DRIVETRAIN.PID.TIMEOUT_MS);
-		talon.setStatusFramePeriod(10, DRIVETRAIN.PID.TIMEOUT_MS);
-		talon.setSelectedSensorPosition(0, 0, DRIVETRAIN.PID.TIMEOUT_MS);
-		talon.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_100Ms, DRIVETRAIN.PID.TIMEOUT_MS);
-		talon.configVelocityMeasurementWindow(64, DRIVETRAIN.PID.TIMEOUT_MS);
-		talon.setSensorPhase(false);
-		talon.config_kP(0, DRIVETRAIN.PID.kP[arrayID + DRIVETRAIN.NUMBER_OF_TALONS], DRIVETRAIN.PID.TIMEOUT_MS); 
-		talon.config_kI(0, DRIVETRAIN.PID.kI[arrayID + DRIVETRAIN.NUMBER_OF_TALONS], DRIVETRAIN.PID.TIMEOUT_MS);
-		talon.config_kD(0, DRIVETRAIN.PID.kD[arrayID + DRIVETRAIN.NUMBER_OF_TALONS], DRIVETRAIN.PID.TIMEOUT_MS);
-		talon.config_kF(0, DRIVETRAIN.PID.kF[arrayID + DRIVETRAIN.NUMBER_OF_TALONS], DRIVETRAIN.PID.TIMEOUT_MS);
-	}
 }

@@ -38,7 +38,7 @@ public class UltrasonicSensor extends Subsystem {
     
     public boolean isCubeInMandibles()
     {
-    	return (getSonarValues()[SONARMAP.FRONT_SONAR] < 7);
+    	return (getSonarValues()[SONARMAP.FRONT_SONAR] < SONARMAP.CUBE_DISTANCE_FRONT_TO_FRONT_SONOR);
     }
 
     public double[] getSonarValues()
@@ -47,10 +47,6 @@ public class UltrasonicSensor extends Subsystem {
     			sonarArray[SONARMAP.RIGHT_SONAR].getRangeInches(), 
     			sonarArray[SONARMAP.BACK_SONAR].getRangeInches(), 
     			sonarArray[SONARMAP.LEFT_SONAR].getRangeInches()};
-    	for (int i = 0; i < SONARMAP.NUMBER_OF_SONARS; i++)
-    	{
-    		SmartDashboard.putNumber("Sonar Number " + i + " Distance: ", sonarDistances[i]);
-    	}
 		return sonarDistances;
     }
     	
@@ -61,7 +57,12 @@ public class UltrasonicSensor extends Subsystem {
     public void periodic()
     {
     	SmartDashboard.putBoolean("Cube In Mandibles", isCubeInMandibles());
-    	System.out.println("Sonar: " + getSonarValues());
+    	double[] sonar = getSonarValues();
+    	System.out.println("Sonar: " + sonar);
+    	for (int i = 0; i < SONARMAP.NUMBER_OF_SONARS; i++)
+    	{
+    		SmartDashboard.putNumber("Sonar Number " + i + " Distance: ", sonar[i]);
+    	}
     }
 
 }

@@ -7,21 +7,26 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class RunArm extends Command
 {
-	
 	public RunArm()
 	{
 		requires(Robot.arm);
-	}
-	protected void initialize()
-	{
+		setTimeout(0.5f);
 	}
 	protected void excecute()
 	{
-		double power = Robot.oi.GetManipJoystickValues()[RobotMap.K_OI.GETY];
-		Robot.arm.RunArmMotors(power);
+		Robot.arm.RunArmMotors(Robot.oi.GetManipJoystickValues()[RobotMap.K_OI.GETY]);
 	}
 	@Override
-	protected boolean isFinished() {
-		return false;
+	protected boolean isFinished() 
+	{
+		return isTimedOut();
 	}	
+	protected void end()
+	{
+		Robot.arm.RunArmMotors(0.0f);
+	}
+	protected void interrupted()
+	{
+		end();
+	}
 }

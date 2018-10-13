@@ -3,32 +3,20 @@ package org.usfirst.frc.team135.robot.subsystems;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
-import com.ctre.phoenix.motorcontrol.VelocityMeasPeriod;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
-import org.usfirst.frc.team135.robot.Robot;
-import org.usfirst.frc.team135.robot.RobotMap;
-import org.usfirst.frc.team135.robot.RobotMap.ARM;
 import org.usfirst.frc.team135.robot.RobotMap.DRIVETRAIN;
 import org.usfirst.frc.team135.robot.RobotMap.K_OI;
 import org.usfirst.frc.team135.robot.commands.tele.DriveWithJoystick;
-import org.usfirst.frc.team135.robot.utilities.PIDout;
 import org.usfirst.frc.team135.robot.utilities.PIDin;
-import org.usfirst.frc.team135.robot.subsystems.*;
 
-import edu.wpi.first.wpilibj.MotorSafetyHelper;
-import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-@SuppressWarnings ("unused")
 public class DriveTrain extends Subsystem {
 
 	private static DriveTrain instance;
@@ -56,7 +44,7 @@ public class DriveTrain extends Subsystem {
 			backDriveMotors[i] = new WPI_TalonSRX(DRIVETRAIN.MOTOR_ID_ARRAY[i]);
 			MotorControllerInitialize.configureMotorPIDTalon(backDriveMotors[i], i, DRIVETRAIN.IS_DRIVETRAIN_TALON);
 			frontDriveMotors[i] = new WPI_VictorSPX(DRIVETRAIN.MOTOR_ID_ARRAY[i] + DRIVETRAIN.NUMBER_OF_TALONS);
-			//MotorControllerInitialize.configureMotorPIDVictor(frontDriveMotors[i], i);
+			frontDriveMotors[i].setNeutralMode(NeutralMode.Brake);
 		}
 		
 		frontLeftMotor = frontDriveMotors[DRIVETRAIN.FRONT_LEFT_MOTOR];

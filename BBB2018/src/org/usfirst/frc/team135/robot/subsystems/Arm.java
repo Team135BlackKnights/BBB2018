@@ -3,6 +3,7 @@ package org.usfirst.frc.team135.robot.subsystems;
 import org.usfirst.frc.team135.robot.RobotMap.ARM;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
@@ -29,6 +30,8 @@ public class Arm extends Subsystem {
 		armVictor1 = new WPI_VictorSPX(ARM.ARM_VICTOR_ID_1);
 		armVictor2 = new WPI_VictorSPX(ARM.ARM_VICTOR_ID_2);
 		MotorControllerInitialize.configureMotorPIDTalon(armTalon, 0, false);
+		armVictor1.setNeutralMode(NeutralMode.Brake);
+		armVictor2.setNeutralMode(NeutralMode.Brake);
 		armVictor1.follow(armTalon);
 		armVictor2.follow(armTalon);
 	}
