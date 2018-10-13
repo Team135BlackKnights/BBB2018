@@ -10,7 +10,7 @@ public class Navx extends Subsystem
 {
 	private static Navx instance;
 	public double initAngle;
-	private AHRS ahrs;	
+	public AHRS ahrs;	
 	
 	private Navx()
 	{

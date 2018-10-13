@@ -198,6 +198,11 @@ public interface RobotMap
 		IS_LEFT = false,
 		IS_RIGHT = true;
 
+		static final double kP = 0.03;
+		static final double kI = 0.00;
+		static final double kD = 0.00;
+		static final double kF = 0.00;
+		static final double kToleranceDegrees = 2.0f;
 		public interface CONVERSIONS
 		{
 			public static final double

@@ -32,9 +32,7 @@ public class DriveTrain extends Subsystem {
 	public static WPI_TalonSRX[] backDriveMotors;
 	public static WPI_VictorSPX[] frontDriveMotors; 
 	public static DifferentialDrive chassis;
-	
-	private PIDin navx;
-	
+		
 	private DriveTrain()
 	{
 		backDriveMotors = new WPI_TalonSRX[DRIVETRAIN.NUMBER_OF_TALONS];
@@ -109,8 +107,11 @@ public class DriveTrain extends Subsystem {
 	public void TankDrive(double leftMotorPower, double rightMotorPower) 
 	{
 		chassis.tankDrive(leftMotorPower, rightMotorPower);
+	}	
+	public void TankDrive(double leftMotorPower, double rightMotorPower, double rotationRate) 
+	{
+		chassis.tankDrive(leftMotorPower * rotationRate * .1, rightMotorPower * rotationRate * .1);
 	}
-	
 	public void periodic()
 	{
 		SmartDashboard.putNumber("Front Left Displacement", (getEncoderSpeed(DRIVETRAIN.FRONT_LEFT_MOTOR)));

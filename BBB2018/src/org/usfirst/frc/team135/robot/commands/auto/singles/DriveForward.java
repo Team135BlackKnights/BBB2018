@@ -23,8 +23,6 @@ public class DriveForward extends InstantCommand implements RobotMap
 	private Mode _driveMode;
 	private double _targetDisplacement;
 	
-	private boolean _isFacingBackwards;
-
 	private double _timeout;
 	
 	private enum Mode
@@ -45,8 +43,6 @@ public class DriveForward extends InstantCommand implements RobotMap
 		    
 		    this._driveMode = Mode.RANGED_SENSOR;
 		    
-		    this._isFacingBackwards = isFacingBackwards;
-		    
 		    this._timeout = timeout;
 	}
 	
@@ -59,8 +55,6 @@ public class DriveForward extends InstantCommand implements RobotMap
 	    
 	    this._encoder = () -> AUTONOMOUS.CONVERSIONS.TICKS2INCHES * Robot.drivetrain.getEncoderSpeed(DRIVETRAIN.BACK_LEFT_MOTOR);
 	    this._driveMode = Mode.ENCODER;
-	    
-	    this._isFacingBackwards = isFacingBackwards;
 	    
 	    this._timeout = timeout;
 	    
