@@ -6,21 +6,17 @@ import org.usfirst.frc.team135.robot.commands.tele.*;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
-/**
- * This class is the glue that binds the controls on the physical operator
- * interface to the commands and command groups that allow control of the robot.
- */
 public class OI implements RobotMap{
 	private static OI instance;
 	
 	public Joystick[] _joysticks = new Joystick[RobotMap.K_OI.NUMBER_OF_JOYSTICKS];
 	
 	private JoystickButton 
-		MANDIBLES_OPEN, 
-		MANDIBLES_CLOSE,
-		RUN_MANDIBLE_WHEELS_OUT,
-		RUN_MANDIBLE_WHEELS_IN,
-		THROW_CUBE;
+	MANDIBLES_OPEN, 
+	MANDIBLES_CLOSE,
+	RUN_MANDIBLE_WHEELS_OUT,
+	RUN_MANDIBLE_WHEELS_IN,
+	THROW_CUBE;
 
 	public OI()
 	{
@@ -30,11 +26,13 @@ public class OI implements RobotMap{
 		
 		MANDIBLES_OPEN = new JoystickButton(_joysticks[RobotMap.K_OI.MANIP_JOYSTICK_ID], RobotMap.K_OI.MANIP_OPEN_ID);
 		MANDIBLES_OPEN.whenPressed(new ReleaseMandibles());
+		
 		MANDIBLES_CLOSE = new JoystickButton(_joysticks[RobotMap.K_OI.MANIP_JOYSTICK_ID], RobotMap.K_OI.MANIP_CLOSE_ID);
 		MANDIBLES_CLOSE.whenPressed(new GrabMandibles());
 		
 		RUN_MANDIBLE_WHEELS_OUT = new JoystickButton(_joysticks[RobotMap.K_OI.MANIP_JOYSTICK_ID], RobotMap.K_OI.RUN_MANIP_F_ID);
 		RUN_MANDIBLE_WHEELS_OUT.whenPressed(new DriveMandibleWheels(RobotMap.K_OI.isInwardF));
+		
 		RUN_MANDIBLE_WHEELS_IN = new JoystickButton(_joysticks[RobotMap.K_OI.MANIP_JOYSTICK_ID], RobotMap.K_OI.RUN_MANIP_R_ID);
 		RUN_MANDIBLE_WHEELS_IN.whenPressed(new DriveMandibleWheels(RobotMap.K_OI.isInwardT));
 		

@@ -188,36 +188,46 @@ public interface RobotMap
 		//  Pipeline Options
 		public static int YELLOW_BLOCK_PIPELINE = 0;
 	}
-	public interface CONVERSIONS
+	public interface AUTONOMOUS
 	{
-		public static final double
-			INCHES2METERS = 0.0254, //meters/inch
-			TICKS2INCHES = 0.0704, //inches/tick
-			INCHES2TICKS = 1 / TICKS2INCHES, //ticks/inch
-			TICKS2METERS = TICKS2INCHES * INCHES2METERS,		//rev/inches * inches/tick = REV/TICK
-			TICKS2REVS = (1 / (4 * Math.PI)) * TICKS2INCHES,
-			REVS2TICKS = 1 / TICKS2REVS,
-			TICKS2RADIANS = TICKS2REVS * (2 * Math.PI), //Revs/tick * radians/rev = radians/tick
-			RADIANS2TICKS = 1 / TICKS2RADIANS,
-			TICKS2DEGREES = TICKS2REVS * 360, //Revs/tick * degrees/rev
-			DEGREES2TICKS = 1 / TICKS2DEGREES;
+		public static final int
+		CLOSE = 1,
+		FAR = 0,
+		INVALID = -1;
+		public static final boolean
+		IS_LEFT = false,
+		IS_RIGHT = true;
+
+		public interface CONVERSIONS
+		{
+			public static final double
+				INCHES2METERS = 0.0254, //meters/inch
+				TICKS2INCHES = 0.0704, //inches/tick
+				INCHES2TICKS = 1 / TICKS2INCHES, //ticks/inch
+				TICKS2METERS = TICKS2INCHES * INCHES2METERS,		//rev/inches * inches/tick = REV/TICK
+				TICKS2REVS = (1 / (4 * Math.PI)) * TICKS2INCHES,
+				REVS2TICKS = 1 / TICKS2REVS,
+				TICKS2RADIANS = TICKS2REVS * (2 * Math.PI), //Revs/tick * radians/rev = radians/tick
+				RADIANS2TICKS = 1 / TICKS2RADIANS,
+				TICKS2DEGREES = TICKS2REVS * 360, //Revs/tick * degrees/rev
+				DEGREES2TICKS = 1 / TICKS2DEGREES;
+		}
+		public interface FIELD {
+			public static final double // All measurements are in inches
+				AUTO_LINE = 70, 
+				WALL_SLANT_END = 10, 
+				SIDE_SCALE_X = 37.5f, 
+				SIDE_SCALE_Y = 326 - 48, 
+				SIDE_SWITCH_X = 51f,
+				SIDE_SWITCH_Y = 120, 
+				MID_SWITCH_X = 105f, 
+				MID_SWITCH_Y = 160,
+				FAR_SCALE_X = 189f,
+				FAR_SCALE_Y = 17.5,
+				FAR_SWITCH_X = 160,
+				
+				FAR_SCALE_DISTANCE_FROM_WALL = 202, //222,
+				FAR_SCALE_DISTANCE_TO_SCALE = 125; //200
+		}
 	}
-	public interface FIELD {
-		public static final double // All measurements are in inches
-			AUTO_LINE = 70, 
-			WALL_SLANT_END = 10, 
-			SIDE_SCALE_X = 37.5f, 
-			SIDE_SCALE_Y = 326 - 48, 
-			SIDE_SWITCH_X = 51f,
-			SIDE_SWITCH_Y = 120, 
-			MID_SWITCH_X = 105f, 
-			MID_SWITCH_Y = 160,
-			FAR_SCALE_X = 189f,
-			FAR_SCALE_Y = 17.5,
-			FAR_SWITCH_X = 160,
-			
-			FAR_SCALE_DISTANCE_FROM_WALL = 202, //222,
-			FAR_SCALE_DISTANCE_TO_SCALE = 125; //200
-	}
-	
 }

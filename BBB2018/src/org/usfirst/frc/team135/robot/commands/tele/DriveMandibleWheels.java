@@ -8,7 +8,7 @@ public class DriveMandibleWheels extends Command {
 	
 	public DriveMandibleWheels(boolean isInward)
 	{
-		//this._power = (isInward) ? 1:-1;
+		this._power = (isInward) ? 1:-1;
 		requires(Robot.intake);
 		setTimeout(INTAKE.TIME_OUT_SECONDS);
 	}

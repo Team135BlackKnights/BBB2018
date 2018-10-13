@@ -1,11 +1,17 @@
 package org.usfirst.frc.team135.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import org.usfirst.frc.team135.robot.commands.auto.entrypoints.LeftPosition;
+import org.usfirst.frc.team135.robot.commands.auto.entrypoints.MiddlePosition;
+import org.usfirst.frc.team135.robot.commands.auto.entrypoints.RightPosition;
+import org.usfirst.frc.team135.robot.commands.auto.groups.SideToLine;
 import org.usfirst.frc.team135.robot.subsystems.*;
 
 public class Robot extends TimedRobot {
@@ -17,9 +23,9 @@ public class Robot extends TimedRobot {
 	public static Navx navx;
 	public static UltrasonicSensor ultrasonic;
 	public static Limelight limelight; 
-	public static PDP pdp;
-	public Command _autonomousCommand;
-	SendableChooser<String> _chooser = new SendableChooser<>();
+	public Command autonomousCommand;
+	public static String gameMessage;
+	SendableChooser<String> chooser = new SendableChooser<>();
 	@Override
 	public void robotInit() {
 		oi = OI.getInstance();
@@ -29,7 +35,6 @@ public class Robot extends TimedRobot {
 		navx = Navx.getInstance();
 		ultrasonic = UltrasonicSensor.getInstance();
 		limelight = Limelight.getInstance();
-		pdp = PDP.getInstance();
 	}
 	@Override
 	public void disabledInit() {
@@ -43,8 +48,28 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void autonomousInit() {
-		if (_autonomousCommand != null) {
-			_autonomousCommand.start();
+		gameMessage = DriverStation.getInstance().getGameSpecificMessage();
+				
+		String position = chooser.getSelected();
+		
+		if (position.equals("LeftPosition"))
+		{
+			autonomousCommand = new LeftPosition();
+		}
+		else if (position.equals("MiddlePosition"))
+		{
+			autonomousCommand = new MiddlePosition();
+		}
+		else if (position.equals("RightPosition"))
+		{
+			autonomousCommand = new RightPosition();
+		}
+		else
+		{
+			autonomousCommand = new SideToLine(false);
+		}
+		if (autonomousCommand != null) {
+			autonomousCommand.start();
 		}
 	}
 
@@ -55,8 +80,8 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
-		if (_autonomousCommand != null) {
-			_autonomousCommand.cancel();
+		if (autonomousCommand != null) {
+			autonomousCommand.cancel();
 		}
 	}
 

@@ -16,7 +16,6 @@ public class PDP extends Subsystem {
 	{
 		pdp = new PowerDistributionPanel(0);
 	}
-	
 	public static PDP getInstance()
 	{
 		if (instance == null)
@@ -25,20 +24,17 @@ public class PDP extends Subsystem {
 		}
 		return instance;
 	}
-	
 	public double getChannelCurrent(int channel)
 	{
 		return pdp.getCurrent(channel);
 	}
-	
 	public void periodic()
 	{
 		//System.out.println(getChannelCurrent(4));
 	}
-
-    public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
-    }
+	@Override
+	protected void initDefaultCommand()
+	{
+	}
 }
 

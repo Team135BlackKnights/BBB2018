@@ -5,7 +5,7 @@ import java.util.Collections;
 
 import org.usfirst.frc.team135.robot.Robot;
 import org.usfirst.frc.team135.robot.RobotMap;
-import org.usfirst.frc.team135.robot.RobotMap.CONVERSIONS;
+import org.usfirst.frc.team135.robot.RobotMap.AUTONOMOUS;
 
 import org.usfirst.frc.team135.robot.utilities.FunctionalDoubleManager;
 
@@ -57,7 +57,7 @@ public class DriveForward extends InstantCommand implements RobotMap
     	Robot.drivetrain.ResetEncoders();
 	    this._targetDisplacement = targetDisplacement;
 	    
-	    this._encoder = () -> CONVERSIONS.TICKS2INCHES * Robot.drivetrain.getEncoderSpeed(DRIVETRAIN.BACK_LEFT_MOTOR);
+	    this._encoder = () -> AUTONOMOUS.CONVERSIONS.TICKS2INCHES * Robot.drivetrain.getEncoderSpeed(DRIVETRAIN.BACK_LEFT_MOTOR);
 	    this._driveMode = Mode.ENCODER;
 	    
 	    this._isFacingBackwards = isFacingBackwards;
