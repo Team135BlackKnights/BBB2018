@@ -9,6 +9,7 @@ public class SideToNearSwitch extends CommandGroup implements RobotMap
 {
 	public SideToNearSwitch(boolean isLeft)
 	{
+		System.out.println("SideToNearSwitch");
 		addSequential(new DriveForward(AUTONOMOUS.FIELD.AUTO_LINE, isLeft, .1));
 	}
 }

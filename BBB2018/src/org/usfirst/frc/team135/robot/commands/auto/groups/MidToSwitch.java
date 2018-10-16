@@ -8,15 +8,18 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class MidToSwitch extends CommandGroup implements RobotMap
 {
+	System.out.println("MidToSwitch");
+	
 	public MidToSwitch(boolean isLeft)
 	{
-	if (isLeft)
-	{
-		addSequential(new Turn(90, 2));
-	}
-	else
-	{
-		addSequential(new Turn(45, 2));
-	}
+		System.out.println("MidToSwitch");
+		if (isLeft)
+		{
+			addSequential(new Turn(90, 2));
+		}
+		else
+		{
+			addSequential(new Turn(45, 2));
+		}
 }
 	}

@@ -10,6 +10,7 @@ public class SideToLine extends CommandGroup implements RobotMap
 {
 	public SideToLine(boolean isbackward)
 	{
+		System.out.println("SideToLine");
 		addSequential(new DriveForward(AUTONOMOUS.FIELD.AUTO_LINE, isbackward, .2));
 	}
 }
