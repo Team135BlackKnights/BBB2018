@@ -17,12 +17,14 @@ public class DriveForward extends InstantCommand implements RobotMap
 {
 	public DriveForward(double distance, boolean b, double dowble)
 	{
+		Timer finaltimer = new Timer();
+		finaltimer.start();
 		double distancetravelled = 0;
 		Timer timer = new Timer();
 		timer.start();
 		Robot.drivetrain.TankDrive(1.0, 1.0);
 		double time = timer.get();
-		while (distancetravelled < distance / 12 && timer.get() - time > .2)
+		while (distancetravelled < distance / 12 && timer.get() - time > .2 && finaltimer.get() < 2)
 		{
 			double currentvoltage = DriveTrain.frontRightMotor.getMotorOutputVoltage();
 			double estimatedvelocity = (currentvoltage - 1.25) * 1.25;

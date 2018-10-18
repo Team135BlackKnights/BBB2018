@@ -20,9 +20,9 @@ public class Robot extends TimedRobot {
 	public static DriveTrain drivetrain;
 	public static Intake intake;
 	public static Arm arm;
-	public static Navx navx;
-	public static UltrasonicSensor ultrasonic;
-	public static Limelight limelight; 
+	//public static Navx navx;
+	//public static UltrasonicSensor ultrasonic;
+	//public static Limelight limelight; 
 	public Command autonomousCommand;
 	public static String gameMessage;
 	SendableChooser<String> chooser = new SendableChooser<>();
@@ -32,9 +32,9 @@ public class Robot extends TimedRobot {
 		drivetrain = DriveTrain.getInstance();
 		intake = Intake.getInstance();
 		arm = Arm.getInstance();
-		navx = Navx.getInstance();
-		ultrasonic = UltrasonicSensor.getInstance();
-		limelight = Limelight.getInstance();
+		//navx = Navx.getInstance();
+		//ultrasonic = UltrasonicSensor.getInstance();
+		//limelight = Limelight.getInstance();
 	}
 	@Override
 	public void disabledInit() {
