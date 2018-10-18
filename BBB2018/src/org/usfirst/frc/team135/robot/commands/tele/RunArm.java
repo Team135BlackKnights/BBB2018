@@ -12,9 +12,9 @@ public class RunArm extends Command
 		requires(Robot.arm);
 		setTimeout(0.5f);
 	}
-	protected void excecute()
+	protected void execute()
 	{
-		Robot.arm.RunArmMotors(Robot.oi.GetManipJoystickValues()[RobotMap.K_OI.GETY]);
+		Robot.arm.RunArmMotors(.25 * Robot.oi.GetManipJoystickValues()[RobotMap.K_OI.GETY]);
 	}
 	@Override
 	protected boolean isFinished() 

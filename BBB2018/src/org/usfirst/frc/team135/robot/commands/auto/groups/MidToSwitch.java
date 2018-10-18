@@ -13,11 +13,11 @@ public class MidToSwitch extends CommandGroup implements RobotMap
 		System.out.println("MidToSwitch");
 		if (isLeft)
 		{
-			addSequential(new Turn(90, 2));
+			addSequential(new Turn(90));
 		}
 		else
 		{
-			addSequential(new Turn(45, 2));
+			addSequential(new Turn(45));
 		}
 }
 	}
