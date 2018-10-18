@@ -35,6 +35,10 @@ public class DriveForward extends InstantCommand implements RobotMap
 			time = timer.get();
 		}
 	}
+	protecte void end()
+	{
+		Robot.drivetrain.stopMotors();
+	}
 	/*
 	public static final int FORWARD = 1;
 	public static final int BACKWARD = -1; 
