@@ -1,6 +1,7 @@
 package org.usfirst.frc.team135.robot.subsystems;
 
 import org.usfirst.frc.team135.robot.RobotMap.ARM;
+import org.usfirst.frc.team135.robot.commands.tele.RunArm;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -130,7 +131,6 @@ public class Arm extends Subsystem {
 
 	@Override
 	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub
-		
+		setDefaultCommand(new RunArm());
 	}
 }

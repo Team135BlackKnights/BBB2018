@@ -7,9 +7,7 @@ import org.usfirst.frc.team135.robot.commands.auto.singles.Turn;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class MidToSwitch extends CommandGroup implements RobotMap
-{
-	System.out.println("MidToSwitch");
-	
+{	
 	public MidToSwitch(boolean isLeft)
 	{
 		System.out.println("MidToSwitch");

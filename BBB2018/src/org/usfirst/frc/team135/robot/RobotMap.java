@@ -43,12 +43,12 @@ public interface RobotMap
 	public interface DRIVETRAIN
 	{
 		public static final int 
-		BACK_LEFT_ID = 0, 
-		BACK_RIGHT_ID = 1, 
-		FRONT_LEFT_ID = 2, 
-		FRONT_RIGHT_ID = 3;
+		BACK_LEFT_ID = 1, 
+		BACK_RIGHT_ID = 11, 
+		FRONT_LEFT_ID = 12, 
+		FRONT_RIGHT_ID = 2;
 		public static final int[]
-		MOTOR_ID_ARRAY = {BACK_LEFT_ID, BACK_RIGHT_ID, FRONT_LEFT_ID, FRONT_RIGHT_ID};
+		MOTOR_ID_ARRAY = {BACK_LEFT_ID, FRONT_RIGHT_ID, FRONT_LEFT_ID, BACK_RIGHT_ID};
 		public static final int
 		BACK_LEFT_MOTOR = 0, 
 		BACK_RIGHT_MOTOR = 1, 
@@ -100,8 +100,8 @@ public interface RobotMap
 	public interface INTAKE
 	{
 		public static final int
-		LEFT_WHEEL_ID = 0,
-		RIGHT_WHEEL_ID =1;
+		LEFT_WHEEL_ID = 4,
+		RIGHT_WHEEL_ID = 15;
 		public static final boolean 
 		rightWheelInverted = false,
 		leftWheelInverted = true;
@@ -123,9 +123,9 @@ public interface RobotMap
 	public interface ARM 
 	{
 		public static final int 
-		TALON_ID = 4,
-		ARM_VICTOR_ID_1 = 5,
-		ARM_VICTOR_ID_2 = 6;
+		TALON_ID = 3,
+		ARM_VICTOR_ID_1 = 13,
+		ARM_VICTOR_ID_2 = 14;
 		public static final int 
 		TALON = 0,
 		ARM_VICTOR_1 = 1,

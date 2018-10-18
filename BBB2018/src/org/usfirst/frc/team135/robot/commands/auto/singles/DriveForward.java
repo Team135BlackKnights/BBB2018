@@ -6,7 +6,7 @@ import java.util.Collections;
 import org.usfirst.frc.team135.robot.Robot;
 import org.usfirst.frc.team135.robot.RobotMap;
 import org.usfirst.frc.team135.robot.RobotMap.AUTONOMOUS;
-
+import org.usfirst.frc.team135.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team135.robot.utilities.FunctionalDoubleManager;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -15,6 +15,27 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 
 public class DriveForward extends InstantCommand implements RobotMap
 {
+	public DriveForward(double distance, boolean b, double dowble)
+	{
+		double distancetravelled = 0;
+		Timer timer = new Timer();
+		timer.start();
+		Robot.drivetrain.TankDrive(1.0, 1.0);
+		double time = timer.get();
+		while (distancetravelled < distance / 12 && timer.get() - time > .2)
+		{
+			double currentvoltage = DriveTrain.frontRightMotor.getMotorOutputVoltage();
+			double estimatedvelocity = (currentvoltage - 1.25) * 1.25;
+			distancetravelled += estimatedvelocity * .2;
+			double error = (distance - distancetravelled) / distance;
+			Robot.drivetrain.TankDrive(1.0 * error, 1.0 * error);
+			System.out.println(currentvoltage);
+			System.out.println(estimatedvelocity);
+			System.out.println(distancetravelled);
+			time = timer.get();
+		}
+	}
+	/*
 	public static final int FORWARD = 1;
 	public static final int BACKWARD = -1; 
 	public static final double DRIVE_POWER = .7;
@@ -160,7 +181,7 @@ public class DriveForward extends InstantCommand implements RobotMap
     
     	Robot.drivetrain.stopMotors();
     }
-
+	*/
 
 
 	
