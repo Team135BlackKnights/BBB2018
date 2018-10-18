@@ -108,11 +108,11 @@ public class DriveTrain extends Subsystem {
 	
 	public void TankDrive(double leftMotorPower, double rightMotorPower) 
 	{
-		chassis.tankDrive(leftMotorPower, rightMotorPower);
+		chassis.tankDrive(leftMotorPower * -1, rightMotorPower * -1);
 	}	
 	public void TankDrive(double leftMotorPower, double rightMotorPower, double rotationRate) 
 	{
-		chassis.tankDrive(leftMotorPower * rotationRate * .1, rightMotorPower * rotationRate * .1);
+		chassis.tankDrive(-leftMotorPower * rotationRate * .1, -rightMotorPower * rotationRate * .1);
 	}
 	public void periodic()
 	{

@@ -31,10 +31,10 @@ public class OI implements RobotMap{
 		MANDIBLES_CLOSE.whenPressed(new GrabMandibles());
 		
 		RUN_MANDIBLE_WHEELS_OUT = new JoystickButton(_joysticks[RobotMap.K_OI.MANIP_JOYSTICK_ID], RobotMap.K_OI.RUN_MANIP_F_ID);
-		RUN_MANDIBLE_WHEELS_OUT.whenPressed(new DriveMandibleWheels(RobotMap.K_OI.isInwardF));
+		RUN_MANDIBLE_WHEELS_OUT.whileHeld(new DriveMandibleWheels(RobotMap.K_OI.isInwardF));
 		
 		RUN_MANDIBLE_WHEELS_IN = new JoystickButton(_joysticks[RobotMap.K_OI.MANIP_JOYSTICK_ID], RobotMap.K_OI.RUN_MANIP_R_ID);
-		RUN_MANDIBLE_WHEELS_IN.whenPressed(new DriveMandibleWheels(RobotMap.K_OI.isInwardT));
+		RUN_MANDIBLE_WHEELS_IN.whileHeld(new DriveMandibleWheels(RobotMap.K_OI.isInwardT));
 		
 		THROW_CUBE = new JoystickButton(_joysticks[RobotMap.K_OI.MANIP_JOYSTICK_ID], RobotMap.K_OI.THROW_CUBE_ID);
 		THROW_CUBE.whenPressed(new ThrowCubeForward());	

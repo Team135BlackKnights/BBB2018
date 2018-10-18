@@ -16,25 +16,27 @@ import org.usfirst.frc.team135.robot.subsystems.*;
 
 public class Robot extends TimedRobot {
 	// subsystem variables
-	public static OI oi;
+	
 	public static DriveTrain drivetrain;
 	public static Intake intake;
 	public static Arm arm;
 	//public static Navx navx;
 	//public static UltrasonicSensor ultrasonic;
-	//public static Limelight limelight; 
+	//public static Limelight limelight;
+	public static OI oi;
 	public Command autonomousCommand;
 	public static String gameMessage;
 	SendableChooser<String> chooser = new SendableChooser<>();
 	@Override
 	public void robotInit() {
-		oi = OI.getInstance();
+		
 		drivetrain = DriveTrain.getInstance();
 		intake = Intake.getInstance();
 		arm = Arm.getInstance();
 		//navx = Navx.getInstance();
 		//ultrasonic = UltrasonicSensor.getInstance();
 		//limelight = Limelight.getInstance();
+		oi = OI.getInstance();
 	}
 	@Override
 	public void disabledInit() {
@@ -52,11 +54,11 @@ public class Robot extends TimedRobot {
 				
 		String position = chooser.getSelected();
 		
-		if (position.equals("LeftPosition"))
-		{
+		//if (position.equals("LeftPosition"))
+		//{
 			System.out.println("Left Position");
 			autonomousCommand = new LeftPosition();
-		}
+		/*}
 		else if (position.equals("MiddlePosition"))
 		{
 			System.out.println("Middle Position");
@@ -74,6 +76,7 @@ public class Robot extends TimedRobot {
 		if (autonomousCommand != null) {
 			autonomousCommand.start();
 		}
+		*/
 	}
 
 	@Override

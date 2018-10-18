@@ -5,20 +5,23 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc.team135.robot.RobotMap;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 public class Intake extends Subsystem implements RobotMap {
 
 	private static Intake instance;
 
-	private static WPI_VictorSPX rightWheel, leftWheel;
+	private static WPI_VictorSPX rightWheel;
+	private static WPI_TalonSRX leftWheel;
 	private static DoubleSolenoid claw; 
 	private static DoubleSolenoid retraction;
 	private static Compressor compressor;
 
 	private Intake()
 	{
-		leftWheel = new WPI_VictorSPX(INTAKE.LEFT_WHEEL_ID);
+		leftWheel = new WPI_TalonSRX(INTAKE.LEFT_WHEEL_ID);
 		rightWheel = new WPI_VictorSPX(INTAKE.RIGHT_WHEEL_ID);
 		
 		leftWheel.setInverted(RobotMap.INTAKE.leftWheelInverted);
@@ -61,7 +64,7 @@ public class Intake extends Subsystem implements RobotMap {
 	public void DriveWheels(double power)
 	{
 		leftWheel.set(power);
-		rightWheel.set(-power);
+		rightWheel.set(.95*power);
 	}
 	public void MoveMandibles(DoubleSolenoid.Value value)
 	{
