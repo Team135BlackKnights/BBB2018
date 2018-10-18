@@ -15,7 +15,7 @@ public class LeftPosition extends CommandGroup {
     	int switchPosition = getSwitchPosition(Robot.gameMessage);
     	
     	Robot.drivetrain.ResetEncoders();
-    	Robot.navx.reset();
+    	//*******Robot.navx.reset();
     	switch (switchPosition)
     	{
     	case AUTONOMOUS.CLOSE:

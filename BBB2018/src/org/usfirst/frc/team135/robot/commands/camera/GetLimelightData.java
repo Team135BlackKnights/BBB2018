@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class GetLimelightData extends Command {
-
+	/*
 	//  Creates an Array to Store the Data from the Limelight
 	private double[] limelightData = new double[LIMELIGHT.NUMBER_OF_LIMELIGHT_CHARACTERISTICS];
 	
@@ -33,7 +33,7 @@ public class GetLimelightData extends Command {
     {
     	limelightData = Robot.limelight.GetLimelightData();
     }
-
+	 */
     protected boolean isFinished() // Make this return true when this Command no longer needs to run execute()
     {
         return false;
@@ -48,4 +48,5 @@ public class GetLimelightData extends Command {
     {
     	
     }
+    
 }
