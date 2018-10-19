@@ -102,6 +102,10 @@ public class DriveTrain extends Subsystem {
 	{
 		chassis.tankDrive(leftMotorPower * -1, rightMotorPower * -1);
 	}	
+	public void CurvatureDrive(double motorPower, double turnSpeed)
+	{
+		chassis.curvatureDrive(motorPower, turnSpeed, false);
+	}
 
 	public void periodic()
 	{
