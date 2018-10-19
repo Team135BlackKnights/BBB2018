@@ -14,10 +14,11 @@ public class Turn extends InstantCommand implements RobotMap
 {
 	  PIDout buffer;
 	  PIDController turnController;
-	  double rotateToAngleRate;
 	  double angletoturn;
+	  double absoluteangle;
 	  
     public Turn(double angle) {
+    	absoluteangle =  (angle < 0 ? 180 + angle: angle); 
     	angletoturn = angle;
     	requires(Robot.drivetrain);
     }
@@ -25,22 +26,23 @@ public class Turn extends InstantCommand implements RobotMap
     protected void initialize() {
     	Timer finaltimer = new Timer();
     	finaltimer.start();
-    	double distancetotravel = Math.sqrt(2 * 21.63 * 21.63 * (1 - Math.cos(Math.toRadians(angletoturn))));
+    	double distancetotravel = Math.sqrt(2 * 21.63 * 21.63 * (1 - Math.cos(Math.toRadians(absoluteangle))));
     	System.out.println("Distancetotravel: " + distancetotravel + "\n");
     	double distancetravelled = 0;
     	Timer timer = new Timer();
 		timer.start();
-		Robot.drivetrain.TankDrive(-1.0, 1.0);
+		Robot.drivetrain.TankDrive(1.0 * (absoluteangle != angletoturn ? 1 : -1), 1.0 * (absoluteangle != angletoturn ? -1 : 1));
 		double time = timer.get();
 		while (finaltimer.get() < 2)
 		{
-			while (distancetravelled < (distancetotravel / 12) && timer.get() - time > .2)
+			while (distancetravelled < (distancetotravel) && timer.get() - time > AUTONOMOUS.TIME_PERIOD)
 			{
 				double currentvoltage = DriveTrain.frontRightMotor.getMotorOutputVoltage();
 				double estimatedvelocity = (currentvoltage - 1.25) * 1.25;
-				distancetravelled += estimatedvelocity * .2;
+				distancetravelled += estimatedvelocity * AUTONOMOUS.TIME_PERIOD;
 				double error = (distancetotravel - distancetravelled) / distancetotravel;
-				Robot.drivetrain.TankDrive(-1.0 * error, 1.0 * error);
+				Robot.drivetrain.TankDrive(1.0 * (absoluteangle != angletoturn ? 1 : -1) * error
+						, 1.0 * (absoluteangle != angletoturn ? -1 : 1) * error);
 				System.out.println("Voltage: " + currentvoltage +
 						" Estimated Velocity: " + estimatedvelocity + 
 						" Distance Travelled: " + distancetravelled +"\n");
@@ -51,7 +53,6 @@ public class Turn extends InstantCommand implements RobotMap
     
     protected void execute()
     {
-    	
     	/*
     	turnController = new PIDController(AUTONOMOUS.kP, AUTONOMOUS.kI, AUTONOMOUS.kD, AUTONOMOUS.kF, Robot.navx.ahrs, buffer);
         turnController.setInputRange(-180.0f,  180.0f);
@@ -61,9 +62,10 @@ public class Turn extends InstantCommand implements RobotMap
     	turnController.enable();
     	SmartDashboard.putNumber("NavX: ", Robot.navx.ahrs.getAngle());
     	System.out.println(Robot.navx.ahrs.getAngle());
-        double currentRotationRate = rotateToAngleRate;
-    	Robot.drivetrain.TankDrive(1, 1, currentRotationRate);
+    	Robot.drivetrain.TankDrive(1.0 * buffer.output, 1.0 * buffer.output);
+    	DriveTrain.frontLeftMotor.pidWrite(buffer.output);
     	*/
+    	
     }
     
     protected boolean isFinished()

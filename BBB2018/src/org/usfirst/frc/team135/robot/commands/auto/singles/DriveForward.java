@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 
 public class DriveForward extends InstantCommand implements RobotMap
 {
-	public DriveForward(double distance, boolean b, double dowble)
+	public DriveForward(double distance)
 	{
 		Timer finaltimer = new Timer();
 		finaltimer.start();
@@ -26,11 +26,11 @@ public class DriveForward extends InstantCommand implements RobotMap
 		double time = timer.get();
 		while ( finaltimer.get() < 2)
 		{
-			while (distancetravelled < distance / 12 && timer.get() - time > .1)
+			while (distancetravelled < distance && timer.get() - time > AUTONOMOUS.TIME_PERIOD)
 			{
 				double currentvoltage = DriveTrain.frontRightMotor.getMotorOutputVoltage();
 				double estimatedvelocity = (currentvoltage + 1.25) * -1.25;
-				distancetravelled += estimatedvelocity * .1;
+				distancetravelled += estimatedvelocity * AUTONOMOUS.TIME_PERIOD;
 				double error = (distance - distancetravelled) / distance;
 				Robot.drivetrain.TankDrive(-1.0 * error, -1.0 * error);
 				System.out.println("Voltage: " + currentvoltage +

@@ -2,7 +2,6 @@ package org.usfirst.frc.team135.robot.commands.auto.entrypoints;
 
 import org.usfirst.frc.team135.robot.Robot;
 import org.usfirst.frc.team135.robot.RobotMap.AUTONOMOUS;
-import org.usfirst.frc.team135.robot.commands.auto.groups.SideToFarSwitch;
 import org.usfirst.frc.team135.robot.commands.auto.groups.SideToLine;
 import org.usfirst.frc.team135.robot.commands.auto.groups.SideToNearSwitch;
 

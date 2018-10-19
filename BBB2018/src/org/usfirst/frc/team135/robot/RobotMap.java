@@ -195,9 +195,11 @@ public interface RobotMap
 		FAR = 0,
 		INVALID = -1;
 		public static final boolean
-		IS_LEFT = false,
-		IS_RIGHT = true;
+		IS_LEFT = true,
+		IS_RIGHT = false;
 
+		public static final double
+		TIME_PERIOD = .05;
 		static final double kP = 0.03;
 		static final double kI = 0.00;
 		static final double kD = 0.00;
@@ -218,21 +220,22 @@ public interface RobotMap
 				DEGREES2TICKS = 1 / TICKS2DEGREES;
 		}
 		public interface FIELD {
-			public static final double // All measurements are in inches
-				AUTO_LINE = 70, 
-				WALL_SLANT_END = 10, 
-				SIDE_SCALE_X = 37.5f, 
-				SIDE_SCALE_Y = 326 - 48, 
-				SIDE_SWITCH_X = 51f,
-				SIDE_SWITCH_Y = 120, 
-				MID_SWITCH_X = 105f, 
-				MID_SWITCH_Y = 160,
-				FAR_SCALE_X = 189f,
-				FAR_SCALE_Y = 17.5,
-				FAR_SWITCH_X = 160,
+			public static final double // All measurements are in feet
 				
-				FAR_SCALE_DISTANCE_FROM_WALL = 202, //222,
-				FAR_SCALE_DISTANCE_TO_SCALE = 125; //200
+				LEFT_NEAR_SWITCH_X = 196 / 12,
+				LEFT_NEAR_SWITCH_Y = 9,
+				FIELD_LENGTH = 30,
+				RIGHT_NEAR_SWITCH_X = 196 / 12,
+				RIGHT_NEAR_SWITCH_Y = 21,
+				SCALE_X = 4,
+				SCALE_Y = 3,
+				SCALE_BOX_Y = 3,
+				LEFT_POSITION_YDISTANCE = 4,
+				MIDDLE_POSITION_YDISTANCE = 15,
+				RIGHT_POSITION_YDISTANCE = 26,
+				AUTO_LINE = 10;
+				
+
 		}
 	}
 }

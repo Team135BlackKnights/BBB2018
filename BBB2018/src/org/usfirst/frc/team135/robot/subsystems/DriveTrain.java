@@ -70,14 +70,15 @@ public class DriveTrain extends Subsystem {
 	
 	public double getEncoderSpeed(int motor)
 	{
-		return talons[motor].getSelectedSensorPosition(0) * ( (motor == DRIVETRAIN.BACK_LEFT_MOTOR) ? 1 : -1);
+		return 0.0;
+		//return talons[motor].getSelectedSensorPosition(0) * ( (motor == DRIVETRAIN.BACK_LEFT_MOTOR) ? 1 : -1);
 	}
 
 	public double returnVelocity()
 	{
-		return talons[DRIVETRAIN.FRONT_LEFT_MOTOR].getSelectedSensorVelocity(0);
+		return 0.0;
+		//return talons[DRIVETRAIN.FRONT_LEFT_MOTOR].getSelectedSensorVelocity(0);
 	}
-	
 	public void ResetEncoders()
 	{
 		/*
@@ -91,34 +92,26 @@ public class DriveTrain extends Subsystem {
 	
 	public void stopMotors()
 	{
-		Timer timer = new Timer();
-		timer.start();
-		while((Math.abs(getEncoderSpeed(DRIVETRAIN.FRONT_LEFT_MOTOR)) > 0) && timer.get() < 1)
+		for (int i = 0; i < DRIVETRAIN.NUMBER_OF_TALONS; i++)
 		{
-			for (int i = 0; i < DRIVETRAIN.NUMBER_OF_TALONS; i++)
-			{
-				talons[i].set(ControlMode.Velocity, 0);
-			}
+			talons[i].set(ControlMode.PercentOutput, 0);
 		}
-	}
-	
-	public void initDefaultCommand() {
-		setDefaultCommand(new DriveWithJoystick());
 	}
 	
 	public void TankDrive(double leftMotorPower, double rightMotorPower) 
 	{
 		chassis.tankDrive(leftMotorPower * -1, rightMotorPower * -1);
 	}	
-	public void TankDrive(double leftMotorPower, double rightMotorPower, double rotationRate) 
-	{
-		chassis.tankDrive(-leftMotorPower * rotationRate * .1, -rightMotorPower * rotationRate * .1);
-	}
+
 	public void periodic()
 	{
 		SmartDashboard.putNumber("Front Left Displacement", (getEncoderSpeed(DRIVETRAIN.FRONT_LEFT_MOTOR)));
 		SmartDashboard.putNumber("Front Right Displacement", (getEncoderSpeed(DRIVETRAIN.FRONT_RIGHT_MOTOR)));
 		SmartDashboard.putNumber("Back Left Talon Displacement", (getEncoderSpeed(DRIVETRAIN.BACK_LEFT_MOTOR)));
 		SmartDashboard.putNumber("Back Right Displacement", (getEncoderSpeed(DRIVETRAIN.BACK_RIGHT_MOTOR)));
+	}
+	
+	public void initDefaultCommand() {
+		setDefaultCommand(new DriveWithJoystick());
 	}
 }
