@@ -11,14 +11,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class GetLimelightData extends Command {
-	/*
+	
 	//  Creates an Array to Store the Data from the Limelight
 	private double[] limelightData = new double[LIMELIGHT.NUMBER_OF_LIMELIGHT_CHARACTERISTICS];
-	
+	/*
     public GetLimelightData()
     {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
     	requires(Robot.limelight);
     }
 
