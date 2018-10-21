@@ -2,6 +2,7 @@ package org.usfirst.frc.team135.robot.subsystems;
 
 import org.usfirst.frc.team135.robot.RobotMap.ARM;
 import org.usfirst.frc.team135.robot.commands.tele.RunArm;
+import org.usfirst.frc.team135.robot.utilities.MotorControllerInitialize;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -20,19 +21,13 @@ public class Arm extends Subsystem {
 	public static WPI_VictorSPX 
 	armVictor1, 
 	armVictor2;
-
-	private boolean isPositionInitialized = false;
-	
-	public boolean isMantaining;
-	
+		
 	private Arm()
 	{
 		armTalon = new WPI_TalonSRX(ARM.TALON_ID);
 		armVictor1 = new WPI_VictorSPX(ARM.ARM_VICTOR_ID_1);
 		armVictor2 = new WPI_VictorSPX(ARM.ARM_VICTOR_ID_2);
-		MotorControllerInitialize.configureMotorPIDTalon(armTalon, 0, false);
-		armVictor1.setNeutralMode(NeutralMode.Brake);
-		armVictor2.setNeutralMode(NeutralMode.Brake);
+		//MotorControllerInitialize.configureMotorPIDTalon(armTalon, 0, false);
 		armVictor1.follow(armTalon);
 		armVictor2.follow(armTalon);
 	}
@@ -74,28 +69,6 @@ public class Arm extends Subsystem {
 		armTalon.set(power);
 	}
 	
-	public void initPositon()
-	{
-		if (!isPositionInitialized)
-		{
-			Timer timer = new Timer();
-			timer.start();
-			do 
-			{
-				set(1.0);
-			}
-			while (timer.get() < 0);
-			timer.stop();
-			timer.reset();
-			isPositionInitialized = true; 
-		}
-	}
-	
-	public void set(double speed)
-	{
-		armTalon.set(ControlMode.PercentOutput, speed);
-	}
-	
 	public void setToPosition(double position)
 	{
 		Timer timer = new Timer();
@@ -110,25 +83,23 @@ public class Arm extends Subsystem {
 		{
 			while(getEncoderPosition() < position && timer.get() < 3)
 			{
-				set(1 * direction);
+				armTalon.set(ControlMode.PercentOutput, 1.0);
 			}
 		}
 		else
 		{
 			while(getEncoderPosition() > position && timer.get() < 3)
 			{
-				set(1 * direction);
+				armTalon.set(ControlMode.PercentOutput, -1.0);
 			}
 		}
-		timer.stop();
-		timer.reset();
-		}
+	}
 	
 	public void maintainPosition()
 	{
 		armTalon.set(ControlMode.Velocity, .75);
 	}
-
+	
 	@Override
 	protected void initDefaultCommand() {
 		setDefaultCommand(new RunArm());

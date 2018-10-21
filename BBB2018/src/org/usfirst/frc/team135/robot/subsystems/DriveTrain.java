@@ -28,27 +28,18 @@ public class DriveTrain extends Subsystem {
 	public static WPI_VictorSPX
 	frontLeftMotor,
 	backRightMotor;
-
-	public static WPI_TalonSRX[] talons;
-	public static WPI_VictorSPX[] victors; 
 	public static DifferentialDrive chassis;
 		
 	private DriveTrain()
-	{
-		talons = new WPI_TalonSRX[DRIVETRAIN.NUMBER_OF_TALONS];
-		victors = new WPI_VictorSPX[DRIVETRAIN.NUMBER_OF_VICTORS];
-		for (int i = 0; i < DRIVETRAIN.NUMBER_OF_TALONS; i++)
-		{
-			talons[i] = new WPI_TalonSRX(DRIVETRAIN.MOTOR_ID_ARRAY[i]);
-			//MotorControllerInitialize.configureMotorPIDTalon(talons[i], i, DRIVETRAIN.IS_DRIVETRAIN_TALON);
-			victors[i] = new WPI_VictorSPX(DRIVETRAIN.MOTOR_ID_ARRAY[i] + DRIVETRAIN.NUMBER_OF_TALONS);
-			//victors[i].setNeutralMode(NeutralMode.Brake);
-		}
+	{		
+		backLeftMotor = new WPI_TalonSRX(DRIVETRAIN.BACK_LEFT_ID);
+		frontRightMotor = new WPI_TalonSRX(DRIVETRAIN.FRONT_RIGHT_ID);
 		
-		frontLeftMotor = victors[DRIVETRAIN.FRONT_LEFT_MOTOR];
-		backLeftMotor = talons[DRIVETRAIN.BACK_LEFT_MOTOR];
-		frontRightMotor = talons[DRIVETRAIN.FRONT_RIGHT_MOTOR];
-		backRightMotor = victors[DRIVETRAIN.BACK_RIGHT_MOTOR];
+		backRightMotor = new WPI_VictorSPX(DRIVETRAIN.BACK_RIGHT_ID);
+		frontLeftMotor = new WPI_VictorSPX(DRIVETRAIN.FRONT_LEFT_ID);
+		
+		//MotorControllerInitialize.configureMotorPIDTalon(backLeftMotor, 0, DRIVETRAIN.IS_DRIVETRAIN_TALON);
+		//MotorControllerInitialize.configureMotorPIDTalon(frontRightMotor, 0, true);
 		
 		SpeedControllerGroup left = new SpeedControllerGroup(frontLeftMotor, backLeftMotor);
 		SpeedControllerGroup right = new SpeedControllerGroup(frontRightMotor, backRightMotor);
@@ -68,16 +59,16 @@ public class DriveTrain extends Subsystem {
 		return instance;
 	}
 	
-	public double getEncoderSpeed(int motor)
+	public double getEncoderSpeed()
 	{
 		return 0.0;
-		//return talons[motor].getSelectedSensorPosition(0) * ( (motor == DRIVETRAIN.BACK_LEFT_MOTOR) ? 1 : -1);
+		//return frontRightTalon.getSelectedSensorPosition(0) * ( (motor == DRIVETRAIN.BACK_LEFT_MOTOR) ? 1 : -1);
 	}
 
 	public double returnVelocity()
 	{
 		return 0.0;
-		//return talons[DRIVETRAIN.FRONT_LEFT_MOTOR].getSelectedSensorVelocity(0);
+		//return frontRightTalon.getSelectedSensorVelocity(0);
 	}
 	public void ResetEncoders()
 	{
@@ -92,10 +83,7 @@ public class DriveTrain extends Subsystem {
 	
 	public void stopMotors()
 	{
-		for (int i = 0; i < DRIVETRAIN.NUMBER_OF_TALONS; i++)
-		{
-			talons[i].set(ControlMode.PercentOutput, 0);
-		}
+		chassis.tankDrive(0.0,0.0);
 	}
 	
 	public void TankDrive(double leftMotorPower, double rightMotorPower) 
@@ -109,10 +97,8 @@ public class DriveTrain extends Subsystem {
 
 	public void periodic()
 	{
-		SmartDashboard.putNumber("Front Left Displacement", (getEncoderSpeed(DRIVETRAIN.FRONT_LEFT_MOTOR)));
-		SmartDashboard.putNumber("Front Right Displacement", (getEncoderSpeed(DRIVETRAIN.FRONT_RIGHT_MOTOR)));
-		SmartDashboard.putNumber("Back Left Talon Displacement", (getEncoderSpeed(DRIVETRAIN.BACK_LEFT_MOTOR)));
-		SmartDashboard.putNumber("Back Right Displacement", (getEncoderSpeed(DRIVETRAIN.BACK_RIGHT_MOTOR)));
+		SmartDashboard.putNumber("Front Right Displacement", (getEncoderSpeed()));
+		SmartDashboard.putNumber("Back Left Displacement", (getEncoderSpeed()));
 	}
 	
 	public void initDefaultCommand() {
