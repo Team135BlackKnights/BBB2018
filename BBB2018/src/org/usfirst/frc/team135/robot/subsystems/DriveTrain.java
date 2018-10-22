@@ -3,6 +3,7 @@ package org.usfirst.frc.team135.robot.subsystems;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
@@ -67,8 +68,8 @@ public class DriveTrain extends Subsystem {
 
 	public double returnVelocity()
 	{
-		return 0.0;
-		//return frontRightTalon.getSelectedSensorVelocity(0);
+		frontRightMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, DRIVETRAIN.PID.TIMEOUT_MS);
+		return frontRightMotor.getSelectedSensorVelocity(0);
 	}
 	public void ResetEncoders()
 	{
@@ -88,7 +89,7 @@ public class DriveTrain extends Subsystem {
 	
 	public void TankDrive(double leftMotorPower, double rightMotorPower) 
 	{
-		chassis.tankDrive(leftMotorPower rightMotorPower);
+		chassis.tankDrive(leftMotorPower, rightMotorPower);
 	}	
 	public void CurvatureDrive(double motorPower, double turnSpeed)
 	{
@@ -99,6 +100,7 @@ public class DriveTrain extends Subsystem {
 	{
 		SmartDashboard.putNumber("Front Right Displacement", (getEncoderSpeed()));
 		SmartDashboard.putNumber("Back Left Displacement", (getEncoderSpeed()));
+		SmartDashboard.putNumber("Encoder Velocity", returnVelocity());
 	}
 	
 	public void initDefaultCommand() {

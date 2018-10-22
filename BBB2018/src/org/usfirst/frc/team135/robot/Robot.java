@@ -53,11 +53,25 @@ public class Robot extends TimedRobot {
 		gameMessage = DriverStation.getInstance().getGameSpecificMessage();
 				
 		String position = chooser.getSelected();
-		
+		int commandtotest = 0;
 		//if (position.equals("LeftPosition"))
 		//{
-		System.out.println("Left Position");
-		autonomousCommand = new LeftPosition();
+		switch (commandtotest)
+		{
+			case 0:
+				System.out.println("Left Position");
+				autonomousCommand = new LeftPosition();
+				break;
+			case 1:
+				System.out.println("Middle Position");
+				autonomousCommand = new MiddlePosition();
+				break;
+			case 2:
+				System.out.println("Right Position");
+				autonomousCommand = new RightPosition();
+				break;
+		}
+
 		/*}
 		else if (position.equals("MiddlePosition"))
 		{

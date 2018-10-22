@@ -13,6 +13,8 @@ public class SideToNearSwitch extends CommandGroup implements RobotMap
 {
 	public SideToNearSwitch(boolean isLeft)
 	{
+		addSequential(new DriveForward(10));
+		/*
 		System.out.println("SideToNearSwitch");
 		addParallel(new SetArmPosition(1.0));
 		if (isLeft)
@@ -34,5 +36,6 @@ public class SideToNearSwitch extends CommandGroup implements RobotMap
 		}
 		addSequential(new SetArmPosition(0));
 		addSequential(new ReleaseMandibles());
+		*/
 	}
 }
