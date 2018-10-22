@@ -35,11 +35,7 @@ public class Turn extends InstantCommand implements RobotMap
 		error = 0;
 		time = 0;
 		isleftturn = 1;
-    }
-    
-    protected void execute()
-    {
-    	distancetotravel = 21.63 * Math.toRadians(Math.abs(angletoturn));
+		distancetotravel = 21.63 * Math.toRadians(Math.abs(angletoturn));
     	System.out.println("Distancetotravel: " + distancetotravel + "\n");
     	isleftturn = (absoluteangle != angletoturn ? 1 : -1);
     	Timer finaltimer = new Timer();
@@ -62,7 +58,11 @@ public class Turn extends InstantCommand implements RobotMap
 						" Distance Travelled: " + distancetravelled +"\n");
 				time = timer.get();
 			}
-		}	
+		}
+    }
+    
+    protected void execute()
+    {
     	/*
     	turnController = new PIDController(AUTONOMOUS.kP, AUTONOMOUS.kI, AUTONOMOUS.kD, AUTONOMOUS.kF, Robot.navx.ahrs, buffer);
         turnController.setInputRange(-180.0f,  180.0f);
