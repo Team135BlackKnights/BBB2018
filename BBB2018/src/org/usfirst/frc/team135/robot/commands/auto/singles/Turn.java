@@ -49,7 +49,7 @@ public class Turn extends InstantCommand implements RobotMap
 			while ( timer.get() - time > AUTONOMOUS.TIME_PERIOD)
 			{
 				currentvoltage = DriveTrain.frontRightMotor.getMotorOutputVoltage();
-				estimatedvelocity = (currentvoltage + (currentvoltage < 0 ? 1.25 : -1.25)) * 1.25;
+				estimatedvelocity = (currentvoltage + (currentvoltage < 0 ? 1.25 : -1.25)) * (currentvoltage < 0 ? -1.25 : 1.25);
 				distancetravelled += estimatedvelocity * AUTONOMOUS.TIME_PERIOD;
 				error = (distancetotravel - distancetravelled) / distancetotravel;
 				Robot.drivetrain.TankDrive(1.0 * isleftturn * error, -1.0 * isleftturn * error);
