@@ -88,7 +88,7 @@ public class DriveTrain extends Subsystem {
 	
 	public void TankDrive(double leftMotorPower, double rightMotorPower) 
 	{
-		chassis.tankDrive(leftMotorPower * -1, rightMotorPower * -1);
+		chassis.tankDrive(leftMotorPower rightMotorPower);
 	}	
 	public void CurvatureDrive(double motorPower, double turnSpeed)
 	{
