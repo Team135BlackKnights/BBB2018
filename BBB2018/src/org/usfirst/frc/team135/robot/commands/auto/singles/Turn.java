@@ -55,7 +55,7 @@ public class Turn extends InstantCommand implements RobotMap
 				Robot.drivetrain.TankDrive(-1.0 * isleftturn * error, 1.0 * isleftturn * error);
 				System.out.println("Voltage: " + currentvoltage +
 						" Estimated Velocity: " + estimatedvelocity + 
-						" Distance Travelled: " + distancetravelled +"\n");
+						" Distance Travelled: " + distancetravelled +"\n ");
 				time = timer.get();
 			}
 		}
