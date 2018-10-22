@@ -42,7 +42,7 @@ public class Turn extends InstantCommand implements RobotMap
     	finaltimer.start();
     	Timer timer = new Timer();
 		timer.start();
-		Robot.drivetrain.TankDrive(1.0 * isleftturn, -1.0 * isleftturn);
+		Robot.drivetrain.TankDrive(-1.0 * isleftturn, 1.0 * isleftturn);
 		time = timer.get();
 		while (distancetravelled < (distancetotravel) && finaltimer.get() < 2)
 		{
@@ -52,7 +52,7 @@ public class Turn extends InstantCommand implements RobotMap
 				estimatedvelocity = (currentvoltage + (currentvoltage < 0 ? 1.25 : -1.25)) * (currentvoltage < 0 ? -1.25 : 1.25);
 				distancetravelled += estimatedvelocity * AUTONOMOUS.TIME_PERIOD;
 				error = (distancetotravel - distancetravelled) / distancetotravel;
-				Robot.drivetrain.TankDrive(1.0 * isleftturn * error, -1.0 * isleftturn * error);
+				Robot.drivetrain.TankDrive(-1.0 * isleftturn * error, 1.0 * isleftturn * error);
 				System.out.println("Voltage: " + currentvoltage +
 						" Estimated Velocity: " + estimatedvelocity + 
 						" Distance Travelled: " + distancetravelled +"\n");
