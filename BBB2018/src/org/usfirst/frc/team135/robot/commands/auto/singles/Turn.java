@@ -4,11 +4,10 @@ import org.usfirst.frc.team135.robot.Robot;
 import org.usfirst.frc.team135.robot.RobotMap;
 import org.usfirst.frc.team135.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team135.robot.utilities.PIDout;
+
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.InstantCommand;
-import edu.wpi.first.wpilibj.command.TimedCommand;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Turn extends InstantCommand implements RobotMap
 {
@@ -35,23 +34,23 @@ public class Turn extends InstantCommand implements RobotMap
 		error = 0;
 		time = 0;
 		isleftturn = 1;
-		distancetotravel = 21.63 * Math.toRadians(Math.abs(angletoturn));
+		distancetotravel = 21.63 * Math.toRadians(Math.abs(angletoturn)) / 8;
     	System.out.println("Distancetotravel: " + distancetotravel + "\n");
     	isleftturn = (absoluteangle != angletoturn ? 1 : -1);
     	Timer finaltimer = new Timer();
     	finaltimer.start();
     	Timer timer = new Timer();
 		timer.start();
-		Robot.drivetrain.TankDrive(-1.0 * isleftturn / 2, 1.0 * isleftturn / 2);
+		Robot.drivetrain.TankDrive(-1.0 * isleftturn, 1.0 * isleftturn);
 		time = timer.get();
 		while (distancetravelled < (distancetotravel) && finaltimer.get() < 2)
 		{
-			while ( timer.get() - time > AUTONOMOUS.TIME_PERIOD)
+			while ( timer.get() - time > .2)
 			{
 				currentvoltage = DriveTrain.frontRightMotor.getMotorOutputVoltage();
 				estimatedvelocity = (currentvoltage + (currentvoltage < 0 ? 1.25 : -1.25)) * (currentvoltage < 0 ? -1.25 : 1.25);
-				distancetravelled += estimatedvelocity * AUTONOMOUS.TIME_PERIOD;
-				error = .5 * (distancetotravel - distancetravelled) / distancetotravel;
+				distancetravelled += estimatedvelocity * .2;
+				error = (distancetotravel - distancetravelled) / distancetotravel;
 				Robot.drivetrain.TankDrive(-1.0 * isleftturn * error, 1.0 * isleftturn * error);
 				System.out.println("Voltage: " + currentvoltage +
 						" Estimated Velocity: " + estimatedvelocity + 

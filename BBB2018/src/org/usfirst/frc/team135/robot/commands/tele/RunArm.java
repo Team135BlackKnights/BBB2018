@@ -14,7 +14,8 @@ public class RunArm extends Command
 	}
 	protected void execute()
 	{
-		Robot.arm.RunArmMotors(.25 * Robot.oi.GetManipJoystickValues()[RobotMap.K_OI.GETY]);
+		Robot.arm.RunArmMotors(.5 * Robot.oi.GetManipJoystickValues()[RobotMap.K_OI.GETY]);
+		//Robot.arm.maintainPosition();
 	}
 	@Override
 	protected boolean isFinished() 

@@ -1,11 +1,10 @@
 package org.usfirst.frc.team135.robot.subsystems;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import org.usfirst.frc.team135.robot.RobotMap.SONARMAP;
 
-import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.Ultrasonic;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class UltrasonicSensor extends Subsystem {
     private static UltrasonicSensor instance;

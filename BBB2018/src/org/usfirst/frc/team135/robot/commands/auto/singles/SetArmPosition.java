@@ -5,19 +5,10 @@ import org.usfirst.frc.team135.robot.Robot;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 
 public class SetArmPosition extends InstantCommand {
+	public SetArmPosition()
+	{
+		Robot.arm.autonArm();
+	}
 
-	private double _position;
-    public SetArmPosition(double position) {
-        super();
-        requires(Robot.arm);
-        
-        this._position = position;
-    }
-
-    protected void initialize() 
-    {
-    	Robot.arm.setToPosition(this._position);
-    	Robot.arm.maintainPosition();
-    }
 
 }

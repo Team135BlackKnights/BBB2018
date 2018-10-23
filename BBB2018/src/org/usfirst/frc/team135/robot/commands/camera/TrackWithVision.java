@@ -1,8 +1,8 @@
 package org.usfirst.frc.team135.robot.commands.camera;
 
-import edu.wpi.first.wpilibj.command.CommandGroup;
-
 import org.usfirst.frc.team135.robot.Robot;
+
+import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *

@@ -1,7 +1,8 @@
 package org.usfirst.frc.team135.robot.commands.tele;
-import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team135.robot.Robot;
 import org.usfirst.frc.team135.robot.RobotMap.INTAKE;
+
+import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveMandibleWheels extends Command {
 	private int _power;

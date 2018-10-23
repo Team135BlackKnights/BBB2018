@@ -1,16 +1,12 @@
 package org.usfirst.frc.team135.robot.subsystems;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.command.Subsystem;
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.networktables.NetworkTableInstance;
-
 import org.usfirst.frc.team135.robot.RobotMap.LIMELIGHT;
-import org.usfirst.frc.team135.robot.commands.camera.*;
+import org.usfirst.frc.team135.robot.commands.camera.GetLimelightData;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Limelight extends Subsystem {
 	//  Instance of the Subsystem that is used in Robot.java

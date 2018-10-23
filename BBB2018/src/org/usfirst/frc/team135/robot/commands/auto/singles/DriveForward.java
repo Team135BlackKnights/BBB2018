@@ -1,14 +1,9 @@
 package org.usfirst.frc.team135.robot.commands.auto.singles;
 
-import java.util.Arrays;
-import java.util.Collections;
-
 import org.usfirst.frc.team135.robot.Robot;
-import org.usfirst.frc.team135.robot.RobotMap;
 import org.usfirst.frc.team135.robot.RobotMap.AUTONOMOUS;
 import org.usfirst.frc.team135.robot.subsystems.DriveTrain;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 
@@ -23,6 +18,7 @@ public class DriveForward extends InstantCommand
 	time;
 	public DriveForward(double distance)
 	{
+		requires(Robot.drivetrain);
 		distancetravelled = 0;
 		distancetotravel = distance;
 		currentvoltage = 0;
@@ -33,16 +29,16 @@ public class DriveForward extends InstantCommand
 		finaltimer.start();
 		Timer timer = new Timer();
 		timer.start();
-		Robot.drivetrain.TankDrive(1.0 / 2, 1.0 / 2);
+		Robot.drivetrain.TankDrive(1.0, 1.0);
 		time = timer.get();
-		while (distancetravelled < distancetotravel && finaltimer.get() < 2)
+		while (distancetravelled < distancetotravel && finaltimer.get() < 5)
 		{
 			while (timer.get() - time > AUTONOMOUS.TIME_PERIOD)
 			{
 				currentvoltage = DriveTrain.frontRightMotor.getMotorOutputVoltage();
 				estimatedvelocity = (currentvoltage + (currentvoltage < 0 ? 1.25 : -1.25)) * (currentvoltage < 0 ? -1.25 : 1.25);
 				distancetravelled += estimatedvelocity * AUTONOMOUS.TIME_PERIOD;
-				error = .5 * (distancetotravel - distancetravelled) / distancetotravel;
+				error =  (distancetotravel - distancetravelled) / distancetotravel;
 				Robot.drivetrain.TankDrive(1.0 * error, 1.0 * error);
 				System.out.println("Voltage: " + currentvoltage +
 						" Estimated Velocity: " + estimatedvelocity + 
@@ -58,6 +54,11 @@ public class DriveForward extends InstantCommand
 	protected void end()
 	{
 		Robot.drivetrain.TankDrive(0.0, 0.0);
+	}
+	
+	protected void interrupted() 
+	{
+		end();
 	}
 	/*
 	public static final int FORWARD = 1;

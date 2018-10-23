@@ -13,7 +13,7 @@ public class DriveWithJoystick extends Command {
 	}
 	protected void execute() 
 	{
-		Robot.drivetrain.TankDrive(Robot.oi.GetLeftJoystickValues()[RobotMap.K_OI.GETY], Robot.oi.GetRightJoystickValues()[RobotMap.K_OI.GETY]);
+		Robot.drivetrain.TankDrive(-Robot.oi.GetLeftJoystickValues()[RobotMap.K_OI.GETY], -Robot.oi.GetRightJoystickValues()[RobotMap.K_OI.GETY]);
 	}
 
 	@Override

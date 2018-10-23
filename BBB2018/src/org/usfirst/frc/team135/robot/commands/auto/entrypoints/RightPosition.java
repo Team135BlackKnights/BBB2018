@@ -14,7 +14,7 @@ public class RightPosition extends CommandGroup {
     {
     	int switchPosition = getSwitchPosition(Robot.gameMessage);
     	
-    	Robot.drivetrain.ResetEncoders();
+    	//Robot.drivetrain.ResetEncoders();
     	//Robot.navx.reset();
     	switch (switchPosition)
     	{

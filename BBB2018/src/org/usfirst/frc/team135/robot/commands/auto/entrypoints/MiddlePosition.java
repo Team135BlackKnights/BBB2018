@@ -9,7 +9,7 @@ public class MiddlePosition extends CommandGroup {
 
 	public MiddlePosition() 
     {    	
-    	Robot.drivetrain.ResetEncoders();
+    	//Robot.drivetrain.ResetEncoders();
     	//Robot.navx.reset();
     	addSequential(new MidToSwitch(getSwitchPosition(Robot.gameMessage)));
     }

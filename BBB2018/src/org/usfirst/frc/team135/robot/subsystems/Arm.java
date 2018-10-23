@@ -2,9 +2,9 @@ package org.usfirst.frc.team135.robot.subsystems;
 
 import org.usfirst.frc.team135.robot.RobotMap.ARM;
 import org.usfirst.frc.team135.robot.commands.tele.RunArm;
-import org.usfirst.frc.team135.robot.utilities.MotorControllerInitialize;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
@@ -21,13 +21,20 @@ public class Arm extends Subsystem {
 	public static WPI_VictorSPX 
 	armVictor1, 
 	armVictor2;
-		
+
+	private boolean isPositionInitialized = false;
+	
+	public boolean isMantaining;
+	
 	private Arm()
 	{
 		armTalon = new WPI_TalonSRX(ARM.TALON_ID);
 		armVictor1 = new WPI_VictorSPX(ARM.ARM_VICTOR_ID_1);
 		armVictor2 = new WPI_VictorSPX(ARM.ARM_VICTOR_ID_2);
 		//MotorControllerInitialize.configureMotorPIDTalon(armTalon, 0, false);
+		armTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
+		armVictor1.setNeutralMode(NeutralMode.Brake);
+		armVictor2.setNeutralMode(NeutralMode.Brake);
 		armVictor1.follow(armTalon);
 		armVictor2.follow(armTalon);
 	}
@@ -69,6 +76,40 @@ public class Arm extends Subsystem {
 		armTalon.set(power);
 	}
 	
+	public void initPositon()
+	{
+		if (!isPositionInitialized)
+		{
+			Timer timer = new Timer();
+			timer.start();
+			do 
+			{
+				set(1.0);
+			}
+			while (timer.get() < 0);
+			timer.stop();
+			timer.reset();
+			isPositionInitialized = true; 
+		}
+	}
+	
+	public void set(double speed)
+	{
+		armTalon.set(ControlMode.PercentOutput, speed);
+	}
+	
+	public void autonArm()
+	{
+		while (getEncoderPosition() < 4000)
+		{
+			armTalon.set(ControlMode.Velocity, -.3);
+		}
+		while (getEncoderPosition() > 3000)
+		{
+			armTalon.set(ControlMode.Velocity, .3);
+		}
+	}
+	
 	public void setToPosition(double position)
 	{
 		Timer timer = new Timer();
@@ -83,25 +124,38 @@ public class Arm extends Subsystem {
 		{
 			while(getEncoderPosition() < position && timer.get() < 3)
 			{
-				armTalon.set(ControlMode.PercentOutput, 1.0);
+				set(1 * direction);
 			}
 		}
 		else
 		{
 			while(getEncoderPosition() > position && timer.get() < 3)
 			{
-				armTalon.set(ControlMode.PercentOutput, -1.0);
+				set(1 * direction);
 			}
 		}
-	}
+		timer.stop();
+		timer.reset();
+		}
 	
 	public void maintainPosition()
 	{
-		armTalon.set(ControlMode.Velocity, .75);
+		double position = getEncoderPosition();
+		Timer timer = new Timer();
+		timer.start();
+		while (timer.get() < 2)
+		{
+			armTalon.set(ControlMode.Velocity, getEncoderPosition() < position ? .3 : -.1);
+		}
 	}
-	
+
 	@Override
 	protected void initDefaultCommand() {
 		setDefaultCommand(new RunArm());
+	}
+	public void periodic()
+	{
+		//System.out.println("Encoder Velocty : " + getEncoderVelocity());
+		//System.out.println("Encoder Position : " + getEncoderPosition());
 	}
 }

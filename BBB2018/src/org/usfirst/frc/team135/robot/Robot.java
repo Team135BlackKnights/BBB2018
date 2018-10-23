@@ -1,18 +1,15 @@
 package org.usfirst.frc.team135.robot;
 
+import org.usfirst.frc.team135.robot.commands.auto.entrypoints.LeftPosition;
+import org.usfirst.frc.team135.robot.subsystems.Arm;
+import org.usfirst.frc.team135.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team135.robot.subsystems.Intake;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
-
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import org.usfirst.frc.team135.robot.commands.auto.entrypoints.LeftPosition;
-import org.usfirst.frc.team135.robot.commands.auto.entrypoints.MiddlePosition;
-import org.usfirst.frc.team135.robot.commands.auto.entrypoints.RightPosition;
-import org.usfirst.frc.team135.robot.commands.auto.groups.SideToLine;
-import org.usfirst.frc.team135.robot.subsystems.*;
 
 public class Robot extends TimedRobot {
 	// subsystem variables
@@ -53,25 +50,11 @@ public class Robot extends TimedRobot {
 		gameMessage = DriverStation.getInstance().getGameSpecificMessage();
 				
 		String position = chooser.getSelected();
-		int commandtotest = 0;
+		
 		//if (position.equals("LeftPosition"))
 		//{
-		switch (commandtotest)
-		{
-			case 0:
-				System.out.println("Left Position");
-				autonomousCommand = new LeftPosition();
-				break;
-			case 1:
-				System.out.println("Middle Position");
-				autonomousCommand = new MiddlePosition();
-				break;
-			case 2:
-				System.out.println("Right Position");
-				autonomousCommand = new RightPosition();
-				break;
-		}
-
+			System.out.println("Left Position");
+			autonomousCommand = new LeftPosition();
 		/*}
 		else if (position.equals("MiddlePosition"))
 		{
@@ -112,5 +95,7 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void testPeriodic() {
+		
+		
 	}
 }

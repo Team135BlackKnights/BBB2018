@@ -5,15 +5,15 @@ import org.usfirst.frc.team135.robot.Robot;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 
-public class GrabMandibles extends InstantCommand
-{
-    public GrabMandibles() 
-    {
+public class PShiftS extends InstantCommand {
+
+    public PShiftS() {
+      
     	requires(Robot.intake);
     }
     protected void execute() 
     {
-    	Robot.intake.ActivateClaw(DoubleSolenoid.Value.kForward);
+    	Robot.intake.MoveMandibles(DoubleSolenoid.Value.kReverse);
     }
     protected boolean isFinished() 
     {
@@ -21,5 +21,6 @@ public class GrabMandibles extends InstantCommand
     }
     protected void interrupted() 
     {
+    	end();
     }
 }
