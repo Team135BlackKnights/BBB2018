@@ -63,12 +63,12 @@ public class Arm extends Subsystem {
 	
 	public double getEncoderVelocity()
 	{
-		return (double)armTalon.getSelectedSensorVelocity(0);
+		return armTalon.getSelectedSensorVelocity(0);
 	}
 	
 	public double getEncoderPosition()
 	{
-		return (double)armTalon.getSelectedSensorPosition(0);
+		return armTalon.getSelectedSensorPosition(0);
 	}
 	
 	public void RunArmMotors(double power) 
@@ -153,6 +153,7 @@ public class Arm extends Subsystem {
 	protected void initDefaultCommand() {
 		setDefaultCommand(new RunArm());
 	}
+	@Override
 	public void periodic()
 	{
 		//System.out.println("Encoder Velocty : " + getEncoderVelocity());

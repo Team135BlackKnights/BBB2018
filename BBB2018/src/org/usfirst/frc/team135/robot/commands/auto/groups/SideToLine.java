@@ -9,10 +9,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class SideToLine extends CommandGroup
 {
-	public SideToLine(boolean isbackward)
+	public SideToLine(boolean isForward)
 	{
 		System.out.println("SideToLine");
 		addSequential(new DriveForward(AUTONOMOUS.FIELD.AUTO_LINE));
-		addSequential(new DriveMandibleWheels(RobotMap.K_OI.isInwardT));
 	}
 }

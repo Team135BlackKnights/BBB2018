@@ -11,9 +11,19 @@ public class SideToNearSwitch extends CommandGroup
 {
 	public SideToNearSwitch(boolean isLeft)
 	{
-		addSequential(new DriveForward(AUTONOMOUS.FIELD.AUTO_LINE));
-		addSequential(new Turn (-90));
-		addSequential(new DriveForward(2));
-		addSequential(new DriveMandiblesWheelsAuto(-1));
-	}
+		if (isLeft)
+		{
+			addSequential(new DriveForward(AUTONOMOUS.FIELD.AUTO_LINE));
+			addSequential(new Turn(115));
+			addSequential(new DriveForward(5));
+			addSequential(new DriveMandiblesWheelsAuto(1, 1));
+		}
+		else 
+		{
+			addSequential(new DriveForward(AUTONOMOUS.FIELD.AUTO_LINE));
+			addSequential(new DriveForward(5));
+			addSequential(new DriveMandiblesWheelsAuto(1, 1));
+		}
+	} 
 }
+	

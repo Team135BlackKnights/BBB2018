@@ -21,7 +21,8 @@ public class DriveStraightLimelight extends Command {
     	requires(Robot.drivetrain); 	
     }
 
-    protected void initialize()
+    @Override
+	protected void initialize()
     {
     	//  Initializing Limelight
     	/*
@@ -31,24 +32,28 @@ public class DriveStraightLimelight extends Command {
     	*/
     }
 
-    protected void execute()
+    @Override
+	protected void execute()
     {
     	//limelightData = Robot.limelight.GetLimelightData();
     	Robot.drivetrain.CurvatureDrive(1.0, limelightData[RobotMap.LIMELIGHT.HORIZONTAL_OFFSET] * LIMELIGHT_DRIVE_STRAIGHT_P_VALUE);
     }
 
-    protected boolean isFinished()
+    @Override
+	protected boolean isFinished()
     {
         return (limelightData[RobotMap.LIMELIGHT.TARGET_AREA] >= TARGET_AREA_THRESHOLD);
     }
 
-    protected void end()
+    @Override
+	protected void end()
     {
     	System.out.println("Finished");
     	Robot.drivetrain.TankDrive(0.0, 0.0);
     }
 
-    protected void interrupted()
+    @Override
+	protected void interrupted()
     {
     	this.end();
     }

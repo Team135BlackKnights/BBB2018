@@ -15,17 +15,13 @@ public class LeftPosition extends CommandGroup {
     {
     	int switchPosition = getSwitchPosition(Robot.gameMessage);
     	
-    	//Robot.drivetrain.ResetEncoders();
-    	//*******Robot.navx.reset();
-    	addSequential(new DriveForward(-10));
-    	//addSequential(new )
     	switch (switchPosition)
     	{
     	case AUTONOMOUS.CLOSE:
 			addSequential(new SideToNearSwitch(AUTONOMOUS.IS_LEFT));
 			break;
     	case AUTONOMOUS.FAR:
-			addSequential(new SideToLine(AUTONOMOUS.IS_LEFT));
+			addSequential(new SideToLine(false));
 			break;
 		}
 

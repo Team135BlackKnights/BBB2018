@@ -29,7 +29,7 @@ public interface RobotMap
 		GETY = 1;
 		public static final int 
 		MANIP_OPEN_ID = 5, 
-		MANIP_CLOSE_ID = 6, 
+		MANIP_CLOSE_ID = 3, 
 		RUN_MANIP_F_ID = 1, 
 		RUN_MANIP_R_ID =2,
 		P_SHIFT_T_ID =3,
@@ -234,8 +234,7 @@ public interface RobotMap
 				LEFT_POSITION_YDISTANCE = 4,
 				MIDDLE_POSITION_YDISTANCE = 15,
 				RIGHT_POSITION_YDISTANCE = 26,
-				AUTO_LINE = 10;
-				
+				AUTO_LINE = 12;	
 
 		}
 	}

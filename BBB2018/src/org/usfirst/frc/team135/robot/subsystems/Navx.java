@@ -37,11 +37,13 @@ public class Navx extends Subsystem
 		return ((ahrs.getFusedHeading() + initAngle) % 360.0);
 	}
 	
+	@Override
 	public void periodic()
 	{
 		
 	}
 	
+	@Override
 	protected void initDefaultCommand() {
 
 		

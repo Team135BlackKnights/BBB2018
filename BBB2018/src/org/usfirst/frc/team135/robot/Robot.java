@@ -1,15 +1,21 @@
 package org.usfirst.frc.team135.robot;
 
 import org.usfirst.frc.team135.robot.commands.auto.entrypoints.LeftPosition;
+import org.usfirst.frc.team135.robot.commands.auto.entrypoints.MiddlePosition;
+import org.usfirst.frc.team135.robot.commands.auto.entrypoints.RightPosition;
+import org.usfirst.frc.team135.robot.commands.auto.groups.SideToLine;
+import org.usfirst.frc.team135.robot.commands.auto.groups.SideToNearSwitch;
 import org.usfirst.frc.team135.robot.subsystems.Arm;
 import org.usfirst.frc.team135.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team135.robot.subsystems.Intake;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends TimedRobot {
 	// subsystem variables
@@ -34,6 +40,12 @@ public class Robot extends TimedRobot {
 		//ultrasonic = UltrasonicSensor.getInstance();
 		//limelight = Limelight.getInstance();
 		oi = OI.getInstance();
+		
+		chooser.addDefault("Autoline", "Autoline");
+		chooser.addObject("Left Position", "LeftPosition");
+		chooser.addObject("Middle Position", "MiddlePosition");
+		chooser.addObject("Right Position", "RightPosition");
+		SmartDashboard.putData("Auto mode", chooser);
 	}
 	@Override
 	public void disabledInit() {
@@ -50,30 +62,29 @@ public class Robot extends TimedRobot {
 		gameMessage = DriverStation.getInstance().getGameSpecificMessage();
 				
 		String position = chooser.getSelected();
+		String positionreal = Preferences.getInstance().getString("RobotPosition", "l");
+		System.out.println(positionreal);
 		
-		//if (position.equals("LeftPosition"))
-		//{
-			System.out.println("Left Position");
+		if (position.equals("LeftPosition"))
+		{
 			autonomousCommand = new LeftPosition();
-		/*}
+		}
 		else if (position.equals("MiddlePosition"))
 		{
-			System.out.println("Middle Position");
 			autonomousCommand = new MiddlePosition();
 		}
 		else if (position.equals("RightPosition"))
 		{
-			System.out.println("Right Position");
 			autonomousCommand = new RightPosition();
 		}
 		else
 		{
 			autonomousCommand = new SideToLine(false);
 		}
+
 		if (autonomousCommand != null) {
 			autonomousCommand.start();
 		}
-		*/
 	}
 
 	@Override

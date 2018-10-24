@@ -99,7 +99,8 @@ public class Limelight extends Subsystem {
     	limelightPipelineEntry.setNumber(pipeline);
     }
     
-    public void initDefaultCommand() {
+    @Override
+	public void initDefaultCommand() {
     	setDefaultCommand(new GetLimelightData());
     }
 }

@@ -10,15 +10,18 @@ public class ReleaseMandibles extends InstantCommand {
     public ReleaseMandibles() {
     	requires(Robot.intake);
     }
-    protected void execute() 
+    @Override
+	protected void execute() 
     {
     	Robot.intake.ActivateClaw(DoubleSolenoid.Value.kReverse);
     }
-    protected boolean isFinished() 
+    @Override
+	protected boolean isFinished() 
     {
         return false;
     }
-    protected void interrupted() 
+    @Override
+	protected void interrupted() 
     {
     	end();
     }

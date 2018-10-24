@@ -11,15 +11,14 @@ public class PShiftT extends InstantCommand
     {
     	requires(Robot.intake);
     }
-    protected void execute() 
+    @Override
+	protected void execute() 
     {
     	Robot.intake.MoveMandibles(DoubleSolenoid.Value.kForward);
     }
-    protected boolean isFinished() 
+    @Override
+	protected boolean isFinished() 
     {
         return false;
-    }
-    protected void interrupted() 
-    {
     }
 }

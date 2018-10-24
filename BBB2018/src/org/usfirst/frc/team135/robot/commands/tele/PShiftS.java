@@ -11,15 +11,18 @@ public class PShiftS extends InstantCommand {
       
     	requires(Robot.intake);
     }
-    protected void execute() 
+    @Override
+	protected void execute() 
     {
     	Robot.intake.MoveMandibles(DoubleSolenoid.Value.kReverse);
     }
-    protected boolean isFinished() 
+    @Override
+	protected boolean isFinished() 
     {
         return false;
     }
-    protected void interrupted() 
+    @Override
+	protected void interrupted() 
     {
     	end();
     }

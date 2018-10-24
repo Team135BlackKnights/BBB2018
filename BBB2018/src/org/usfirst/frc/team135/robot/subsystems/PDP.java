@@ -28,6 +28,7 @@ public class PDP extends Subsystem {
 	{
 		return pdp.getCurrent(channel);
 	}
+	@Override
 	public void periodic()
 	{
 		//System.out.println(getChannelCurrent(4));

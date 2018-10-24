@@ -12,6 +12,7 @@ public class RunArm extends Command
 		requires(Robot.arm);
 		setTimeout(0.5f);
 	}
+	@Override
 	protected void execute()
 	{
 		Robot.arm.RunArmMotors(.5 * Robot.oi.GetManipJoystickValues()[RobotMap.K_OI.GETY]);
@@ -22,10 +23,12 @@ public class RunArm extends Command
 	{
 		return isTimedOut();
 	}	
+	@Override
 	protected void end()
 	{
 		Robot.arm.RunArmMotors(0.0f);
 	}
+	@Override
 	protected void interrupted()
 	{
 		end();

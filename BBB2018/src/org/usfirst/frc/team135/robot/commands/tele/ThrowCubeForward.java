@@ -13,22 +13,26 @@ public class ThrowCubeForward extends InstantCommand {
         requires(Robot.intake);
         setTimeout(INTAKE.TIME_OUT_SECONDS);
     }
-    protected void execute() {
+    @Override
+	protected void execute() {
     	Robot.intake.MoveMandibles(DoubleSolenoid.Value.kReverse);
     	Timer.delay(.5);
     	Robot.intake.MoveMandibles(DoubleSolenoid.Value.kForward);
     	Timer.delay(.5 / 4);
     	Robot.intake.ActivateClaw(DoubleSolenoid.Value.kForward);
     }
-    protected boolean isFinished()
+    @Override
+	protected boolean isFinished()
     {
     	return isTimedOut();
     }
-    protected void end()
+    @Override
+	protected void end()
     {
     	Robot.intake.MoveMandibles(DoubleSolenoid.Value.kOff);
     }
-    protected void interrupted()
+    @Override
+	protected void interrupted()
     {
     	end();
     }

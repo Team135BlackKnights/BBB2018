@@ -23,7 +23,8 @@ public class TurnTowardsObject extends Command {
     }
 
     // Called just before this Command runs the first time
-    protected void initialize() 
+    @Override
+	protected void initialize() 
     {
     	//  Initializing Limelight
     	/*
@@ -35,7 +36,8 @@ public class TurnTowardsObject extends Command {
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute()
+    @Override
+	protected void execute()
     {
     	//targetExists = Robot.limelight.isTargetsExist();
     	//limelightData = Robot.limelight.GetLimelightData();
@@ -58,20 +60,23 @@ public class TurnTowardsObject extends Command {
     	}
     }
 
-    protected boolean isFinished()
+    @Override
+	protected boolean isFinished()
     {
         return (limelightData[RobotMap.LIMELIGHT.HORIZONTAL_OFFSET] <= X_THRESHOLD_TO_STOP_TURNING 
         		&& limelightData[RobotMap.LIMELIGHT.HORIZONTAL_OFFSET] >= -X_THRESHOLD_TO_STOP_TURNING
         		&& limelightData[RobotMap.LIMELIGHT.HORIZONTAL_OFFSET] != 0);
     }
 
-    protected void end()
+    @Override
+	protected void end()
     {
     	Robot.drivetrain.TankDrive(0.0, 0.0);
     	targetExists = false;
     }
 
-    protected void interrupted()
+    @Override
+	protected void interrupted()
     {
     	this.end();
     }

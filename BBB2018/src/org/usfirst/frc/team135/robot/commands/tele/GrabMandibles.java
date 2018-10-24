@@ -11,15 +11,18 @@ public class GrabMandibles extends InstantCommand
     {
     	requires(Robot.intake);
     }
-    protected void execute() 
+    @Override
+	protected void execute() 
     {
     	Robot.intake.ActivateClaw(DoubleSolenoid.Value.kForward);
     }
-    protected boolean isFinished() 
+    @Override
+	protected boolean isFinished() 
     {
         return false;
     }
-    protected void interrupted() 
+    @Override
+	protected void interrupted() 
     {
     }
 }

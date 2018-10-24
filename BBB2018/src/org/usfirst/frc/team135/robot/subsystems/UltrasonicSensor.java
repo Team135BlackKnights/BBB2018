@@ -49,11 +49,13 @@ public class UltrasonicSensor extends Subsystem {
 		return sonarDistances;
     }
     	
-    public void initDefaultCommand() {
+    @Override
+	public void initDefaultCommand() {
         
     }
     
-    public void periodic()
+    @Override
+	public void periodic()
     {
     	SmartDashboard.putBoolean("Cube In Mandibles", isCubeInMandibles());
     	double[] sonar = getSonarValues();

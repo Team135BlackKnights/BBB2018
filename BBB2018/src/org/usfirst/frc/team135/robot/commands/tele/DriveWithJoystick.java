@@ -11,6 +11,7 @@ public class DriveWithJoystick extends Command {
 		requires(Robot.drivetrain);
 		setTimeout(0.5f);
 	}
+	@Override
 	protected void execute() 
 	{
 		Robot.drivetrain.TankDrive(-Robot.oi.GetLeftJoystickValues()[RobotMap.K_OI.GETY], -Robot.oi.GetRightJoystickValues()[RobotMap.K_OI.GETY]);
@@ -21,10 +22,12 @@ public class DriveWithJoystick extends Command {
 	{
 		return isTimedOut();
 	}
+	@Override
 	protected void end() 
 	{
 		Robot.drivetrain.TankDrive(0, 0);
 	}
+	@Override
 	protected void interrupted() 
     {
     	this.end();

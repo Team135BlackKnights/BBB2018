@@ -13,14 +13,17 @@ public class DriveMandibleWheels extends Command {
 		requires(Robot.intake);
 		setTimeout(INTAKE.TIME_OUT_SECONDS);
 	}
+	@Override
 	protected void execute()
 	{
 		Robot.intake.DriveWheels(this._power);
 	}
+	@Override
 	protected boolean isFinished()
 	{
 		return false;
 	}
+	@Override
 	protected void end()
 	{
 		Robot.intake.DriveWheels(0);

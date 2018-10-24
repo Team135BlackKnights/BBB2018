@@ -4,7 +4,6 @@ import org.usfirst.frc.team135.robot.RobotMap.DRIVETRAIN;
 import org.usfirst.frc.team135.robot.RobotMap.K_OI;
 import org.usfirst.frc.team135.robot.commands.tele.DriveWithJoystick;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
@@ -90,10 +89,7 @@ public class DriveTrain extends Subsystem {
 	
 	public void stopMotors()
 	{
-		for (int i = 0; i < DRIVETRAIN.NUMBER_OF_TALONS; i++)
-		{
-			talons[i].set(ControlMode.PercentOutput, 0);
-		}
+		chassis.tankDrive(0.0,  0.0);
 	}
 	
 	public void TankDrive(double leftMotorPower, double rightMotorPower) 
@@ -105,6 +101,7 @@ public class DriveTrain extends Subsystem {
 		chassis.curvatureDrive(motorPower, turnSpeed, false);
 	}
 
+	@Override
 	public void periodic()
 	{
 		SmartDashboard.putNumber("Front Left Displacement", (getEncoderSpeed(DRIVETRAIN.FRONT_LEFT_MOTOR)));
@@ -113,6 +110,7 @@ public class DriveTrain extends Subsystem {
 		SmartDashboard.putNumber("Back Right Displacement", (getEncoderSpeed(DRIVETRAIN.BACK_RIGHT_MOTOR)));
 	}
 	
+	@Override
 	public void initDefaultCommand() {
 		setDefaultCommand(new DriveWithJoystick());
 	}

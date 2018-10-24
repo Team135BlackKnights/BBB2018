@@ -9,25 +9,29 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
  *
  */
 public class DriveMandiblesWheelsAuto extends InstantCommand {
-
-	private double _power;
-	private double time;
-		
-    public DriveMandiblesWheelsAuto(double power) {
-    	time = 0;
-		Timer finaltimer = new Timer();
-		finaltimer.start();
-		Timer timer = new Timer();
-		timer.start();
-		time = timer.get();
-		requires(Robot.drivetrain);
+public DriveMandiblesWheelsAuto(double timeout, double power) {
+    	requires(Robot.drivetrain);
         requires(Robot.intake);
-        
-        this._power = power;
-        
-        while (timer.get() -time > 2)
+    	Timer timer = new Timer();
+		timer.start();
+                
+        while (timer.get() < timeout)
         {
-        	Robot.intake.DriveWheels(this._power);
+        	Robot.intake.DriveWheels(power);
         }
+        Robot.intake.DriveWheels(0);
     }
+
+
+	@Override
+	public void end()
+	{
+		Robot.intake.DriveWheels(0);
+	}
+	@Override
+	public void interrupted()
+	{
+		end();
+	
+	}
 }

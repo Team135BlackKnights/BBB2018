@@ -60,7 +60,8 @@ public class Turn extends InstantCommand implements RobotMap
 		}
     }
     
-    protected void execute()
+    @Override
+	protected void execute()
     {
     	/*
     	turnController = new PIDController(AUTONOMOUS.kP, AUTONOMOUS.kI, AUTONOMOUS.kD, AUTONOMOUS.kF, Robot.navx.ahrs, buffer);
@@ -76,7 +77,8 @@ public class Turn extends InstantCommand implements RobotMap
     	*/
     }
     
-    protected boolean isFinished()
+    @Override
+	protected boolean isFinished()
     {
     	return false;
     }
@@ -84,7 +86,8 @@ public class Turn extends InstantCommand implements RobotMap
     {
     	end();
     }
-    protected void end()
+    @Override
+	protected void end()
     {
     	Robot.drivetrain.stopMotors();
     }

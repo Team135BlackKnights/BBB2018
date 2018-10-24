@@ -29,9 +29,9 @@ public class DriveForward extends InstantCommand
 		finaltimer.start();
 		Timer timer = new Timer();
 		timer.start();
-		Robot.drivetrain.TankDrive(1.0, 1.0);
+		Robot.drivetrain.TankDrive(.8, .8);
 		time = timer.get();
-		while (distancetravelled < distancetotravel && finaltimer.get() < 5)
+		while (distancetravelled < distancetotravel && finaltimer.get() < 3)
 		{
 			while (timer.get() - time > AUTONOMOUS.TIME_PERIOD)
 			{
@@ -47,15 +47,18 @@ public class DriveForward extends InstantCommand
 			}
 		}
 	}
+	@Override
 	protected void execute()
 	{
 		
 	}
+	@Override
 	protected void end()
 	{
 		Robot.drivetrain.TankDrive(0.0, 0.0);
 	}
 	
+	@Override
 	protected void interrupted() 
 	{
 		end();

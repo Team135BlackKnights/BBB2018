@@ -80,6 +80,7 @@ public class Intake extends Subsystem implements RobotMap {
 	{
 		
 	}
+	@Override
 	public void periodic()
 	{
 		//System.out.println(GetSolenoidPosition(claw));
