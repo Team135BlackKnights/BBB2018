@@ -68,14 +68,17 @@ public class Robot extends TimedRobot {
 		if (position.equals("LeftPosition"))
 		{
 			autonomousCommand = new LeftPosition();
+			System.out.println("LeftPosition");
 		}
 		else if (position.equals("MiddlePosition"))
 		{
 			autonomousCommand = new MiddlePosition();
+			System.out.println("MiddlePosition");
 		}
 		else if (position.equals("RightPosition"))
 		{
 			autonomousCommand = new RightPosition();
+			System.out.println("RightPosition");
 		}
 		else
 		{

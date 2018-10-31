@@ -15,16 +15,18 @@ public class MidToSwitch extends CommandGroup
 	{
 		if (isLeft)
 		{
-			addSequential(new DriveForward(AUTONOMOUS.FIELD.AUTO_LINE));
-			addSequential(new Turn(80));
+			addSequential(new DriveForward(6));
+			addSequential(new Turn(-30));
+			addSequential(new DriveForward(5));
+			addSequential(new Turn(75));
 			addSequential(new DriveForward(5));
 			addSequential(new DriveMandiblesWheelsAuto(1, 1));
 		}
 		else 
 		{
-			addSequential(new DriveForward(AUTONOMOUS.FIELD.AUTO_LINE));
-			addSequential(new Turn(-80));
-			addSequential(new DriveForward(5));
+			addSequential(new DriveForward(6));
+			addSequential(new Turn(95));
+			addSequential(new DriveForward(11));
 			addSequential(new DriveMandiblesWheelsAuto(1, 1));
 		}
 	}

@@ -30,10 +30,10 @@ public class OI implements RobotMap{
 		_joysticks[RobotMap.K_OI.RIGHT_JOYSTICK_ID] = new Joystick(RobotMap.K_OI.RIGHT_JOYSTICK_ID);
 		_joysticks[RobotMap.K_OI.MANIP_JOYSTICK_ID] = new Joystick(RobotMap.K_OI.MANIP_JOYSTICK_ID);
 		
-		MANDIBLES_OPEN = new JoystickButton(_joysticks[RobotMap.K_OI.MANIP_JOYSTICK_ID], RobotMap.K_OI.MANIP_OPEN_ID);
+		MANDIBLES_OPEN = new JoystickButton(_joysticks[RobotMap.K_OI.MANIP_JOYSTICK_ID], 6);
 		MANDIBLES_OPEN.whenPressed(new GrabMandibles());
 		
-		MANDIBLES_CLOSE = new JoystickButton(_joysticks[RobotMap.K_OI.MANIP_JOYSTICK_ID], RobotMap.K_OI.MANIP_CLOSE_ID);
+		MANDIBLES_CLOSE = new JoystickButton(_joysticks[RobotMap.K_OI.MANIP_JOYSTICK_ID], 4);
 		MANDIBLES_CLOSE.whenPressed(new ReleaseMandibles());
 		
 		RUN_MANDIBLE_WHEELS_OUT = new JoystickButton(_joysticks[RobotMap.K_OI.MANIP_JOYSTICK_ID], RobotMap.K_OI.RUN_MANIP_F_ID);

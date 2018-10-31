@@ -13,5 +13,6 @@ public class SideToLine extends CommandGroup
 	{
 		System.out.println("SideToLine");
 		addSequential(new DriveForward(AUTONOMOUS.FIELD.AUTO_LINE));
+		//addSequential(new DriveForward(AUTONOMOUS.FIELD.AUTO_LINE));
 	}
 }
